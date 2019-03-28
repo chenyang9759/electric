@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="837adb41-6c6b-4f9b-a48c-f8d1c18bf46b" name="Default Changelist" comment="fix:隐藏取证记录">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/components/wepy-list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/components/wepy-list.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/config.js___jb_tmp___" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/allDay.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/allDay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/allHour.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/allHour.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/index.vue___jb_tmp___" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/index.vue___jb_tmp___" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/listDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/listDetail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/mine/addBankcard.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/mine/addBankcard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/mine/addBankcard.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/mine/addBankcard.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/mine/addBankcard.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/mine/addBankcard.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/parkingPay.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/parkingPay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/recordDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/recordDetail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/project.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/service/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/service/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/service/update.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/service/update.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/utils/request.js___jb_old___" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/utils/request.js___jb_tmp___" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/request.js" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1150339617">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="39" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.10" value="4" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.12" value="2" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.5" value="8" />
+          <entry key="project.open.time.6" value="24" />
+          <entry key="project.open.time.7" value="33" />
+          <entry key="project.open.time.8" value="6" />
+          <entry key="project.open.time.9" value="9" />
+          <entry key="project.opened" value="93" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="html" value="2" />
+          <entry key="js" value="62" />
+          <entry key="png" value="8" />
+          <entry key="vue" value="277" />
+          <entry key="wpy" value="1" />
+          <entry key="wxss" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="HTML" value="274" />
+          <entry key="Image" value="8" />
+          <entry key="JavaScript" value="62" />
+          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="Vue.js" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="html" value="18" />
+          <entry key="js" value="3824" />
+          <entry key="txt" value="20" />
+          <entry key="vue" value="61142" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="61159" />
+          <entry key="JavaScript" value="3824" />
+          <entry key="PLAIN_TEXT" value="20" />
+          <entry key="Vue.js" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/allDay.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-941">
+              <caret line="285" column="32" selection-start-line="285" selection-start-column="32" selection-end-line="285" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="461">
+              <caret line="201" column="5" lean-forward="true" selection-start-line="201" selection-start-column="5" selection-end-line="201" selection-end-column="5" />
+              <folding>
+                <element signature="e#227#250#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="30" column="19" lean-forward="true" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/auth.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="675">
+              <caret line="47" column="6" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/search.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6300">
+              <caret line="423" column="22" selection-start-line="423" selection-start-column="22" selection-end-line="423" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/update.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/listDetail.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5205">
+              <caret line="349" column="32" selection-start-line="349" selection-start-column="32" selection-end-line="349" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/paySuccess.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1665">
+              <caret line="111" column="35" selection-start-line="111" selection-start-column="35" selection-end-line="111" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/record.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4830">
+              <caret line="324" column="85" selection-start-line="324" selection-start-column="85" selection-end-line="324" selection-end-column="85" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/index.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7695">
+              <caret line="517" selection-start-line="517" selection-end-line="517" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>setInter</find>
+      <find>console.log</find>
+      <find>toOrder</find>
+      <find>tcjf</find>
+      <find>加载中</find>
+      <find>toorder</find>
+      <find>wx.showTa</find>
+      <find>isArrears</find>
+      <find>map</find>
+      <find>getRecordIdByArr</find>
+      <find>cont_time</find>
+      <find>green-btn</find>
+      <find>starttime_show</find>
+      <find>dayPrice</find>
+      <find>money</find>
+      <find>roadname</find>
+      <find>expire_show</find>
+      <find>getStatus</find>
+      <find>userInfo.phone</find>
+      <find>toRenewal</find>
+      <find>返回首页</find>
+      <find>toindex</find>
+      <find>未取证</find>
+      <find>getInfo</find>
+      <find>input</find>
+      <find>cstime</find>
+      <find>hideTabBar</find>
+      <find>TabBar</find>
+      <find>islogin</find>
+      <find>ourmrc</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/components/loading.vue" />
+        <option value="$PROJECT_DIR$/src/pages/psySuccess.vue" />
+        <option value="$PROJECT_DIR$/src/service/qrcode.js" />
+        <option value="$PROJECT_DIR$/src/pages/renewal.vue.html" />
+        <option value="$PROJECT_DIR$/wepy.config.js" />
+        <option value="$PROJECT_DIR$/src/pages/user/addBankcard.vue.html" />
+        <option value="$PROJECT_DIR$/src/pages/addBankcard.vue.html" />
+        <option value="$PROJECT_DIR$/src/pages/map.vue" />
+        <option value="$PROJECT_DIR$/src/pages/addBankcard.vue" />
+        <option value="$PROJECT_DIR$/src/pages/record.vue" />
+        <option value="$PROJECT_DIR$/src/pages/mine.vue" />
+        <option value="$PROJECT_DIR$/src/pages/arrearRecord.vue" />
+        <option value="$PROJECT_DIR$/src/pages/checkPay.vue" />
+        <option value="$PROJECT_DIR$/src/pages/paySuccess.vue" />
+        <option value="$PROJECT_DIR$/src/pages/mine/addSuccess.vue" />
+        <option value="$PROJECT_DIR$/src/pages/mine/rule.vue" />
+        <option value="$PROJECT_DIR$/src/pages/mine/signing.vue" />
+        <option value="$PROJECT_DIR$/src/pages/mine/signingSuccess.vue" />
+        <option value="$PROJECT_DIR$/src/pages/chooseParking.vue" />
+        <option value="$PROJECT_DIR$/src/pages/renewal.vue" />
+        <option value="$PROJECT_DIR$/src/pages/mine/addBankcard.vue" />
+        <option value="$PROJECT_DIR$/src/pages/index.vue" />
+        <option value="$PROJECT_DIR$/src/pages/allDay.vue" />
+        <option value="$PROJECT_DIR$/src/pages/allHour.vue" />
+        <option value="$PROJECT_DIR$/src/pages/parkingPay.vue" />
+        <option value="$PROJECT_DIR$/src/pages/recordDetail.vue" />
+        <option value="$PROJECT_DIR$/src/pages/listDetail.vue" />
+        <option value="$PROJECT_DIR$/src/service/update.js" />
+        <option value="$PROJECT_DIR$/src/pages/search.vue" />
+        <option value="$PROJECT_DIR$/src/config.js" />
+        <option value="$PROJECT_DIR$/src/app.vue" />
+        <option value="$PROJECT_DIR$/src/service/auth.js" />
+        <option value="$PROJECT_DIR$/src/utils/request.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="260" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+              <item name="bank" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="my-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="my-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\33068\Desktop\electric\my-project\src\assets\images\bank" />
+      <recent name="C:\Users\33068\Desktop\electric\my-project\src\assets\images" />
+      <recent name="C:\Users\33068\Desktop\electric\my-project\src\pages\mine" />
+      <recent name="C:\Users\33068\Desktop\electric\my-project\src\pages" />
+      <recent name="C:\Users\33068\Desktop\electric\my-project\src\assets\images\icon" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\33068\Desktop\electric\my-project\src\pages" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="837adb41-6c6b-4f9b-a48c-f8d1c18bf46b" name="Default Changelist" comment="" />
+      <created>1544752186037</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1544752186037</updated>
+      <workItem from="1544752188303" duration="5802000" />
+      <workItem from="1544766713343" duration="952000" />
+      <workItem from="1544960740713" duration="3934000" />
+      <workItem from="1545007628379" duration="26309000" />
+      <workItem from="1545050917171" duration="560000" />
+      <workItem from="1545094445194" duration="29216000" />
+      <workItem from="1545180571965" duration="28916000" />
+      <workItem from="1545267072153" duration="25633000" />
+      <workItem from="1545353255741" duration="2011000" />
+      <workItem from="1545355416664" duration="9269000" />
+      <workItem from="1545873124653" duration="3777000" />
+      <workItem from="1545878365762" duration="24434000" />
+      <workItem from="1545960087211" duration="26728000" />
+      <workItem from="1546044635977" duration="18404000" />
+      <workItem from="1546132486572" duration="1936000" />
+      <workItem from="1546135283070" duration="2526000" />
+      <workItem from="1546178374680" duration="4539000" />
+      <workItem from="1546346267939" duration="4615000" />
+      <workItem from="1546390292851" duration="35393000" />
+      <workItem from="1546477240670" duration="38023000" />
+      <workItem from="1546562077597" duration="22324000" />
+      <workItem from="1546776527293" duration="818000" />
+      <workItem from="1546822194679" duration="8258000" />
+      <workItem from="1546833607403" duration="21579000" />
+      <workItem from="1546908210429" duration="29000" />
+      <workItem from="1546908265284" duration="28065000" />
+      <workItem from="1546994882090" duration="28485000" />
+      <workItem from="1547081698189" duration="25707000" />
+      <workItem from="1547167641657" duration="26466000" />
+      <workItem from="1547427229857" duration="5973000" />
+      <workItem from="1547436592423" duration="18165000" />
+      <workItem from="1547513463980" duration="23126000" />
+      <workItem from="1547557627121" duration="935000" />
+      <workItem from="1547600756784" duration="9956000" />
+      <workItem from="1547773731449" duration="10863000" />
+      <workItem from="1548031531371" duration="4386000" />
+      <workItem from="1548118863957" duration="4723000" />
+      <workItem from="1548149131752" duration="1835000" />
+      <workItem from="1548205717950" duration="12454000" />
+      <workItem from="1548228085751" duration="7744000" />
+      <workItem from="1548291878765" duration="14303000" />
+      <workItem from="1548377386860" duration="23249000" />
+      <workItem from="1548424766092" duration="3000" />
+      <workItem from="1548467076572" duration="2961000" />
+      <workItem from="1548552547459" duration="14718000" />
+      <workItem from="1548636189869" duration="10660000" />
+      <workItem from="1548681371529" duration="1096000" />
+      <workItem from="1548723759068" duration="19113000" />
+      <workItem from="1548809848271" duration="1822000" />
+      <workItem from="1548813561218" duration="5202000" />
+      <workItem from="1548897631689" duration="7457000" />
+      <workItem from="1548982630913" duration="1206000" />
+      <workItem from="1549846248623" duration="2901000" />
+      <workItem from="1550019175931" duration="606000" />
+      <workItem from="1550038897710" duration="263000" />
+      <workItem from="1550135977716" duration="400000" />
+      <workItem from="1550222889350" duration="1894000" />
+      <workItem from="1550453291590" duration="7118000" />
+      <workItem from="1550477349630" duration="765000" />
+      <workItem from="1550482257302" duration="313000" />
+      <workItem from="1550539935978" duration="2060000" />
+      <workItem from="1550561111019" duration="809000" />
+      <workItem from="1550625797820" duration="145000" />
+      <workItem from="1550633438591" duration="11044000" />
+      <workItem from="1550711400726" duration="3957000" />
+      <workItem from="1550719706184" duration="2993000" />
+      <workItem from="1550733151788" duration="12000" />
+      <workItem from="1550735067816" duration="66000" />
+      <workItem from="1550738101977" duration="124000" />
+      <workItem from="1550741243338" duration="26000" />
+      <workItem from="1550743089082" duration="498000" />
+      <workItem from="1550822112802" duration="1780000" />
+      <workItem from="1550917096740" duration="6000" />
+      <workItem from="1551057061277" duration="7004000" />
+      <workItem from="1551236469415" duration="363000" />
+      <workItem from="1551329062986" duration="118000" />
+      <workItem from="1551334485252" duration="819000" />
+      <workItem from="1551661824276" duration="1253000" />
+      <workItem from="1551678387519" duration="1503000" />
+      <workItem from="1551695337753" duration="88000" />
+      <workItem from="1551758245677" duration="1484000" />
+      <workItem from="1551763533846" duration="1640000" />
+      <workItem from="1552007832759" duration="1120000" />
+      <workItem from="1552030770785" duration="42000" />
+      <workItem from="1552035921759" duration="3405000" />
+      <workItem from="1552289658918" duration="4266000" />
+      <workItem from="1552360545141" duration="3094000" />
+      <workItem from="1552374129518" duration="8000" />
+      <workItem from="1552441977874" duration="866000" />
+      <workItem from="1552471295026" duration="80000" />
+      <workItem from="1552526458426" duration="1951000" />
+      <workItem from="1552617886392" duration="4000" />
+      <workItem from="1552620301380" duration="335000" />
+    </task>
+    <task id="LOCAL-00001" summary="fix:隐藏取证记录">
+      <created>1550822526912</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1550822526912</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="723881000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09799789" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32899022" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32899022" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.24972856" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix:隐藏取证记录" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix:隐藏取证记录" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/service/test.js" />
+    <entry file="file://$PROJECT_DIR$/src/utils/caniuse.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/counter.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/style/weui.wxss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/images/icon/action.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/images/icon/action_selected.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../icafe/xcx-hdj/src/config.js" />
+    <entry file="file://$PROJECT_DIR$/src/service/scene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/renewal.vue.html" />
+    <entry file="file://$PROJECT_DIR$/wepy.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/babylon/lib/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="4139" column="18" selection-start-line="4139" selection-start-column="18" selection-end-line="4139" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/map.vue" />
+    <entry file="file://$PROJECT_DIR$/../../pay/js/data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/addBankcard.vue" />
+    <entry file="file://$PROJECT_DIR$/src/components/list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/loading.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/panel.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/qrcode.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/mine/addSuccess.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1485">
+          <caret line="99" column="35" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/mine/rule.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="75" column="35" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/mine/signing.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3255">
+          <caret line="217" column="35" selection-start-line="217" selection-start-column="35" selection-end-line="217" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/mine/signingSuccess.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1500">
+          <caret line="100" column="35" selection-start-line="100" selection-start-column="35" selection-end-line="100" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/caniuse-lite/data/regions/alt-ww.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/images/bank/bank_bg.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/mine/addBankcard.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="82" selection-start-line="82" selection-end-line="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/wepy-list.vue" />
+    <entry file="file://$PROJECT_DIR$/src/pages/allHour.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="473" column="32" selection-start-line="473" selection-start-column="32" selection-end-line="473" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/arrearRecord.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1805">
+          <caret line="164" column="58" selection-start-line="164" selection-start-column="58" selection-end-line="164" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/checkPay.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-56">
+          <caret line="286" column="40" selection-start-line="286" selection-start-column="40" selection-end-line="286" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/chooseParking.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5450">
+          <caret line="164" column="19" selection-start-line="164" selection-start-column="19" selection-end-line="164" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/mine.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1095">
+          <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/recordDetail.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8730">
+          <caret line="584" column="32" selection-start-line="584" selection-start-column="32" selection-end-line="584" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/renewal.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5430">
+          <caret line="364" column="11" selection-start-line="364" selection-start-column="11" selection-end-line="364" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/parkingPay.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12450">
+          <caret line="832" column="32" selection-start-line="832" selection-start-column="32" selection-end-line="832" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="120" column="20" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/search.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6300">
+          <caret line="423" column="22" selection-start-line="423" selection-start-column="22" selection-end-line="423" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/update.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/listDetail.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5205">
+          <caret line="349" column="32" selection-start-line="349" selection-start-column="32" selection-end-line="349" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/paySuccess.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1665">
+          <caret line="111" column="35" selection-start-line="111" selection-start-column="35" selection-end-line="111" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/record.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4830">
+          <caret line="324" column="85" selection-start-line="324" selection-start-column="85" selection-end-line="324" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7695">
+          <caret line="517" selection-start-line="517" selection-end-line="517" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/allDay.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-941">
+          <caret line="285" column="32" selection-start-line="285" selection-start-column="32" selection-end-line="285" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="201" column="5" lean-forward="true" selection-start-line="201" selection-start-column="5" selection-end-line="201" selection-end-column="5" />
+          <folding>
+            <element signature="e#227#250#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="47" column="6" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" column="19" lean-forward="true" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

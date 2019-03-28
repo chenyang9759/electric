@@ -1,0 +1,13 @@
+{
+  "description": "no description",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "appid": "wxcc9d03604da481f6",
+  "projectname": "electric",
+  "miniprogramRoot": "./dist"
+}
