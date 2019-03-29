@@ -44,8 +44,8 @@
         'pages/mine/wallet',
         'pages/mine/income',
         'pages/mine/coupon',
-        'pages/mine/coupondetail'
-
+        'pages/mine/coupondetail',
+        'pages/mine/parkcard'
 
 
 
