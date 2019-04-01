@@ -68,6 +68,18 @@
     		.btn_login::after{
     			border:none;
     		}
+    		.btn_nickname{
+    			width:400rpx;
+    			height:40rpx;
+    			line-height: 40rpx;
+    			text-align:center;
+    			font-size:28rpx;
+    			background: none;
+    			color:#fff;
+    			overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
+    		}
     	}
     }
     
@@ -214,7 +226,7 @@
     	<view class="btn">
     		<!--<button>点击登录</button>-->
     		<button class="btn_login" open-type="getUserInfo" wx:if="{{!isPhoneNumber}}" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}">点击登录</button>
-        <view wx:if="{{islogin}}">{{userInfo.nickName}}</view>
+        <view class="btn_nickname" wx:if="{{islogin}}">{{userInfo.nickName}}</view>
     	</view>
     </view>
     
