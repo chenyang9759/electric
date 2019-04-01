@@ -61,7 +61,7 @@
         }
       },
       "networkTimeout": {
-        "request": 5000
+        "request": 12000
       },
       window: {
         backgroundTextStyle: 'light',
@@ -141,7 +141,7 @@
 	              "sendSMS":"sms_server_fault",
 	              "phone":"15332428516",
 	              "templateType":2,
-	              "message":"支付异常"
+	              "message":"支付异常(ourmrc)"
 	            }
 	            try{
 	              const dataInfo = wepy.request({

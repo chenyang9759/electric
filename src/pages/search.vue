@@ -189,9 +189,7 @@
     color:#fff;
     font-size:32rpx;
   }
-   .green-btn:hover{
-  	background:#a1eee6;
-  }
+  
   .green-btn::after{
     border:none;
   }
@@ -450,6 +448,8 @@
     events = {
 
     }
+    
+    
 
     async onLoad() {
       const self= this

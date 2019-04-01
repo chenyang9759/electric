@@ -234,9 +234,9 @@
     	</view>
     </scroll-view>
     
-    <view class="box_pay">
+    <!--<view class="box_pay">
       <button class="weui-btn green-btn" type="primary" disabled="{{isDisable}}" @tap="toCoupondetail">确认使用</button>
-    </view>
+    </view>-->
   </view>
 
 
@@ -270,33 +270,33 @@
     data = {
       isExpired:false,
       couponArr:[
-      	{
-      		id:0,
-      		check:true,
-      		msg:'美妆店铺面膜劵',
-      		address:'西安市高新区建设南路101号',
-      		endtime:'有效期至2018.10.7',
-      		money:10,
-      		tips:'满20可使用'
-      	},
-      	{
-      		id:1,
-      		check:false,
-      		msg:'海外海酒店住宿劵',
-      		address:'西安市高新区建设南路101号',
-      		endtime:'有效期至2018.10.7',
-      		money:100,
-      		tips:'满200可使用'
-      	},
- 				{
-      		id:2,
-      		check:false,
-      		msg:'鲜果时光水果劵',
-      		address:'西安市高新区建设南路101号',
-      		endtime:'有效期至2018.10.7',
-      		money:100,
-      		tips:'满200可使用'
-      	}
+//    	{
+//    		id:0,
+//    		check:true,
+//    		msg:'美妆店铺面膜劵',
+//    		address:'西安市高新区建设南路101号',
+//    		endtime:'有效期至2018.10.7',
+//    		money:10,
+//    		tips:'满20可使用'
+//    	},
+//    	{
+//    		id:1,
+//    		check:false,
+//    		msg:'海外海酒店住宿劵',
+//    		address:'西安市高新区建设南路101号',
+//    		endtime:'有效期至2018.10.7',
+//    		money:100,
+//    		tips:'满200可使用'
+//    	},
+// 				{
+//    		id:2,
+//    		check:false,
+//    		msg:'鲜果时光水果劵',
+//    		address:'西安市高新区建设南路101号',
+//    		endtime:'有效期至2018.10.7',
+//    		money:100,
+//    		tips:'满200可使用'
+//    	}
       ]      
     }
 

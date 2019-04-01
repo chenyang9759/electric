@@ -29,81 +29,118 @@
       line-height: 92rpx;
       font-size:34rpx;
       text-indent: 20rpx;
+      background:#fff;
     }
     .box_cont{
       width:100%;
       .list{
-        width:750rpx;
-        padding-bottom: 24rpx;
-        padding-top: 24rpx;
-        background:#fff;
-        margin-bottom: 30rpx;
-        .list_cont{
-          width: 718rpx;
-          margin-left: 16rpx;
-          .list_cont_top{
-            display: flex;
-            justify-content: space-between;
-            line-height:40rpx;
-            .road{
-              font-size:36rpx;
-              color:#333;
-              line-height: 50rpx;
-            }
-            .time{
-              font-size:24rpx;
-              color:#666;
-              margin-top:24rpx;
-              line-height: 40rpx;
-            }
-            .status_w{
-              width:180rpx;
-              height:50rpx;
-              font-size: 24rpx;
-              line-height: 50rpx;
-              text-align: center;
-              color:#fff;
-              background:#FF6600;
-              border-radius: 10rpx;
-            }
-            .status_y{
-              width:160rpx;
-              height:40rpx;
-              font-size: 24rpx;
-              line-height: 40rpx;
-              text-align: center;
-              color:#fff;
-              background:#FF6600;
-            }
-            .money{
-              margin-top:24rpx;
-              line-height: 40rpx;
-              font-size:38rpx;
-              color:#00c8b3;
-            }
-            .money_qf{
-              color:#FF6600;
-            }
-          }
-          .list_cont_bot{
-            display: flex;
-            justify-content: space-between;
-            line-height:40rpx;
-            margin-top:20rpx;
-            border-top:2rpx solid #E1E1E1;
-            .busname{
-              font-size:28rpx;
-              color:#989898;
-              margin-top: 15rpx;
-            }
-            .end{
-              font-size:28rpx;
-              color:#9A9A9A;
-              margin-top: 15rpx;
-            }
-          }
-        }
-      }
+		   	.list_content{
+		   		width:678rpx;
+		   		height:368rpx;
+		   		background: #fff;
+		   		margin-top: 28rpx;
+		   		margin-left: 36rpx;
+		   		box-shadow:4px 4px 10px rgba(0,0,0,0.1);
+		   		-webkit-border-radius: 14rpx;
+		   		-moz-border-radius: 14rpx;
+		   		border-radius: 14rpx;
+		   		.list_top{
+		   			width:620rpx;
+		   			height:86rpx;
+		   			padding-top: 6rpx;
+		   			line-height: 84rpx;
+		   			box-sizing: border-box;
+		   			margin-left: 30rpx;
+		   			border-bottom:2rpx solid #F6F6F6;
+		   			display: flex;
+		   			justify-content: space-between;
+		   			.list_top_left{
+		   				font-size:28rpx;
+		   				font-weight:bold;
+		   				color:#181717;
+		   			}
+		   			.list_top_right{
+		   				text-align: right;
+		   				margin-right: 20rpx;
+		   				font-size:32rpx;
+		   				color:#00C8B3;
+		   				.price{
+		   					font-size:36rpx;
+		   				}
+		   			}
+		   		}
+		   		.list_top_w{
+		   			.list_top_left{
+		   				color:#FF602C;
+		   			}
+		   			.list_top_right{
+		   				color:#FF602C;
+		   			}
+		   		}
+		   		
+		   		.list_center{
+		   			width:620rpx;
+		   			height:156rpx;
+		   			margin-left: 30rpx;
+		   			margin-top:20rpx;
+		   			.time{
+		   				color:#989797;
+		   				font-size:24rpx;
+		   			}
+		   			.list_lib{
+		   				width:620rpx;
+		   				height:50rpx;
+		   				line-height: 50rpx;
+		   				font-size:28rpx;
+		   				color:#333;
+		   				position:relative;
+		   			}
+		   			.lib_left{
+		   				width:10rpx;
+		   				height:10rpx;
+		   				-webkit-border-radius: 10rpx;
+		   				-moz-border-radius: 10rpx;
+		   				border-radius: 10rpx;
+		   				background:#545F78;
+		   				position:absolute;
+		   				top:20rpx;
+		   				left:0;
+		   			}
+		   			.lib_left_w{
+		   				background:#FF602C;
+		   			}
+		   			.lib_right{
+		   				text-indent: 30rpx;
+		   			}
+		   		}
+		   		
+		   		.list_bot{
+		   			width:620rpx;
+		   			margin-left:30rpx;
+		   			height:106rpx;		   			
+		   			border-top:2rpx dotted #E8E5E5;
+		   			.lib_btn{
+		   				width:138rpx;
+		   				height:58rpx;
+		   				box-sizing: border-box;
+		   				border-radius:58rpx;
+		   				border:2rpx solid #B5B4B5;
+		   				float: right;
+		   				margin-top:24rpx;
+		   				margin-right:20rpx;
+		   				font-size:24rpx;
+		   				color:#333;
+		   				text-align: center;
+		   				line-height: 56rpx;
+		   			}
+		   			.lib_btn_w{
+		   				background:#FF1E00;
+		   				color:#fff;
+		   				border:none;
+		   			}
+		   		}
+		   	}
+		  } 	
     }
 
 
@@ -124,7 +161,41 @@
       {{splate}} 共{{listArr.length}}条欠费记录：
     </view>
     <view class="box_cont">
-      <view class="list" wx:for="{{listArr}}" wx:key="{{id}}"  @tap="toDetail('{{item.recordId}}')">
+    	<view class="list" wx:for="{{listArr}}" wx:key="{{id}}">
+      	<view class="list_content">
+      		<!--<view class="list_top" wx:if="{{item.parkState == 0 || item.parkState == 20}}">
+      			<view class="list_top_left">订单完成</view>
+      			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
+      		</view>-->
+      		<view class="list_top list_top_w">
+      			<view class="list_top_left">超时停车</view>
+      			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
+      		</view>
+      		
+      		<view class="list_center">
+      			<view class="time">{{item.endtime}}</view>
+      			<view class="list_lib">
+      				<view class="lib_left"></view>
+      				<view class="lib_left"></view>
+      				<view class="lib_right">{{item.roadname}}</view>
+      			</view>
+      			<view class="list_lib">
+      				<view class="lib_left"></view>
+      				<view class="lib_left lib_left_w"></view>
+      				<view class="lib_right">{{item.time}}</view>
+      			</view>
+      		</view>
+      		
+      		<view class="list_bot">
+      			<view class="lib_btn lib_btn_w" @tap="toDetail('{{item.recordId}}')">立即补缴</view>
+      			<view class="lib_btn" @tap="toDetail('{{item.recordId}}')">查看详情</view>     			
+      		</view>
+      	</view>
+      </view>
+    </view>
+    	
+    	
+      <!--<view class="list" wx:for="{{listArr}}" wx:key="{{id}}"  @tap="toDetail('{{item.recordId}}')">
          <view class="list_cont">
            <view class="list_cont_top">
              <view class="road">{{item.roadname}}</view>
@@ -141,8 +212,8 @@
              <view class="end">{{item.endtime}}</view>
            </view>
          </view>
-      </view>
-    </view>
+      </view>-->
+    
 
 
 

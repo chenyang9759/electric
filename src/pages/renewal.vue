@@ -1,91 +1,168 @@
 <style lang="less">
   page{
     width:100%;
-    height:100%;
+    
     background:#f4f5fa;
     position: relative;
     top:0;
     left:0;
+    padding-top: 20rpx;
   }
   .box{
     .list{
-      background:#fff;
-      .weui-cells::before{
-        border:none;
-      }
-      .weui-cells::after{
-        border:none;
-      }
-      .weui-cells{
-
-
-        width:718rpx;
-        margin:0 auto;
-        padding-bottom:10rpx;
-
-      }
-      .weui-cell{
-        padding:6rpx 0rpx;
-        font-size:24rpx;
-        color:#666;
-      }
-      .weui-cell::before{
-        border:none;
-      }
-      .tit{
-        font-size:34rpx;
-        line-height: 80rpx;
-
-        background:#fff;
-        margin-top: 30rpx;
-
-        color:#333;
-        .tit_cont{
-          width:718rpx;
-          margin:0 auto;
-
-
-        }
-      }
+    	/*margin-top:20rpx;*/
+    	.list_top{
+    		width:678rpx;
+    		height:84rpx;
+    		background:#fff;
+    		box-shadow:4px 4px 10px rgba(0,0,0,0.1);
+    		-webkit-border-radius: 14rpx;
+    		-moz-border-radius: 14rpx;
+    		border-radius: 14rpx;
+    		margin-left:36rpx;
+    		font-size:32rpx;
+    		color:#00C8B3;
+    		text-indent: 44rpx;
+    		line-height: 84rpx;
+    		font-weight:500;
+    	}
+    	.list_cont{
+    		width:678rpx;
+    		height:582rpx;
+    		margin-top: 20rpx;
+    		margin-left:36rpx;
+    		box-shadow:4px 4px 10px rgba(0,0,0,0.1);
+    		-webkit-border-radius: 14rpx;
+    		-moz-border-radius: 14rpx;
+    		border-radius: 14rpx;
+    		background: #fff;
+    		.list_cont_top{
+    			width:658rpx;
+    			height:84rpx;
+    			box-sizing: border-box;
+    			line-height: 84rpx;
+    			border-bottom:2rpx solid #C6C6C6;
+    			margin-left: 10rpx;
+    			position: relative;
+    			.top_left{
+    				width:30rpx;
+    				height:30rpx;
+    				position: absolute;
+						top:28rpx;
+						left:44rpx;
+    				image{
+    					display: block;
+    					width:30rpx;
+    					height:30rpx;
+    				}   				
+    			}
+    			.top_center{
+    				font-size:32rpx;
+    				color:#333;
+    				text-indent: 90rpx;
+    			}
+    			.top_right{
+    				width:138rpx;
+    				height:48rpx;
+    				font-size:24rpx;
+    				position: absolute;
+    				top:22rpx;
+    				right:-20rpx;
+    				
+    				image{
+    					display: block;
+    					width:138rpx;
+    					height:48rpx;
+    				}
+    				.top_txt{
+    					position: absolute;
+    					width: 138rpx;
+    					height:40rpx;
+    					line-height:40rpx;
+    					text-align: center;
+    					top:0;
+    					text-indent: 0;
+    					color:#fff;
+    				}
+    			}
+    		}
+    		.list_cont_center{
+    			width:584rpx;
+    			
+    			margin-left: 46rpx;
+    			.list_lib{
+    				width:584rpx;
+    				height:28rpx;
+    				line-height:28rpx;
+    				display: flex;
+    				justify-content: space-around;
+    				margin-top:38rpx;
+    				.list{
+    					width:184rpx;
+    					font-size:28rpx;
+    					color:#666;
+    					text-align: left;
+    				}
+    				.list_l{
+    					text-align: right;
+    					width:400rpx;
+    				}
+    			}
+    			
+    			
+    			
+    			
+    		}
+    	
+    		
+    		
+    	}
+    	.list_cont_bot{
+				width:678rpx;
+				padding-bottom: 36rpx;
+				padding-top:2rpx;
+				margin-top: 20rpx;
+				margin-left:36rpx;	    		
+    		box-shadow:4px 4px 10px rgba(0,0,0,0.1);
+    		-webkit-border-radius: 14rpx;
+    		-moz-border-radius: 14rpx;
+    		border-radius: 14rpx;
+    		background: #fff;
+    		.list_lib{
+					width:584rpx;
+					height:28rpx;
+					line-height:28rpx;
+					display: flex;
+					justify-content: space-around;
+					margin-top:38rpx;
+					margin-left:46rpx;
+					.list{
+						width:184rpx;
+						font-size:28rpx;
+						color:#666;
+						text-align: left;
+					}
+					.list_l{
+						text-align: right;
+						width:400rpx;
+					}
+				}
+				
+			}
+			.list_cont_botw{
+				
+				.list_line{
+					width:656rpx;
+					height:2rpx;
+					margin-left:11rpx;
+					background:#C6C6C6;
+					margin-top:30rpx;
+				}
+			}
+			
+    	
     }
-    .list_bot{
-       background:#fff;
-      .weui-cells::before{
-        border:none;
-      }
-      .weui-cells::after{
-        border:none;
-      }
-      .weui-cells{
-        width:718rpx;
-        margin:0 auto;
-        padding-bottom:10rpx;
-      }
-      .weui-cell{
-        padding:12rpx 0rpx;
-        font-size:28rpx;
-        color:#666;
-        border-bottom:2rpx solid #eee;
-      }
-      .weui-cell::before{
-        border:none;
-      }
-      .tit{
-        font-size:34rpx;
-        line-height: 80rpx;
-
-        background:#fff;
-        margin-top: 30rpx;
-
-        color:#333;
-        .tit_cont{
-          width:718rpx;
-          margin:0 auto;
-          border-bottom: 2rpx solid #eee;
-
-        }
-      }
-    }
+    
 
 
 
@@ -132,45 +209,101 @@
 <template>
   <view class="box">
     <view class="list">
-      <view class="tit">
-        <view class="tit_cont">{{roadname}}</view>
-      </view>
-      <view class="weui-cells">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">车牌号：</view>
-          <view class="weui-cell__ft">{{busNumber}}</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">位置：</view>
-          <view class="weui-cell__ft">{{address}}</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">停车时间：</view>
-          <view class="weui-cell__ft">{{startTime}}</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">可停放至：</view>
-          <view class="weui-cell__ft">{{extime}}</view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">剩余时间：</view>
-          <view class="weui-cell__ft" wx:if="{{cstime}}">{{sytime}}</view>
-        </view>
-      </view>
+      <view class="list_top">
+	  		{{roadname}}
+	  	</view>
+	  	<view class="list_cont">
+	  		<view class="list_cont_top">
+	  			<view class="top_left">
+	  				<image src="https://caoke.oss-cn-beijing.aliyuncs.com/record_list.png"></image>
+	  			</view>
+	  			<view class="top_center">订单详情</view>
+	  			
+	  		</view>
+	  		
+	  		<view class="list_cont_center">
+	  			<view class="list_lib">
+	  				<view class="list">车牌号：</view>
+	  				<view class="list list_l">{{busNumber}}</view>
+	  			</view>
+	  			<view class="list_lib">
+	  				<view class="list">停车时间：</view>
+	  				<view class="list list_l">{{startTime}}</view>
+	  			</view>
+	  			<view class="list_lib">
+	  				<view class="list">驶离时间：</view>
+	  				<view class="list list_l">{{endTime}}</view>
+	  			</view>
+	  			<view class="list_lib">
+	  				<view class="list">停车时长：</view>
+	  				<view class="list list_l">{{time}}</view>
+	  			</view>
+	  			<view class="list_lib">
+	  				<view class="list">购买时长：</view>
+	  				<view class="list list_l">{{buytime}}</view>
+	  			</view>
+	  			<view class="list_lib">
+	  				<view class="list">超时时长：</view>
+	  				<view class="list list_l" style="color:#FF4C39">{{cstime}}</view>
+	  			</view>
+	  			<view class="list_lib">
+	  				<view class="list">停车位置：</view>
+	  				<view class="list list_l">{{address}}</view>
+	  			</view>
+	  			
+	  		</view>
+	  
+	  	
+	  		
+	  		
+	  	</view>
+  		<!--<view class="list_cont_bot" wx:if="{{iscomeplate || arrearage == 0}}">
+				<view class="list_lib">
+  				<view class="list">订单金额：</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{arrearage/100}}</view>
+  			</view>
+  			<view class="list_lib">
+  				<view class="list">支付方式：</view>
+  				<view class="list list_l" style="color:#00B06C;">{{paytype}}</view>
+  			</view>	
+  		</view>-->
+	  		
+	  	<!--<view class="list_cont_bot list_cont_botw" wx:if="{{!iscomeplate && arrearage > 0}}">
+	  		<view class="list_lib">
+  				<view class="list">应付金额：</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
+  			</view>
+  			<view class="list_lib">
+  				<view class="list">已付金额：</view>
+  				<view class="list list_l">￥{{payment/100}}</view>
+  			</view>	
+  			<view class="list_lib">
+  				<view class="list">欠费金额：</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{ payment/100 - consume/100}}</view>
+  			</view>	
+  			<view class="list_line"></view>
+  			
+  			<view class="list_lib">
+  				<view class="list" style="width:280rpx;">{{startTime}}</view>
+  				<view class="list list_l" style="color:#333;">微信支付<text style="color:#44CD0E;">{{ arrearage/100 }}</text>元</view>
+  			</view>	
+	  	</view>	-->
+	  	
+	  	<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0}}">
+	  		<view class="list_lib">
+  				<view class="list">订单金额：</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
+  			</view>
+  			<view class="list_line"></view>
+  			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
+  				<view class="list" style="width:280rpx;">{{item.time}}</view>
+  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
+  			</view>	
+  			
+  			
+  			
+	  	</view>	
     </view>
-
-    <view class="list_bot" wx:if="{{payArr.length>0}}">
-      <view class="tit">
-        <view class="tit_cont">缴费记录</view>
-      </view>
-      <view class="weui-cells">
-        <view class="weui-cell" wx:for="{{payArr}}" wx:key="{{type}}">
-          <view class="weui-cell__bd">{{item.time}}</view>
-          <view class="weui-cell__ft">{{item.type}} ：{{item.money/100}}元</view>
-        </view>
-      </view>
-    </view>
-
   </view>
 
   <cover-view class="box_pay" @tap="toCheckPay">
@@ -230,7 +363,7 @@
       isShow:false,
       arrearage:0,
       parkingInfo:{},
-      payArr:[]
+      historyArr:[]
     }
 
     computed = {
@@ -261,7 +394,7 @@
       const self = this
       let recordId = wepy.getStorageSync('recordId')
       await self.getRecord(recordId)
-      await self.getPayRecord(recordId)
+      await self.getPayhistory(recordId)
 
 
     }
@@ -297,7 +430,7 @@
           self.sytime = dataInfo.data.data.serverDate > dataInfo.data.data.expireTime ? '已超时' + self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) : self.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.serverDate)
           self.time = dataInfo.data.data.endTime ? self.timeCalculation(dataInfo.data.data.endTime - dataInfo.data.data.startTime) : self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.startTime)     //停车时长
           self.buytime = self.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.startTime)
-          self.cstime = dataInfo.data.data.endTime ? self.timeCalculation(chaoshi) : self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) //超时时长
+          self.cstime = dataInfo.data.data.expireTime - dataInfo.data.data.serverDate > 0 ? '0小时0分钟' : self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) //超时时长
           self.parkingInfo.sn = dataInfo.data.data.meterSN
           self.parkingInfo.parkNo = dataInfo.data.data.spaceInnerNo
           self.parkingInfo.payType = dataInfo.data.data.payType
@@ -386,6 +519,75 @@
       return str
     }
 
+    async getPayhistory(recordId){
+    	const self = this
+      let data = {}    
+	    data = {
+	      recordId : recordId
+	    }
+      
+
+
+      try {
+        let dataInfo = await http({
+          method: api.pay.payHisory.method,
+
+          url: api.pay.payHisory.url,
+          data: JSON.stringify(data)
+        })
+        console.log(dataInfo.data.data)
+        if(dataInfo.data.code == 0){
+        	
+          dataInfo.data.data.forEach((item,index)=>{
+          	let paytype = ''
+            if(item.payType == 3 || item.payType == 12){
+              paytype = '微信支付'
+            }else if(item.payType == 4 || item.payType == 13){
+              paytype = '支付宝支付'
+            }else if(item.payType == 1){
+              paytype = '预买时'
+            }else if(item.payType == 2){
+              paytype = '银联卡（预买时）'
+            }else if(item.payType == 10){
+              paytype = '预付费'
+            }else if(item.payType == 11){
+              paytype = '银联卡买一天（预付费）'
+            }else if(item.payType == 30){
+              paytype = '停车卡（柳银卡）'
+            }else if(item.payType == 31){
+              paytype = '包月卡（B卡）'
+            }else if(item.payType == 32){
+              paytype = '包月卡（C卡）'
+            }else if(item.payType == 33){
+              paytype = '柳银代扣（普通卡）'
+            }else if(item.payType == 40){
+              paytype = '离线订单'
+            }
+            if(item.fundFlow == 1){
+            	self.historyArr.push({
+	          		id:index,
+	          		time:self.timeFormat(item.addTime),
+	          		paytype:paytype,
+	          		payment:item.actualAmount
+	          	})
+            }
+          	
+          })
+        }else if(dataInfo.data.code == -1){
+          wx.showToast({
+            title: dataInfo.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        self.$apply()
+
+
+      } catch (e) {
+      	
+        console.log(e)
+      }
+    }
 
 
 

@@ -39,6 +39,11 @@
     			-webkit-border-radius: 50%;
     			-moz-border-radius: 50%;
     			border-radius: 50%;
+    			overflow:hidden;
+    			image{
+    				width:116rpx;
+    				height:116rpx;
+    			}
     		}
     	}
     	.btn{
@@ -48,7 +53,21 @@
     		font-size:28rpx;
     		color:#fff;
     		text-align: center;
-    		
+    		.btn_login{
+    		  width:400rpx;
+    			height:40rpx;
+    			line-height: 40rpx;
+    			text-align:center;
+    			font-size:28rpx;
+    			background: none;
+    			color:#fff;
+    			overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
+    		}
+    		.btn_login::after{
+    			border:none;
+    		}
     	}
     }
     
@@ -188,10 +207,14 @@
     <view class="header">
     	<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_header.jpg"></image>
     	<view class="avater">
-    		<view class="avater_img"></view>
+    		<view class="avater_img">
+    			<image src="{{userInfo.headImg}}"></image>
+    		</view>
     	</view>
     	<view class="btn">
-    		点击登录
+    		<!--<button>点击登录</button>-->
+    		<button class="btn_login" open-type="getUserInfo" wx:if="{{!isPhoneNumber}}" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}">点击登录</button>
+        <view wx:if="{{islogin}}">{{userInfo.nickName}}</view>
     	</view>
     </view>
     
@@ -202,7 +225,7 @@
     			<view class="list_bot">钱包</view>
     		</view>
 				<view class="cont_list" @tap="toCard">
-					<view class="list">5</view>
+					<view class="list">0</view>
     			<view class="list_bot">停车券</view>
 				</view>
 				<view class="cont_list" @tap="toCoupon">
@@ -265,7 +288,9 @@
 
 <script>
   import wepy from 'wepy'
-
+ 	import http from '../utils/request'
+  import auth from '../service/auth'
+  import {api} from '../config'
 
 
 
@@ -285,7 +310,8 @@
 
 
     data = {
-      userInfo:{}
+      userInfo:{},
+      islogin:false
 
     }
 
@@ -308,7 +334,22 @@
  				wepy.navigateTo({
 	        url: '/pages/mine/coupon'
 	      })
- 			}
+ 			},
+ 			async handleUserInfo(e) {
+        const self = this
+        let msg = e.detail.errMsg
+        if (msg === 'getUserInfo:ok') {
+          await auth.register(e.detail)
+         
+          self.userInfo = wepy.getStorageSync('userInfo')
+          self.islogin = true
+          self.$apply()
+        }
+      }
+ 			
+ 			
+ 			
+ 			
     }
 
     events = {
@@ -317,7 +358,13 @@
 
     async onLoad() {
       const self = this
-     
+      self.userInfo = wepy.getStorageSync('userInfo')
+      if(self.userInfo.headImg == ''){
+      	self.islogin = false
+      }else{
+      	self.islogin = true
+      }
+      self.$apply()
     }
   }
 </script>

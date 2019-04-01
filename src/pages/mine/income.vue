@@ -119,7 +119,7 @@
     
     <scroll-view scroll-y="true" class="cont">
     	<view class="cont_w" wx:if="{{ !isExpired }}">
-    		<view class="list">
+    		<!--<view class="list">
     			<view class="list_cont">
     				<view class="cont_left">
     					<view class="cont_left_top">支付</view>
@@ -142,10 +142,10 @@
     				</view>
     			</view>
     			
-    		</view>    		
+    		</view>    		-->
     	</view>
     	<view class="cont_w cont_y" wx:if="{{ isExpired }}">
-    		<view class="list">
+    		<!--<view class="list">
     			<view class="list_cont">
     				<view class="cont_left">
     					<view class="cont_left_top">充值</view>
@@ -156,7 +156,7 @@
     				</view>
     			</view>
     			
-    		</view>    
+    		</view>    -->
     	</view>
     	<view class="tips">暂无更多明细</view>
     </scroll-view>

@@ -134,7 +134,8 @@
     
     <scroll-view scroll-y="true" class="cont">
     	<view class="cont_w" wx:if="{{ !isExpired }}">
-    		<view class="list">
+    		
+    		<!--<view class="list">
     			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
     			<view class="list_left">
     				<view class="list_left_top">￥<text class="num">100</text></view>
@@ -146,114 +147,10 @@
     				<view class="list_right_bot">截止日期：2018-10-21</view>
     			</view>
     			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
-    		<view class="list">
-    			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardw.png"></image>
-    			<view class="list_left">
-    				<view class="list_left_top">￥<text class="num">100</text></view>
-    				<view class="list_left_bot">停车券</view>
-    			</view>
-    			<view class="list_right">
-    				<view class="list_right_top">停车券</view>
-    				<view class="list_right_center">适用于单笔订单使用</view>
-    				<view class="list_right_bot">截止日期：2018-10-21</view>
-    			</view>
-    			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardwg.png"></image>
-    		</view>
+    		</view>-->
     	</view>
     	<view class="cont_w cont_y" wx:if="{{ isExpired }}">
-    		<view class="list">
+    		<!--<view class="list">
     			<image class="bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardy.png"></image>
     			<view class="list_left">
     				<view class="list_left_top">￥<text class="num">100</text></view>
@@ -265,7 +162,7 @@
     				<view class="list_right_bot">截止日期：2018-10-21</view>
     			</view>
     			<image class="seal" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_cardyg.png"></image>
-    		</view>
+    		</view>-->
     	</view>
     </scroll-view>
     

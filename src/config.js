@@ -18,7 +18,7 @@ const hosts = {
   // development: 'http://120.79.193.27:8090/m',
 
 
-//  development: 'http://192.168.134.2:8090/m',
+//  development: 'http://192.168.134.77:8090',
   	production: 'https://gzhcpark.com/m'
 };
 
@@ -120,6 +120,10 @@ const api = {
     sendMsg:{
       method:'POST',
       url:'/m/sys/initSet/sendSMS?noSign=0'
+    },
+    payHisory:{
+    	method:'POST',
+    	url:'/m/park/weixin/listParkPay?noSign=0'
     }
 
   },

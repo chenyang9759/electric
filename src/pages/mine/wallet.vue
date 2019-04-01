@@ -196,7 +196,7 @@
    		<view class="header_bot">
    			<image class="header_bot_bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_wallet_bg.png"></image>
    			<view class="money">
-   				868.00
+   				0.00
    			</view>
    			<view class="tips">
    				￥余额
