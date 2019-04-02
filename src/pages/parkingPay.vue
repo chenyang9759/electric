@@ -426,7 +426,7 @@
   		<view class="list_cont_bot" wx:if="{{iscomeplate || arrearage == 0}}">
 				<view class="list_lib">
   				<view class="list">订单金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{arrearage/100}}</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
   			</view>
   			<view class="list_lib">
   				<view class="list">支付方式：</view>
@@ -800,7 +800,31 @@
           dataInfo.mbimg = []
           dataInfo.xcimg = []
           dataInfo.video = ''
-
+          if(dataInfo.data.data.payType == 3 || dataInfo.data.data.payType == 12 || dataInfo.data.data.payType == 51){
+	          self.paytype = '微信支付'
+	        }else if(dataInfo.data.data.payType == 4 || dataInfo.data.data.payType == 13){
+	          self.paytype = '支付宝支付'
+	        }else if(dataInfo.data.data.payType == 1){
+	          self.paytype = '预买时'
+	        }else if(dataInfo.data.data.payType == 2){
+	          self.paytype = '银联卡（预买时）'
+	        }else if(dataInfo.data.data.payType == 10){
+	          self.paytype = '预付费'
+	        }else if(dataInfo.data.data.payType == 11){
+	          self.paytype = '银联卡买一天（预付费）'
+	        }else if(dataInfo.data.data.payType == 30){
+	          self.paytype = '停车卡（柳银卡）'
+	        }else if(dataInfo.data.data.payType == 31){
+	          self.paytype = '包月卡（B卡）'
+	        }else if(dataInfo.data.data.payType == 32){
+	          self.paytype = '包月卡（C卡）'
+	        }else if(dataInfo.data.data.payType == 33){
+	          self.paytype = '柳银代扣（普通卡）'
+	        }else if(dataInfo.data.data.payType == 40){
+	          self.paytype = '离线订单'
+	        }else{
+	        	self.paytype = '历史订单'
+	        }
           if(dataInfo.data.data){
             self.isShowCont = false
             self.isShowCont = false

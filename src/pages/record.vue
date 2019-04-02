@@ -155,18 +155,18 @@
       	<view class="list_content">
       		<view class="list_top" wx:if="{{item.arrearage == 0}}">
       			<view class="list_top_left">订单完成</view>
-      			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
+      			<view class="list_top_right">￥<text class="price">{{item.consume/100}}</text></view>
       		</view>
       		<view class="list_top list_top_w" wx:if="{{item.arrearage > 0}}">
       			<view class="list_top_left">超时停车</view>
-      			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
+      			<view class="list_top_right">￥<text class="price">{{item.consume/100}}</text></view>
       		</view>
       		
       		<view class="list_center">
       			<view class="time">{{item.endtime}}</view>
       			<view class="list_lib">
-      				<view class="lib_left" wx:if="{{item.arrearage == 0}}"></view>
-      				<view class="lib_left lib_left_w" wx:if="{{item.arrearage > 0}}"></view>
+      				<view class="lib_left"></view>
+      				<!--<view class="lib_left lib_left_w" wx:if="{{item.arrearage > 0}}"></view>-->
       				<view class="lib_right">{{item.roadname}}</view>
       			</view>
       			<view class="list_lib">

@@ -70,6 +70,7 @@
     		}
     		.btn_nickname{
     			width:400rpx;
+    			margin-left:175rpx;
     			height:40rpx;
     			line-height: 40rpx;
     			text-align:center;

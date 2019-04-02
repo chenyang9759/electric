@@ -324,7 +324,7 @@
   		<view class="list_cont_bot" wx:if="{{arrearage == 0}}">
 				<view class="list_lib">
   				<view class="list">订单金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{arrearage/100}}</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
   			</view>
   			<view class="list_lib">
   				<view class="list">支付方式：</view>
@@ -345,12 +345,12 @@
   				<view class="list">欠费金额：</view>
   				<view class="list list_l" style="color:#FF4C39;">￥{{ arrearage/100}}</view>
   			</view>	
-  			<view class="list_line"></view>
+  			<!--<view class="list_line"></view>
   			
   			<view class="list_lib">
   				<view class="list" style="width:280rpx;">{{startTime}}</view>
   				<view class="list list_l" style="color:#333;">微信支付<text style="color:#44CD0E;">{{ arrearage/100 }}</text>元</view>
-  			</view>	
+  			</view>	-->
 	  	</view>	
 	  	
 	  	<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0 && arrearage > 0}}">
