@@ -447,15 +447,18 @@
   				<view class="list">欠费金额：</view>
   				<view class="list list_l" style="color:#FF4C39;">￥{{ arrearage/100}}</view>
   			</view>	
-  			<view class="list_line"></view>
-  			
-  			<view class="list_lib">
+  			<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
+  			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
+  				<view class="list" style="width:320rpx;">{{item.time}}</view>
+  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
+  			</view>	
+  			<!--<view class="list_lib">
   				<view class="list" style="width:280rpx;">{{startTime}}</view>
   				<view class="list list_l" style="color:#333;">微信支付<text style="color:#44CD0E;">{{ arrearage/100 }}</text>元</view>
-  			</view>	
+  			</view>	-->
 	  	</view>	
 	  	
-	  	<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0 && !iscomeplate}}">
+	  	<!--<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0 && !iscomeplate}}">
 	  		<view class="list_lib">
   				<view class="list">订单金额：</view>
   				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
@@ -468,7 +471,7 @@
   			
   			
   			
-	  	</view>	
+	  	</view>	-->
 	  	
    
     	
@@ -591,7 +594,7 @@
           <view class="list">{{licensePlate[4]}}</view>
           <view class="list">{{licensePlate[5]}}</view>
         </view>
-        <input class="input" maxlength="6" focus="{{isfocus}}" focus="{{isFocus}}" bindinput="bindKeyInput" type="number"/>
+        <input class="input" maxlength="6" focus="{{isFocus}}" bindinput="bindKeyInput" type="number"/>
       </view>
     </view>
     <view class="dox_content">
@@ -633,7 +636,7 @@
     data = {
       isDisable:false,
       isArrears:false,
-      isFocus:true,
+      isFocus:false,
       height:'',
       arrearage:0,
       recordId:'',
@@ -750,7 +753,7 @@
 
     }
 
-    async onLoad() {
+    async onShow() {
 
       const self = this
       self.recordId = wepy.getStorageSync('recordId')
@@ -787,6 +790,7 @@
     // 查询是否欠费
     async getRecord(recordId){
       const self = this
+      
       let data = {
         recordId : recordId
       }
@@ -854,50 +858,56 @@
             self.iscomeplate = true
             self.arrearage = dataInfo.data.data.arrearage>0 ? dataInfo.data.data.arrearage : 0
             self.address = dataInfo.data.data.countyName + dataInfo.data.data.streetName + dataInfo.data.data.roadName
-            if(dataInfo.data.data.parkState == 0 || dataInfo.data.data.parkState == 20){
+            if(dataInfo.data.data.arrearage == 0){
               self.ispay = false
               self.isDox = false
               self.evidenceState = '订单完成'                //是否取证
+							self.isFocus = true
 
-
-            }else if(dataInfo.data.data.parkState == 1 || dataInfo.data.data.parkState == 10){
+            }else if(dataInfo.data.data.arrearage > 0){
 
               //已欠费，未取证
               self.ispay = true
               self.isDox = true
               self.evidenceState = '欠费，已取证'                //是否取证
               self.iscomeplate = false
+              self.isFocus = false
 
-            }else if(dataInfo.data.data.parkState == 2 || dataInfo.data.data.parkState == 11){
-              // 欠费，已取证
-              self.isShow = true
-              self.ispay = true
-              self.isDox = true
-              self.evidenceState = '欠费，已取证'                //是否取证
-              self.iscomeplate = false
-              if(dataInfo.data.data.parkEvidences.picture1){
-                let arr = dataInfo.data.data.parkEvidences.picture1.split(",")
-                let newarr = []
-                arr.forEach((item)=>{
-                  newarr.push(dataInfo.data.exData + item)
-                })
-                self.mbimg = newarr
-              }
-              if(dataInfo.data.data.parkEvidences.picture2){
-                let arr = dataInfo.data.data.parkEvidences.picture2.split(",")
-                let newarr = []
-                arr.forEach((item)=>{
-                  newarr.push(dataInfo.data.exData + item)
-                })
-                self.xcimg = newarr
-              }
-              if(dataInfo.data.data.parkEvidences.video){
-                self.video = dataInfo.data.exData  + dataInfo.data.data.parkEvidences.video
-              }
             }
+//          else if(dataInfo.data.data.parkState == 2 || dataInfo.data.data.parkState == 11){
+//            // 欠费，已取证
+//            self.isShow = true
+//            self.ispay = true
+//            self.isDox = true
+//            self.evidenceState = '欠费，已取证'                //是否取证
+//            self.iscomeplate = false
+//            self.isFocus = false
+//            if(dataInfo.data.data.parkEvidences.picture1){
+//              let arr = dataInfo.data.data.parkEvidences.picture1.split(",")
+//              let newarr = []
+//              arr.forEach((item)=>{
+//                newarr.push(dataInfo.data.exData + item)
+//              })
+//              self.mbimg = newarr
+//            }
+//            if(dataInfo.data.data.parkEvidences.picture2){
+//              let arr = dataInfo.data.data.parkEvidences.picture2.split(",")
+//              let newarr = []
+//              arr.forEach((item)=>{
+//                newarr.push(dataInfo.data.exData + item)
+//              })
+//              self.xcimg = newarr
+//            }
+//            if(dataInfo.data.data.parkEvidences.video){
+//              self.video = dataInfo.data.exData  + dataInfo.data.data.parkEvidences.video
+//            }
+//          }
           }else{
             self.isShowCont = true
+            
           }
+        }else{
+        	self.isFocus = true
         }
         self.$apply()
       } catch (e) {

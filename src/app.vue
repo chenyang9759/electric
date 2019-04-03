@@ -136,25 +136,25 @@
               duration: 3000
             })
             clearTimeout(self.timeout)
-            self.timeout = setTimeout(function(){
-            	let data = {
-	              "sendSMS":"sms_server_fault",
-	              "phone":"15332428516",
-	              "templateType":2,
-	              "message":"支付异常(ourmrc)"
-	            }
-	            try{
-	              const dataInfo = wepy.request({
-	                method: api.pay.sendMsg.method,
-	                url: api.pay.sendMsg.url,
-	                data:JSON.stringify(data)
-	              })
-	              
-	
-	            } catch(e){
-	              console.log(e)
-	            }
-            },6000)
+//          self.timeout = setTimeout(function(){
+//          	let data = {
+//	              "sendSMS":"sms_server_fault",
+//	              "phone":"15332428516",
+//	              "templateType":2,
+//	              "message":"支付异常(ourmrc)"
+//	            }
+//	            try{
+//	              const dataInfo = wepy.request({
+//	                method: api.pay.sendMsg.method,
+//	                url: api.pay.sendMsg.url,
+//	                data:JSON.stringify(data)
+//	              })
+//	              
+//	
+//	            } catch(e){
+//	              console.log(e)
+//	            }
+//          },6000)
             
 
 
@@ -172,26 +172,26 @@
             icon: 'none',
             duration: 3000
           })
-          let data = {
-            "sendSMS":"sms_server_fault",
-            "phone":"15332428516",
-            "templateType":2,
-            "message":"支付异常"
-          }
-          try{
-            const dataInfo = wepy.request({
-              method: api.pay.sendMsg.method,
-              url: api.pay.sendMsg.url,
-              data:JSON.stringify(data)
-            })
-            // console.log(dataInfo)
-            if(dataInfo.data.code == 0){
-
-            }
-
-          } catch(e){
-            console.log(e)
-          }
+//        let data = {
+//          "sendSMS":"sms_server_fault",
+//          "phone":"15332428516",
+//          "templateType":2,
+//          "message":"支付异常"
+//        }
+//        try{
+//          const dataInfo = wepy.request({
+//            method: api.pay.sendMsg.method,
+//            url: api.pay.sendMsg.url,
+//            data:JSON.stringify(data)
+//          })
+//          // console.log(dataInfo)
+//          if(dataInfo.data.code == 0){
+//
+//          }
+//
+//        } catch(e){
+//          console.log(e)
+//        }
           // 必须返回响应数据对象，否则后续无法对响应数据进行处理
           return p;
         },

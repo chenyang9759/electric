@@ -294,9 +294,9 @@
   				<view class="list">订单金额：</view>
   				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
   			</view>
-  			<view class="list_line"></view>
+  			<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
   			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
-  				<view class="list" style="width:280rpx;">{{item.time}}</view>
+  				<view class="list" style="width:320rpx;">{{item.time}}</view>
   				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
   			</view>	
   			

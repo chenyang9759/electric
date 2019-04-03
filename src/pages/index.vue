@@ -348,6 +348,7 @@
       phoneInfo:{
 
       },
+      timeout:'',
       isDialog:false,
       isArrears:false,    //是否欠费
       exdata:{
@@ -515,19 +516,24 @@
 
     async onShow(){
       const self = this
-      await auth.login()
-      self.userInfo = wepy.getStorageSync('userInfo')
-      console.log(self.userInfo.openId)
-      console.log(self.isArrears)
-      console.log(self.userInfo)
-      if(self.userInfo.openId && self.isArrears == false) {
-
-        await self.getArrears()
-        await self.getStatus()
-        self.timer = setInterval(function() {
-          self.getStatus()
-        },60000)
-      }
+      clearTimeout(self.timeout)
+      self.timeout = setTimeout(function(){
+//    	auth.login()
+	      self.userInfo = wepy.getStorageSync('userInfo')
+	      console.log(self.userInfo.openId)
+	      console.log(self.isArrears)
+	      console.log(self.userInfo)
+	      if(self.userInfo.openId && self.isArrears == false) {
+	
+	        self.getArrears()
+	        self.getStatus()
+	        self.timer = setInterval(function() {
+	        	
+	          self.getStatus()
+	        },60000)
+	      }
+      },500)
+      
 
 
 
@@ -538,6 +544,8 @@
       //   text: '1'
       // })
     }
+    
+    
 
     async onLoad(options) {
       const self = this

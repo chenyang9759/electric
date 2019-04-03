@@ -263,7 +263,8 @@
   </view>
   <view class="box" wx:if="{{!isShowCont}}">
   	<view class="box_header" wx:if="{{!isShowtoindex}}" >
-   		请驶离后再扫码补缴欠费，目前车辆未驶离，订单正在计费中，不可补缴。
+   		<view>请驶离后再扫码补缴欠费，目前车辆未驶离，</view>
+   		<view>订单正在计费中，不可补缴。</view>
     </view>
     <view class="box_content">
     	<view class="list_top">
@@ -345,15 +346,18 @@
   				<view class="list">欠费金额：</view>
   				<view class="list list_l" style="color:#FF4C39;">￥{{ arrearage/100}}</view>
   			</view>	
-  			<!--<view class="list_line"></view>
-  			
-  			<view class="list_lib">
+  			<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
+  			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
+  				<view class="list" style="width:320rpx;">{{item.time}}</view>
+  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
+  			</view>	
+  			<!--<view class="list_lib">
   				<view class="list" style="width:280rpx;">{{startTime}}</view>
   				<view class="list list_l" style="color:#333;">微信支付<text style="color:#44CD0E;">{{ arrearage/100 }}</text>元</view>
-  			</view>	-->
+  			</view>-->
 	  	</view>	
 	  	
-	  	<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0 && arrearage > 0}}">
+	  	<!--<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0 && arrearage > 0}}">
 	  		<view class="list_lib">
   				<view class="list">订单金额：</view>
   				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
@@ -366,7 +370,7 @@
   			
   			
   			
-	  	</view>	
+	  	</view>	-->
 	  	
     </view>
   	
@@ -668,44 +672,45 @@
 	            self.iscomeplate = true
 	            self.arrearage = dataInfo.data.data.arrearage>0 ? dataInfo.data.data.arrearage : 0
 	            self.address = dataInfo.data.data.countyName + dataInfo.data.data.streetName + dataInfo.data.data.roadName
-	            if(dataInfo.data.data.parkState == 0 || dataInfo.data.data.parkState == 20){
+	            if(dataInfo.data.data.arrearage == 0){
 	              self.ispay = true
 	              self.isDox = true
 	              self.evidenceState = '订单完成'                //是否取证
-	            }else if(dataInfo.data.data.parkState == 1 || dataInfo.data.data.parkState == 10){
+	            }else if(dataInfo.data.data.arrearage > 0){
 	              //已欠费，未取证
 	              self.ispay = true
 	              self.isDox = true
 	              self.evidenceState = '欠费，已取证'                //是否取证
 	              self.iscomeplate = false
 	
-	            }else if(dataInfo.data.data.parkState == 2 || dataInfo.data.data.parkState == 11){
-	              // 欠费，已取证
-	              self.isShow = true
-	              self.ispay = true
-	              self.isDox = true
-	              self.evidenceState = '欠费，已取证'                //是否取证
-	              self.iscomeplate = false
-	              if(dataInfo.data.data.parkEvidences.picture1){
-	                let arr = dataInfo.data.data.parkEvidences.picture1.split(",")
-	                let newarr = []
-	                arr.forEach((item)=>{
-	                  newarr.push(dataInfo.data.exData + item)
-	                })
-	                self.mbimg = newarr
-	              }
-	              if(dataInfo.data.data.parkEvidences.picture2){
-	                let arr = dataInfo.data.data.parkEvidences.picture2.split(",")
-	                let newarr = []
-	                arr.forEach((item)=>{
-	                  newarr.push(dataInfo.data.exData + item)
-	                })
-	                self.xcimg = newarr
-	              }
-	              if(dataInfo.data.data.parkEvidences.video){
-	                self.video = dataInfo.data.exData  + dataInfo.data.data.parkEvidences.video
-	              }
 	            }
+//	            else if(dataInfo.data.data.parkState == 2 || dataInfo.data.data.parkState == 11){
+//	              // 欠费，已取证
+//	              self.isShow = true
+//	              self.ispay = true
+//	              self.isDox = true
+//	              self.evidenceState = '欠费，已取证'                //是否取证
+//	              self.iscomeplate = false
+//	              if(dataInfo.data.data.parkEvidences.picture1){
+//	                let arr = dataInfo.data.data.parkEvidences.picture1.split(",")
+//	                let newarr = []
+//	                arr.forEach((item)=>{
+//	                  newarr.push(dataInfo.data.exData + item)
+//	                })
+//	                self.mbimg = newarr
+//	              }
+//	              if(dataInfo.data.data.parkEvidences.picture2){
+//	                let arr = dataInfo.data.data.parkEvidences.picture2.split(",")
+//	                let newarr = []
+//	                arr.forEach((item)=>{
+//	                  newarr.push(dataInfo.data.exData + item)
+//	                })
+//	                self.xcimg = newarr
+//	              }
+//	              if(dataInfo.data.data.parkEvidences.video){
+//	                self.video = dataInfo.data.exData  + dataInfo.data.data.parkEvidences.video
+//	              }
+//	            }
             	
             	
             }
