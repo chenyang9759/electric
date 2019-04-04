@@ -445,7 +445,7 @@
   			</view>	
   			<view class="list_lib">
   				<view class="list">欠费金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥-{{ arrearage/100}}</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{ arrearage/100}}</view>
   			</view>	
   			<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
   			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
