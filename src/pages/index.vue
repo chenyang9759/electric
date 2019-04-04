@@ -492,6 +492,8 @@
         }
 
       }
+      
+      
     }
 
     events = {
@@ -515,8 +517,11 @@
       
     }
 
+    
+    
     async onShow(){
       const self = this
+      
       await self.getArrears()
 	    await self.getStatus()
 	    self.timer = setInterval(function() {

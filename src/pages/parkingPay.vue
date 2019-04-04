@@ -1099,9 +1099,17 @@
           dataInfo.data.data.forEach((item,index)=>{
           	let paytype = ''
             if(item.payType == 3 || item.payType == 12 || item.payType == 51){
-              paytype = '微信支付'
+              if(item.fundFlow == 1){
+                paytype = '微信支付'
+              }else if(item.fundFlow == 2){
+                paytype = '微信退款'
+              }
             }else if(item.payType == 4 || item.payType == 13){
-              paytype = '支付宝支付'
+              if(item.fundFlow == 1){
+                paytype = '支付宝支付'
+              }else if(item.fundFlow == 2) {
+                paytype = '支付宝退款'
+              }
             }else if(item.payType == 1){
               paytype = '预买时'
             }else if(item.payType == 2){
@@ -1121,14 +1129,14 @@
             }else if(item.payType == 40){
               paytype = '离线订单'
             }
-            if(item.fundFlow == 1){
-            	self.historyArr.push({
-	          		id:index,
-	          		time:self.timeFormat(item.addTime),
-	          		paytype:paytype,
-	          		payment:item.actualAmount
-	          	})
-            }
+
+            self.historyArr.push({
+              id:index,
+              time:self.timeFormat(item.addTime),
+              paytype:paytype,
+              payment:item.actualAmount
+            })
+
           	
           })
         }else if(dataInfo.data.code == -1){
