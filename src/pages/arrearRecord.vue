@@ -25,7 +25,7 @@
     .box_header{
       width:100%;
       height:92rpx;
-      color:#666;
+      color:#333;
       line-height: 92rpx;
       font-size:34rpx;
       text-indent: 20rpx;

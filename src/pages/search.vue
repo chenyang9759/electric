@@ -390,7 +390,7 @@
         this.keyBoardType = 1
         this.isShow = true
         this.number = ''
-        this.province = ''
+//      this.province = ''
         this.numberShow = ''
         this.changeNumber()
 

@@ -348,7 +348,7 @@
       phoneInfo:{
 
       },
-      timeout:'',
+//    timeout:'',
       isDialog:false,
       isArrears:false,    //是否欠费
       exdata:{
@@ -512,27 +512,29 @@
     async onHide() {
       const self = this
       clearInterval(self.timer)
+      
     }
 
     async onShow(){
       const self = this
-      clearTimeout(self.timeout)
-      self.timeout = setTimeout(function(){
-//    	auth.login()
-	      self.userInfo = wepy.getStorageSync('userInfo')
-	      console.log(self.userInfo.openId)
-	      console.log(self.isArrears)
-	      console.log(self.userInfo)
-	      if(self.userInfo.openId && self.isArrears == false) {
-	
-	        self.getArrears()
-	        self.getStatus()
-	        self.timer = setInterval(function() {
+      await self.getArrears()
+	    await self.getStatus()
+	    self.timer = setInterval(function() {
 	        	
-	          self.getStatus()
-	        },60000)
-	      }
-      },500)
+	      self.getStatus()
+	    },60000)
+//    self.timeout = setTimeout(function(){
+////    	auth.login()
+//	      self.userInfo = wepy.getStorageSync('userInfo')
+//	      console.log(self.userInfo.openId)
+//	      console.log(self.isArrears)
+//	      console.log(self.userInfo)
+//	      if(self.userInfo.openId) {
+//	
+//	        
+//	        
+//	      }
+//    },500)
       
 
 

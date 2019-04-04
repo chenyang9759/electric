@@ -137,8 +137,8 @@
 	    width: 100%;
 	    text-align: center;
 	    font-size: 28rpx;
-	    line-height: 60rpx;
-	    color:#666;
+	    line-height: 100rpx;
+	    color:#999;
 	  }
 
   }
