@@ -609,12 +609,7 @@
         await self.getArrears()
         await self.getStatus()
         console.log(self.isArrears)
-        if(self.parkingInfo.recordId){
-          wx.navigateTo({
-            url: '/pages/recordDetail'
-          })
-
-        }
+        
         if(self.isEnd == false && self.isArrears == false){
           await self.getInfo(self.parkingInfo.sn)
           await self.getStatus()
@@ -649,7 +644,12 @@
             wx.navigateTo({
               url: '/pages/listDetail'
             })
-          }
+          }else if(self.parkingInfo.recordId){
+	          wx.navigateTo({
+	            url: '/pages/recordDetail'
+	          })
+	
+	        }
         }else if(self.isEnd == false && self.isArrears == true){
           console.log(self.recordId)
           wx.showModal({
