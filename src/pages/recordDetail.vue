@@ -282,7 +282,7 @@
 	  			</view>
 	  			<view class="top_right" wx:if="{{!iscomeplate && arrearage > 0}}">
 	  				<image src="https://caoke.oss-cn-beijing.aliyuncs.com/record_w.png"></image>
-	  				<view class="top_txt">超时停车</view>
+	  				<view class="top_txt">超时欠费</view>
 	  			</view>
 	  		</view>
 	  		
@@ -322,7 +322,31 @@
 	  		
 	  		
 	  	</view>
-  		<view class="list_cont_bot" wx:if="{{arrearage == 0}}">
+	  	
+	  	
+	  		
+	  	<view class="list_cont_bot list_cont_botw" wx:if="{{arrearage > 0 && serviceCharge !=0}}">
+	  		<view class="list_lib">
+  				<view class="list">停车欠费：</view>
+  				<view class="list list_l">￥{{arrearage/100}}</view>
+  			</view>	
+	  		<view class="list_lib">
+  				<view class="list">手续费：</view>
+  				<view class="list list_l">￥{{serviceCharge/100}}</view>
+  			</view> 			
+  			<view class="list_lib">
+  				<view class="list">滞纳金：</view>
+  				<view class="list list_l">￥{{fine/100}}</view>
+  			</view>
+  			<view class="list_line"></view>
+  			<view class="list_lib" style="width:610rpx;height:60rpx;font-size:24rpx;color:#999;line-height: 36rpx;margin-top:20rpx;">
+  				手续费：取证完立即收取手续费（1元），次日开始计算滞纳金（日息3%），滞纳金最高不超过停车欠费金额。
+  			</view>
+  		
+	  	</view>	
+	  	
+	  	
+  		<view class="list_cont_bot list_cont_botw" wx:if="{{arrearage == 0}}">
 				<view class="list_lib">
   				<view class="list">订单金额：</view>
   				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
@@ -331,137 +355,42 @@
   				<view class="list">支付方式：</view>
   				<view class="list list_l" style="color:#00B06C;">{{paytype}}</view>
   			</view>	
-  		</view>
+	  		<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
+  			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
+  				<view class="list" style="width:320rpx;">{{item.time}}</view>
+  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">￥{{item.payment/100}}</text></view>
+  			</view>
+	  	</view>
 	  		
 	  	<view class="list_cont_bot list_cont_botw" wx:if="{{arrearage > 0}}">
 	  		<view class="list_lib">
-  				<view class="list">应付金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
+  				<view class="list">欠费金额：</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{(arrearage + serviceCharge + fine)/100}}</view>
+  			</view>	
+	  		<view class="list_lib">
+  				<view class="list">应付总金额：</view>
+  				<view class="list list_l">￥{{(consume + serviceCharge + fine)/100}}</view>
   			</view>
   			<view class="list_lib">
   				<view class="list">已付金额：</view>
   				<view class="list list_l">￥{{payment/100}}</view>
   			</view>	
-  			<view class="list_lib">
-  				<view class="list">欠费金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{ arrearage/100}}</view>
-  			</view>	
-  			<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
-  			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
-  				<view class="list" style="width:320rpx;">{{item.time}}</view>
-  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
-  			</view>	
-  			<!--<view class="list_lib">
-  				<view class="list" style="width:280rpx;">{{startTime}}</view>
-  				<view class="list list_l" style="color:#333;">微信支付<text style="color:#44CD0E;">{{ arrearage/100 }}</text>元</view>
-  			</view>-->
+  			
+  			
+  		
 	  	</view>	
 	  	
-	  	<!--<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0 && arrearage > 0}}">
-	  		<view class="list_lib">
-  				<view class="list">订单金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
-  			</view>
-  			<view class="list_line"></view>
-  			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
-  				<view class="list" style="width:280rpx;">{{item.time}}</view>
-  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
-  			</view>	
-  			
-  			
-  			
-	  	</view>	-->
+	 
+	
 	  	
     </view>
   	
   	
-    <!--<view class="box_header" wx:if="{{!isShowtoindex}}" >
-   		 请驶离后再扫码补缴欠费，目前车辆未驶离，订单正在计费中，不可补缴。
-    </view>
-    <view class="box_content">
-      <view class="cont">
-        <view class="cont_flex">
-          <view class="cont_left">
-            {{roadname}}
-          </view>
-          <view class="cont_right">
-            <view class="cont_btn" style="background:#00c8b3;" wx:if="{{iscomeplate || arrearage == 0}}">订单完成</view>
-            <view class="cont_btn" wx:if="{{!iscomeplate && arrearage > 0}}">{{evidenceState}}</view>
-          </view>
-        </view>
-        <view class="cont_money">
-          ￥{{arrearage/100}}
-        </view>
-
-        <view class="cont_flex cont_flex_first">
-          <view class="flex_list">车牌：</view>
-          <view class="flex_list_right">{{busNumber}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">停车时间：</view>
-          <view class="flex_list_right">{{startTime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">驶离时间：</view>
-          <view class="flex_list_right">{{endTime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">停车时长：</view>
-          <view class="flex_list_right">{{time}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">购买时长：</view>
-          <view class="flex_list_right">{{buytime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">超时时长：</view>
-          <view class="flex_list_right">{{cstime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">停车位置：</view>
-          <view class="flex_list_right">{{address}}</view>
-        </view>
-      </view>
-    </view>-->
-    
-    
-    
-    
-
-    <!--<view class="box_evidence" wx:if="{{isShow}}">-->
-      <!--<view class="cont">-->
-        <!--<view class="cont_tit">取证记录</view>-->
-        <!--<view class="cont_list">咪表照片</view>-->
-        <!--<view class="cont_scroll">-->
-          <!--<scroll-view class="scroll_x" scroll-x style="width: 100%">-->
-            <!--<view class="scroll_list" wx:for="{{mbimg}}" wx:key="{{index}}" @tap="largeImgBh('{{item}}')">-->
-              <!--<image src="{{item}}"></image>-->
-            <!--</view>-->
-
-          <!--</scroll-view>-->
-        <!--</view>-->
-        <!--<view class="cont_list">车辆照片</view>-->
-        <!--<view class="cont_scroll">-->
-          <!--<scroll-view class="scroll_x" scroll-x style="width: 100%">-->
-            <!--<view class="scroll_list" wx:for="{{xcimg}}" wx:key="{{index}}" @tap="largeImgMb('{{item}}')">-->
-              <!--<image src="{{item}}"></image>-->
-            <!--</view>-->
-
-          <!--</scroll-view>-->
-        <!--</view>-->
-        <!--<view class="cont_list">现场视频</view>-->
-        <!--<view class="cont_movie">-->
-
-          <!--<video class="cont_movie_content" src="{{video}}"></video>-->
-        <!--</view>-->
-
-
-      <!--</view>-->
-    <!--</view>-->
+   
 
 
     <cover-view class="box_pay" wx:if="{{arrearage>0 && evidenceState != '订单完成'}}">
-      <button class="weui-btn green-btn" disabled="{{isDisable}}" wx:if="{{isShowtoindex}}" type="primary" @tap="pay">微信支付（{{arrearage/100}}元）</button>
+      <button class="weui-btn green-btn" disabled="{{isDisable}}" wx:if="{{isShowtoindex}}" type="primary" @tap="pay">微信支付（{{(arrearage + serviceCharge + fine)/100}}元）</button>
       <button class="weui-btn green-btn" disabled="{{isDisable}}" wx:if="{{!isShowtoindex}}" type="primary" @tap="toIndex">返回首页</button>
     </cover-view>
   </view>
@@ -521,7 +450,9 @@
       isShow:false,
       arrearage:0,
       parkingInfo:{},
-      historyArr:[]
+      historyArr:[],
+      serviceCharge:0,
+      fine:0
 
     }
 
@@ -672,6 +603,8 @@
 	            self.iscomeplate = true
 	            self.arrearage = dataInfo.data.data.arrearage>0 ? dataInfo.data.data.arrearage : 0
 	            self.address = dataInfo.data.data.countyName + dataInfo.data.data.streetName + dataInfo.data.data.roadName
+	            self.serviceCharge = dataInfo.data.data.serviceCharge
+          		self.fine = dataInfo.data.data.fine
 	            if(dataInfo.data.data.arrearage == 0){
 	              self.ispay = true
 	              self.isDox = true
@@ -684,33 +617,7 @@
 	              self.iscomeplate = false
 	
 	            }
-//	            else if(dataInfo.data.data.parkState == 2 || dataInfo.data.data.parkState == 11){
-//	              // 欠费，已取证
-//	              self.isShow = true
-//	              self.ispay = true
-//	              self.isDox = true
-//	              self.evidenceState = '欠费，已取证'                //是否取证
-//	              self.iscomeplate = false
-//	              if(dataInfo.data.data.parkEvidences.picture1){
-//	                let arr = dataInfo.data.data.parkEvidences.picture1.split(",")
-//	                let newarr = []
-//	                arr.forEach((item)=>{
-//	                  newarr.push(dataInfo.data.exData + item)
-//	                })
-//	                self.mbimg = newarr
-//	              }
-//	              if(dataInfo.data.data.parkEvidences.picture2){
-//	                let arr = dataInfo.data.data.parkEvidences.picture2.split(",")
-//	                let newarr = []
-//	                arr.forEach((item)=>{
-//	                  newarr.push(dataInfo.data.exData + item)
-//	                })
-//	                self.xcimg = newarr
-//	              }
-//	              if(dataInfo.data.data.parkEvidences.video){
-//	                self.video = dataInfo.data.exData  + dataInfo.data.data.parkEvidences.video
-//	              }
-//	            }
+
             	
             	
             }
@@ -767,7 +674,7 @@
           spaceInnerNo : self.parkingInfo.parkNo,
           fromSystem : 868,
           payType : 51,
-          payment : parseInt(self.arrearage),
+          payment : parseInt(self.arrearage + self.serviceCharge + self.fine),
           code : code
         }
       }else{
@@ -776,7 +683,7 @@
           spaceInnerNo : self.parkingInfo.parkNo,
           fromSystem : 868,
           payType : 3,
-          payment : parseInt(self.payment),
+          payment : parseInt(self.arrearage + self.serviceCharge + self.fine),
           code : code
         }
       }

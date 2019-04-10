@@ -297,7 +297,7 @@
   			<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
   			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
   				<view class="list" style="width:320rpx;">{{item.time}}</view>
-  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
+  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">￥{{item.payment/100}}</text></view>
   			</view>	
   			
   			

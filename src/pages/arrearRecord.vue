@@ -168,7 +168,7 @@
       			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
       		</view>-->
       		<view class="list_top list_top_w">
-      			<view class="list_top_left">超时停车</view>
+      			<view class="list_top_left">超时欠费</view>
       			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
       		</view>
       		
@@ -187,7 +187,7 @@
       		</view>
       		
       		<view class="list_bot">
-      			<view class="lib_btn lib_btn_w" @tap="toDetail('{{item.recordId}}')">立即补缴</view>
+      		<view class="lib_btn lib_btn_w" @tap="toPay('{{item.recordId}}','{{item.meterNo}}','{{item.spaceInnerNo}}','{{item.arrearage}}')" wx:if="{{item.arrearage > 0}}">立即补缴</view>
       			<view class="lib_btn" @tap="toDetail('{{item.recordId}}')">查看详情</view>     			
       		</view>
       	</view>
@@ -291,6 +291,9 @@
       splate:'',
       listArr:[],
       arrears:0,
+      recordId:'',
+      parkingInfo:{},
+      arrearage:''
 
     }
 
@@ -310,6 +313,15 @@
         wepy.navigateTo({
           url: '/pages/paySuccess'
         })
+      },
+      async toPay(recordId,sn,spaceInnerNo,arrearage){
+      	const self = this
+      	
+      	self.recordId = recordId
+      	self.parkingInfo.sn = sn 
+      	self.parkingInfo.parkNo = spaceInnerNo
+      	self.arrearage = arrearage
+      	await self.getCode()
       }
     }
 
@@ -351,7 +363,9 @@
           
           
           dataInfo.data.data.forEach((item,index)=>{
-            self.arrears += item.arrearage
+          	let arrearslist = 0
+          	arrearslist = item.serviceCharge ? item.arrearage + item.serviceCharge + item.fine : item.arrearage
+            self.arrears += arrearslist
             
             if(item.old == 0){
             	self.listArr.push({
@@ -362,11 +376,12 @@
 	              roadname:item.roadName+item.meterNo+'号咪表',
 	              consume:item.consume,
 	              payment:item.payment,
-	              arrearage:item.arrearage>0 ? item.arrearage : 0,
+	              arrearage: item.serviceCharge ? item.arrearage + item.serviceCharge + item.fine : item.arrearage,
 	              starttime:self.timeFormat(item.startTime),
 	              endtime:self.timeFormat(item.endTime),
 	              time:self.timeCalculation(item.endTime - item.startTime),
-	              evidenceState:item.evidenceState
+	              evidenceState:item.evidenceState,
+	              spaceInnerNo:item.spaceInnerNo
 	            })
             }else if(item.old == 1){
             	self.listArr.push({
@@ -377,11 +392,12 @@
 	              roadname:item.meterNo+'号咪表',
 	              consume:item.consume,
 	              payment:item.payment,
-	              arrearage:item.arrearage>0 ? item.arrearage : 0,
+	              arrearage: item.serviceCharge ? item.arrearage + item.serviceCharge + item.fine : item.arrearage,
 	              starttime:self.timeFormat(item.startTime),
 	              endtime:self.timeFormat(item.endTime),
 	              time:self.timeCalculation(item.endTime - item.startTime),
-	              evidenceState:item.evidenceState
+	              evidenceState:item.evidenceState,
+	              spaceInnerNo:item.spaceInnerNo
 	            })
             }
             
@@ -413,7 +429,77 @@
       let str = H+'小时'+Math.ceil(M)+'分钟'
       return str
     }
+    
+    //获取code
+    async getCode(){
+      const self = this
+    
+      wx.login({
+        success(res){
+          self.sendOrder(res.code)
+        }
+      })
+    }
+    // 下订单
+    async sendOrder(code){
+      const self = this
+      let data = {}
+     
+	    data = {
+	      recordId : self.recordId,
+	      meterSN : self.parkingInfo.sn,
+	      spaceInnerNo : self.parkingInfo.parkNo,
+	      fromSystem : 868,
+	      payType : 51,
+	      payment : parseInt(self.arrearage),
+	      code : code
+	    }
+     
+      
 
+
+      try {
+        let dataInfo = await http({
+          method: api.pay.wxpay.method,
+//        url: 'http://192.168.134.77:8888/n/pay/scan/weixinPay?noSign=0',
+          url: api.pay.wxpay.url,
+          data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.isDisable = true
+          self.$apply()
+          wx.requestPayment({
+            timeStamp: dataInfo.data.data.timeStamp,
+            nonceStr: dataInfo.data.data.nonceStr,
+            package: dataInfo.data.data.package,
+            signType: dataInfo.data.data.signType,
+            paySign: dataInfo.data.data.paySign,
+            success:function(data){
+              wx.redirectTo({
+                url: '/pages/paySuccess'
+              })
+            },
+            fail:function(e){
+              self.isDisable = false  
+//            console.log(e)
+            	self.$apply()
+            }
+          })
+        }else if(dataInfo.data.code == -1){
+          wx.showToast({
+            title: dataInfo.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        self.$apply()
+
+
+      } catch (e) {
+      	
+        console.log(e)
+      }
+    }
 
 
   }

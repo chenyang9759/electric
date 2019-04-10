@@ -383,7 +383,7 @@
 	  			</view>
 	  			<view class="top_right" wx:if="{{!iscomeplate && arrearage > 0}}">
 	  				<image src="https://caoke.oss-cn-beijing.aliyuncs.com/record_w.png"></image>
-	  				<view class="top_txt">超时停车</view>
+	  				<view class="top_txt">超时欠费</view>
 	  			</view>
 	  		</view>
 	  		
@@ -433,24 +433,44 @@
   				<view class="list list_l" style="color:#00B06C;">{{paytype}}</view>
   			</view>	
   		</view>
+  		
+  		<view class="list_cont_bot list_cont_botw" wx:if="{{arrearage > 0}}">
+	  		<view class="list_lib">
+  				<view class="list">停车欠费：</view>
+  				<view class="list list_l" style="color:#FF4C39;font-weight:900;">￥{{arrearage/100}}</view>
+  			</view>	
+	  		<view class="list_lib">
+  				<view class="list">手续费：</view>
+  				<view class="list list_l">￥{{serviceCharge/100}}</view>
+  			</view> 			
+  			<view class="list_lib">
+  				<view class="list">滞纳金：</view>
+  				<view class="list list_l">￥{{fine/100}}</view>
+  			</view>
+  			<view class="list_line"></view>
+  			<view class="list_lib" style="width:610rpx;height:60rpx;font-size:24rpx;color:#999;line-height: 30rpx;">
+  				手续费：取证完立即收取手续费（1元），次日开始计算滞纳金（日息3%），滞纳金最高不超过停车欠费金额。
+  			</view>
+  		
+	  	</view>	
 	  		
 	  	<view class="list_cont_bot list_cont_botw" wx:if="{{!iscomeplate && arrearage > 0}}">
 	  		<view class="list_lib">
-  				<view class="list">应付金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
+  				<view class="list">欠费金额：</view>
+  				<view class="list list_l" style="color:#FF4C39;font-weight:900;">￥{{(arrearage + serviceCharge + fine)/100}}</view>
+  			</view>	
+	  		<view class="list_lib">
+  				<view class="list">应付总金额：</view>
+  				<view class="list list_l">￥{{(consume + serviceCharge + fine)/100}}</view>
   			</view>
   			<view class="list_lib">
   				<view class="list">已付金额：</view>
   				<view class="list list_l">￥{{payment/100}}</view>
   			</view>	
-  			<view class="list_lib">
-  				<view class="list">欠费金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{ arrearage/100}}</view>
-  			</view>	
   			<view class="list_line" wx:if="{{historyArr.length>0}}"></view>
   			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
   				<view class="list" style="width:320rpx;">{{item.time}}</view>
-  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
+  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">￥{{item.payment/100}}</text></view>
   			</view>	
   			<!--<view class="list_lib">
   				<view class="list" style="width:280rpx;">{{startTime}}</view>
@@ -552,7 +572,7 @@
 
 
     <cover-view class="box_pay" @tap="pay">
-      <button class="weui-btn green-btn" type="primary">微信支付（{{arrearage/100}}元）</button>
+      <button class="weui-btn green-btn" type="primary">微信支付（{{(arrearage + serviceCharge + fine)/100}}元）</button>
     </cover-view>
   </view>
   <!--支付成功-->
@@ -672,7 +692,9 @@
       isDox:false,
       licensePlate:'',
       parkingInfo:{},
-      historyArr:[]
+      historyArr:[],
+      serviceCharge:0,
+      fine:0
      }
 
     computed = {
@@ -829,6 +851,7 @@
 	        }else{
 	        	self.paytype = '历史订单'
 	        }
+	       
           if(dataInfo.data.data){
             self.isShowCont = false
             self.isShowCont = false
@@ -838,6 +861,8 @@
             self.buytime = dataInfo.data.data.payment > 0 ? self.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.startTime) : '0小时0分钟'    //购买时长
             self.payment = dataInfo.data.data.payment
             self.consume = dataInfo.data.data.consume
+            self.serviceCharge = dataInfo.data.data.serviceCharge
+          	self.fine = dataInfo.data.data.fine
             if(dataInfo.data.data.endTime){
               self.endTime = self.timeFormat(dataInfo.data.data.endTime)   //停车结束时间
 
@@ -987,7 +1012,7 @@
         spaceInnerNo : self.parkingInfo.parkNo,
         fromSystem : 868,
         payType : paytype,
-        payment : parseInt(self.arrearage),
+        payment : parseInt(self.arrearage + self.serviceCharge + self.fine),
         code : code
       }
       try {

@@ -136,25 +136,25 @@
               duration: 3000
             })
             clearTimeout(self.timeout)
-//          self.timeout = setTimeout(function(){
-//          	let data = {
-//	              "sendSMS":"sms_server_fault",
-//	              "phone":"15332428516",
-//	              "templateType":2,
-//	              "message":"支付异常(ourmrc)"
-//	            }
-//	            try{
-//	              const dataInfo = wepy.request({
-//	                method: api.pay.sendMsg.method,
-//	                url: api.pay.sendMsg.url,
-//	                data:JSON.stringify(data)
-//	              })
-//	              
-//	
-//	            } catch(e){
-//	              console.log(e)
-//	            }
-//          },6000)
+            self.timeout = setTimeout(function(){
+            	let data = {
+	              "sendSMS":"sms_server_fault",
+	              "phone":"15332428516",
+	              "templateType":2,
+	              "message":"支付异常(ourmrc)"
+	            }
+	            try{
+	              const dataInfo = wepy.request({
+	                method: api.pay.sendMsg.method,
+	                url: api.pay.sendMsg.url,
+	                data:JSON.stringify(data)
+	              })
+	              
+	
+	            } catch(e){
+	              console.log(e)
+	            }
+            },6000)
             
 
 
