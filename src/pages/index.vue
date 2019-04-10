@@ -388,10 +388,14 @@
     methods = {
       toParkingPay(recordId) {
         const self = this
-        wepy.setStorageSync('recordId', self.recordId)
+       
+    		wepy.setStorageSync('recordId', self.recordId)
         wepy.navigateTo({
           url: '/pages/parkingPay'
         })
+        
+        
+        
       },
       toRenewal() {
         const self = this

@@ -437,7 +437,7 @@
   		<view class="list_cont_bot list_cont_botw" wx:if="{{arrearage > 0}}">
 	  		<view class="list_lib">
   				<view class="list">停车欠费：</view>
-  				<view class="list list_l" style="color:#FF4C39;font-weight:900;">￥{{arrearage/100}}</view>
+  				<view class="list list_l">￥{{arrearage/100}}</view>
   			</view>	
 	  		<view class="list_lib">
   				<view class="list">手续费：</view>
@@ -457,7 +457,7 @@
 	  	<view class="list_cont_bot list_cont_botw" wx:if="{{!iscomeplate && arrearage > 0}}">
 	  		<view class="list_lib">
   				<view class="list">欠费金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;font-weight:900;">￥{{(arrearage + serviceCharge + fine)/100}}</view>
+  				<view class="list list_l" style="color:#FF4C39;">￥{{(arrearage + serviceCharge + fine)/100}}</view>
   			</view>	
 	  		<view class="list_lib">
   				<view class="list">应付总金额：</view>
@@ -472,107 +472,16 @@
   				<view class="list" style="width:320rpx;">{{item.time}}</view>
   				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">￥{{item.payment/100}}</text></view>
   			</view>	
-  			<!--<view class="list_lib">
-  				<view class="list" style="width:280rpx;">{{startTime}}</view>
-  				<view class="list list_l" style="color:#333;">微信支付<text style="color:#44CD0E;">{{ arrearage/100 }}</text>元</view>
-  			</view>	-->
+  		
 	  	</view>	
 	  	
-	  	<!--<view class="list_cont_bot list_cont_botw" wx:if="{{historyArr.length>0 && !iscomeplate}}">
-	  		<view class="list_lib">
-  				<view class="list">订单金额：</view>
-  				<view class="list list_l" style="color:#FF4C39;">￥{{consume/100}}</view>
-  			</view>
-  			<view class="list_line"></view>
-  			<view class="list_lib" wx:for="{{historyArr}}" wx:key="{{id}}">
-  				<view class="list" style="width:280rpx;">{{item.time}}</view>
-  				<view class="list list_l">{{item.paytype}}:<text style="color:#44CD0E;">{{item.payment/100}}</text>元</view>
-  			</view>	
-  			
-  			
-  			
-	  	</view>	-->
 	  	
-   
-    	
-    	
-      <!--<view class="cont">
-        <view class="cont_flex">
-          <view class="cont_left">
-            {{roadname}}
-          </view>
-          <view class="cont_right">
-            <view class="cont_btn" style="background:#00c8b3;" wx:if="{{iscomeplate || arrearage == 0}}">订单完成</view>
-            <view class="cont_btn" wx:if="{{!iscomeplate && arrearage > 0}}">{{evidenceState}}</view>
-          </view>
-        </view>
-        <view class="cont_money">
-          ￥{{arrearage/100}}
-        </view>
-
-        <view class="cont_flex cont_flex_first">
-          <view class="flex_list">车牌：</view>
-          <view class="flex_list_right">{{busNumber}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">停车时间：</view>
-          <view class="flex_list_right">{{startTime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">驶离时间：</view>
-          <view class="flex_list_right">{{endTime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">停车时长：</view>
-          <view class="flex_list_right">{{time}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">购买时长：</view>
-          <view class="flex_list_right">{{buytime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">超时时长：</view>
-          <view class="flex_list_right">{{cstime}}</view>
-        </view>
-        <view class="cont_flex">
-          <view class="flex_list">停车位置：</view>
-          <view class="flex_list_right">{{address}}</view>
-        </view>
-      </view>-->
     </view>
 
-    <!--<view class="box_evidence" wx:if="{{isShow}}">-->
-      <!--<view class="cont">-->
-        <!--<view class="cont_tit">取证记录</view>-->
-        <!--<view class="cont_list">咪表照片</view>-->
-        <!--<view class="cont_scroll">-->
-          <!--<scroll-view class="scroll_x" scroll-x style="width: 100%">-->
-            <!--<view class="scroll_list" wx:for="{{mbimg}}" wx:key="{{index}}" @tap="largeImgBh('{{item}}')">-->
-              <!--<image src="{{item}}"></image>-->
-            <!--</view>-->
-
-          <!--</scroll-view>-->
-        <!--</view>-->
-        <!--<view class="cont_list">车辆照片</view>-->
-        <!--<view class="cont_scroll">-->
-          <!--<scroll-view class="scroll_x" scroll-x style="width: 100%">-->
-            <!--<view class="scroll_list" wx:for="{{xcimg}}" wx:key="{{index}}" @tap="largeImgMb('{{item}}')">-->
-              <!--<image src="{{item}}"></image>-->
-            <!--</view>-->
-
-          <!--</scroll-view>-->
-        <!--</view>-->
-        <!--<view class="cont_list">现场视频</view>-->
-        <!--<view class="cont_movie">-->
-
-          <!--<video class="cont_movie_content" src="{{video}}"></video>-->
-        <!--</view>-->
-      <!--</view>-->
-    <!--</view>-->
-
+   
 
     <cover-view class="box_pay" @tap="pay">
-      <button class="weui-btn green-btn" type="primary">微信支付（{{(arrearage + serviceCharge + fine)/100}}元）</button>
+      <button class="weui-btn green-btn" type="primary" disabled="{{isDisable}}">微信支付（{{(arrearage + serviceCharge + fine)/100}}元）</button>
     </cover-view>
   </view>
   <!--支付成功-->
@@ -601,7 +510,7 @@
 
   </view>
   <!--停车缴费-->
-  <view class="dox" wx:if="{{!isDox}}">
+  <view class="dox" wx:if="{{!isDox && !ispay}}">
     <view class="dox_header">
       <view class="dox_tit">车位编号</view>
       <view class="dox_des">请查看车位白框内喷涂的6位车位编号并输入</view>
@@ -622,7 +531,7 @@
       <view class="dox_href_des">（请允许系统访问您的位置信息）</view>
     </view>
     <view class="box_pay">
-      <button class="weui-btn green-btn" type="primary" disabled="{{isDisable}}" @tap="toCheckPay">确定</button>
+      <button class="weui-btn green-btn" type="primary" @tap="toCheckPay">确定</button>
     </view>
   </view>
 
@@ -688,7 +597,7 @@
 
 
       isShow:false,
-      ispay:false,
+      ispay:true,
       isDox:false,
       licensePlate:'',
       parkingInfo:{},
@@ -704,6 +613,8 @@
     methods = {
       async pay(){
         const self = this
+        self.isDisable = true
+        self.$apply()
         await self.getCode()
 
       },
@@ -932,6 +843,8 @@
             
           }
         }else{
+          self.ispay = false
+          self.isDox = false
         	self.isFocus = true
         }
         self.$apply()
@@ -992,7 +905,7 @@
     //获取code
     async getCode(){
       const self = this
-      self.isDisable = true
+      
       wx.login({
         success(res){
           self.sendOrder(res.code)
@@ -1023,7 +936,7 @@
           data: JSON.stringify(data)
         })
         if(dataInfo.data.code == 0){
-          self.isDisable = false
+         
           self.$apply()
           wx.requestPayment({
             timeStamp: dataInfo.data.data.timeStamp,
@@ -1033,6 +946,7 @@
             paySign: dataInfo.data.data.paySign,
             success:function(data){
               self.ispay = false
+              self.isDisable = false
             },
             fail:function(e){
               self.isDisable = false           	
@@ -1154,7 +1068,7 @@
             }else if(item.payType == 40){
               paytype = '离线订单'
             }
-
+            self.historyArr = []
             self.historyArr.push({
               id:index,
               time:self.timeFormat(item.addTime),

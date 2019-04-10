@@ -444,7 +444,7 @@
     async sendOrder(code){
       const self = this
       let data = {}
-     
+      console.log(self.arrearage)
 	    data = {
 	      recordId : self.recordId,
 	      meterSN : self.parkingInfo.sn,

@@ -130,31 +130,31 @@
           if(p.statusCode == 502 || !p){
             wx.hideLoading()
            
-            wx.showToast({
-              title: '网络连接失败，请稍后再试！',
-              icon: 'none',
-              duration: 3000
-            })
-            clearTimeout(self.timeout)
-            self.timeout = setTimeout(function(){
-            	let data = {
-	              "sendSMS":"sms_server_fault",
-	              "phone":"15332428516",
-	              "templateType":2,
-	              "message":"支付异常(ourmrc)"
-	            }
-	            try{
-	              const dataInfo = wepy.request({
-	                method: api.pay.sendMsg.method,
-	                url: api.pay.sendMsg.url,
-	                data:JSON.stringify(data)
-	              })
-	              
-	
-	            } catch(e){
-	              console.log(e)
-	            }
-            },6000)
+//          wx.showToast({
+//            title: '网络连接失败，请稍后再试！',
+//            icon: 'none',
+//            duration: 3000
+//          })
+//          clearTimeout(self.timeout)
+//          self.timeout = setTimeout(function(){
+//          	let data = {
+//	              "sendSMS":"sms_server_fault",
+//	              "phone":"15332428516",
+//	              "templateType":2,
+//	              "message":"支付异常(ourmrc)"
+//	            }
+//	            try{
+//	              const dataInfo = wepy.request({
+//	                method: api.pay.sendMsg.method,
+//	                url: api.pay.sendMsg.url,
+//	                data:JSON.stringify(data)
+//	              })
+//	              
+//	
+//	            } catch(e){
+//	              console.log(e)
+//	            }
+//          },6000)
             
 
 

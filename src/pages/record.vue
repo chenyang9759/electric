@@ -159,7 +159,7 @@
       		</view>
       		<view class="list_top list_top_w" wx:if="{{item.arrearage > 0}}">
       			<view class="list_top_left">超时欠费</view>
-      			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
+      			<view class="list_top_right">￥<text class="price">{{item.consume/100}}</text></view>
       		</view>
       		
       		<view class="list_center">
@@ -177,7 +177,7 @@
       		</view>
       		
       		<view class="list_bot">
-      			<view class="lib_btn lib_btn_w" @tap="toPay('{{item.recordId}}','{{item.meterNo}}','{{item.spaceInnerNo}}','{{item.arrearage}}')" wx:if="{{item.arrearage > 0}}">立即补缴</view>
+      			<view class="lib_btn lib_btn_w" @tap="toPay('{{item.recordId}}','{{item.meterNo}}','{{item.spaceInnerNo}}','{{item.consume}}')" wx:if="{{item.arrearage > 0}}">立即补缴</view>
       			<view class="lib_btn" @tap="toDetail('{{item.recordId}}')">查看详情</view>     			
       		</view>
       	</view>
