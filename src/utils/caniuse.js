@@ -10,7 +10,8 @@ function isuse(api) {
       console.log(isuse);
       wx.showModal({
         title: '提示',
-        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+        showCancel : false,
+        content: '当前微信版本过低，部分功能无法使用，请升级到最新微信版本后重试。'
       })
 
     }
