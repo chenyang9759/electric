@@ -294,6 +294,7 @@
               title: '提示',
               showCancel: false,
               content: '请驶离后再扫码补缴欠费，目前车辆未驶离，订单正在计费中，不可补缴。',
+              confirmColor:'#00c8b3',
               confirmText:'其它车位',
               success(res) {
                 if (res.confirm) {

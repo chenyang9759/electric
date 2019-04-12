@@ -754,7 +754,7 @@
         	
           dataInfo.data.data.forEach((item,index)=>{
           	let paytype = ''
-            if(item.payType == 3 || item.payType == 12 || item.payType == 51){
+            if(item.payType == 3 || item.payType == 12 || item.payType == 51 || item.payType == 52 || item.payType == 53){
               if(item.fundFlow == 1){
                 paytype = '微信支付'
               }else if(item.fundFlow == 2){

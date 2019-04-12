@@ -161,7 +161,7 @@
 
     methods = {
       toCheckPay(spaceState,spaceInnerNo,payType,spSte){
-        console.log(spSte)
+        console.log(payType)
         const self = this
         self.parkingInfo.parkNo = spaceInnerNo
         self.parkingInfo.payType = payType
@@ -172,6 +172,7 @@
             title: '提示',
             showCancel: false,
             content: '请驶离后再扫码补缴欠费，目前车辆未驶离，订单正在计费中，不可补缴。',
+            confirmColor:'#00c8b3',
             confirmText: '确定',
             success(res) {
               if (res.confirm) {
@@ -186,7 +187,7 @@
         }
         if(self.exdata.scan_pre_day == 0 && self.exdata.scan_pre_buy == 0){
           if( spaceState == 71 || spaceState == 72 || spaceState==73){
-
+               
 
             if(payType == 0){
               wepy.navigateTo({
@@ -208,7 +209,7 @@
               })
             }else if(payType == 30 || payType == 31 || payType == 32 || payType == 33){
               wx.showToast({
-                title: '您已使用过车主卡或包月卡，无需支付！',
+                title: '您已使用车主卡刷卡，无需支付！',
                 icon: 'none',
                 duration: 2000
               })
@@ -217,6 +218,7 @@
                 title: '提示',
                 showCancel: false,
                 content: '请驶离后再扫码补缴欠费，目前车辆未驶离，订单正在计费中，不可补缴。',
+                confirmColor:'#00c8b3',
                 confirmText: '确定',
                 success(res) {
                   if (res.confirm) {
@@ -250,7 +252,7 @@
               })
             }else if(payType == 30 || payType == 31 || payType == 32 || payType == 33){
               wx.showToast({
-                title: '您已使用过车主卡或包月卡，无需支付！',
+                title: '您已使用车主卡刷卡，无需支付！',
                 icon: 'none',
                 duration: 2000
               })
@@ -283,7 +285,7 @@
               })
             }else if(payType == 30 || payType == 31 || payType == 32 || payType == 33) {
               wx.showToast({
-                title: '您已使用过车主卡或包月卡，无需支付！',
+                title: '您已使用车主卡刷卡，无需支付！',
                 icon: 'none',
                 duration: 2000
               })
@@ -308,9 +310,44 @@
           }
         }else if(self.exdata.scan_pre_day == 1 && self.exdata.scan_pre_buy == 1){
           if( spaceState == 71 || spaceState == 72 || spaceState==73){
-            wepy.navigateTo({
-              url: '/pages/checkPay'
-            })
+            if(payType == 0){
+              wepy.navigateTo({
+                url: '/pages/checkPay'
+              })
+            }else if(payType == 11 || payType == 12 || payType == 13){
+              wepy.navigateTo({
+                url: '/pages/allDay'
+              })
+            }else if(payType == 2 || payType == 3 || payType == 4){
+              wepy.navigateTo({
+                url: '/pages/allHour'
+              })
+            }else if(payType == 40){
+              wx.showToast({
+                title: '本次停车免费！',
+                icon: 'none',
+                duration: 2000
+              })
+            }else if(payType == 30 || payType == 31 || payType == 32 || payType == 33){
+              wx.showToast({
+                title: '您已使用车主卡刷卡，无需支付！',
+                icon: 'none',
+                duration: 2000
+              })
+            }else{
+              wx.showModal({
+                title: '提示',
+                showCancel: false,
+                content: '请驶离后再扫码补缴欠费，目前车辆未驶离，订单正在计费中，不可补缴。',
+                confirmColor:'#00c8b3',
+                confirmText: '确定',
+                success(res) {
+                  if (res.confirm) {
+
+                  }
+                }
+              })
+            }
           }else if( spaceState == 70 ){
             wx.showToast({
               title: '当前车位暂未检测到车辆驶入，请稍后再试！',

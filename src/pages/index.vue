@@ -656,6 +656,7 @@
             title: '提示',
             showCancel: false,
             content: '您有停车欠费尚未完成支付，支付欠费后方可正常缴费停车！',
+            confirmColor:'#00c8b3',
             confirmText:'缴纳欠费',
             success(res) {
               if (res.confirm) {
