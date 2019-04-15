@@ -11,6 +11,7 @@ export default async function request(options) {
 
   if (options.header) {
     options.header['Cookie'] = authKey
+    
   } else {
     options.header = {
       'Cookie': authKey

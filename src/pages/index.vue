@@ -327,7 +327,7 @@
   import auth from '../service/auth'
   import {api} from '../config'
   import qrcode from '../service/qrcode'
-
+  import util from '../utils/util'
 
 
 
@@ -798,7 +798,7 @@
               }else{
                 self.tcz = true
                 self.recordId = dataInfo.data.data[0].recordId
-                self.tctime = self.timeFormat(dataInfo.data.data[0].expireTime)
+                self.tctime = util.timeFormat(dataInfo.data.data[0].expireTime)
               }
             }
 
@@ -814,17 +814,7 @@
     }
 
 
-    // 时间转化
-    timeFormat(timestamp){
-      let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let Y = date.getFullYear();
-      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
-      let D = date.getDate()  < 10 ? '0'+date.getDate():date.getDate();
-      let h = date.getHours() < 10 ? '0'+ date.getHours() : date.getHours();
-      let m = date.getMinutes() < 10?'0'+date.getMinutes() : date.getMinutes();
-      return Y+'-'+M +'-'+D+' '+ h+':'+m;
-    }
-
+ 
     getSceneType(options){
       console.log(options)
       let sceneType = options.scene

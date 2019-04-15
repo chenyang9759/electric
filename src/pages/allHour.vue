@@ -193,7 +193,7 @@
   import wepy from 'wepy'
   import http from '../utils/request'
   import {api} from '../config'
-
+  import util from '../utils/util'
 
 
 
@@ -363,11 +363,11 @@
           self.expire = dataInfo.data.data.expireTime
           self.mintime = dataInfo.data.data.minimumTime
           self.starttime = dataInfo.data.data.startTime
-          self.timeout = self.timeCalculation(dataInfo.data.data.timeout)
+          self.timeout = util.timeCalculation(dataInfo.data.data.timeout)
           if(dataInfo.data.data.minimumTime == dataInfo.data.data.interval && dataInfo.data.data.expireTime != dataInfo.data.data.startTime){
             self.minBuytime = 0
           }else{
-            self.minBuytime = self.timeCalculation(dataInfo.data.data.minimumTime)
+            self.minBuytime = util.timeCalculation(dataInfo.data.data.minimumTime)
           }
           self.init()
         }else if(dataInfo.data.code == -1){
@@ -387,35 +387,13 @@
         console.log(e)
       }
     }
-    // 时间转化
-    timeFormat(timestamp){
-      let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let Y = date.getFullYear();
-      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
-      let D = date.getDate()  < 10 ? '0'+date.getDate():date.getDate();
-      let h = date.getHours() < 10 ? '0'+ date.getHours() : date.getHours();
-      let m = date.getMinutes() < 10?'0'+date.getMinutes() : date.getMinutes();
-      return Y+'年'+M +'月'+D+'日'+' '+ h+':'+m;
-    }
-    timeCalculation(time){
-      let T = time/60000
-      let H = parseInt(T/60)
-      let M = T%60 > 9 ? T%60 : '0' + T%60
-      let str = H+'小时'+Math.ceil(M)+'分钟'
-      return str
-    }
-    timeMincal(time){
-      let T = time/60000 > 9 ? time/60000 : '0' + time/60000
-      let str = T +'分钟'
-      return str
-    }
     //第一次加载
     async firstInit(){
       const self = this
-      self.interval_show = self.timeMincal(self.interval)
-      self.expire_show = self.timeFormat(self.expire + self.mintime_dis)
-      self.mintime_show = self.timeCalculation(self.mintime)
-      self.starttime_show = self.timeFormat(self.starttime)
+      self.interval_show = util.timeMincal(self.interval)
+      self.expire_show = util.timeFormat(self.expire + self.mintime_dis)
+      self.mintime_show = util.timeCalculation(self.mintime)
+      self.starttime_show = util.timeFormat(self.starttime)
 
 
       self.$apply()
@@ -423,10 +401,10 @@
     // 页面首次加载
     async init(){
       const self = this
-      self.interval_show = self.timeMincal(self.interval)
-      self.expire_show = self.timeFormat(self.expire + self.mintime_dis)
-      self.mintime_show = self.timeCalculation(self.mintime)
-      self.starttime_show = self.timeFormat(self.starttime)
+      self.interval_show = util.timeMincal(self.interval)
+      self.expire_show = util.timeFormat(self.expire + self.mintime_dis)
+      self.mintime_show = util.timeCalculation(self.mintime)
+      self.starttime_show = util.timeFormat(self.starttime)
       self.$apply()
     }
     // 计算价格

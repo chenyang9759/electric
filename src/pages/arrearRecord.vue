@@ -266,7 +266,7 @@
   import wepy from 'wepy'
   import http from '../utils/request'
   import {api} from '../config'
-
+  import util from '../utils/util'
 
 
 
@@ -377,9 +377,9 @@
 	              consume:item.consume,
 	              payment:item.payment,
 	              arrearage: item.serviceCharge ? item.arrearage + item.serviceCharge + item.fine : item.arrearage,
-	              starttime:self.timeFormat(item.startTime),
-	              endtime:self.timeFormat(item.endTime),
-	              time:self.timeCalculation(item.endTime - item.startTime),
+	              starttime:util.timeFormat(item.startTime),
+	              endtime:util.timeFormat(item.endTime),
+	              time:util.timeCalculation(item.endTime - item.startTime),
 	              evidenceState:item.evidenceState,
 	              spaceInnerNo:item.spaceInnerNo
 	            })
@@ -393,9 +393,9 @@
 	              consume:item.consume,
 	              payment:item.payment,
 	              arrearage: item.serviceCharge ? item.arrearage + item.serviceCharge + item.fine : item.arrearage,
-	              starttime:self.timeFormat(item.startTime),
-	              endtime:self.timeFormat(item.endTime),
-	              time:self.timeCalculation(item.endTime - item.startTime),
+	              starttime:util.timeFormat(item.startTime),
+	              endtime:util.timeFormat(item.endTime),
+	              time:util.timeCalculation(item.endTime - item.startTime),
 	              evidenceState:item.evidenceState,
 	              spaceInnerNo:item.spaceInnerNo
 	            })
@@ -411,25 +411,6 @@
         console.log(e)
       }
     }
-
-    // 时间转化
-    timeFormat(timestamp){
-      let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let Y = date.getFullYear()%100;
-      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
-      let D = date.getDate()  < 10 ? '0'+date.getDate():date.getDate();
-      let h = date.getHours() < 10 ? '0'+ date.getHours() : date.getHours();
-      let m = date.getMinutes() < 10?'0'+date.getMinutes() : date.getMinutes();
-      return Y+'-'+M +'-'+D+' '+ h+':'+m;
-    }
-    timeCalculation(time){
-      let T = time/60000
-      let H = parseInt(T/60)
-      let M = T%60 > 9 ? T%60 : '0' + T%60
-      let str = H+'小时'+Math.ceil(M)+'分钟'
-      return str
-    }
-    
     //获取code
     async getCode(){
       const self = this

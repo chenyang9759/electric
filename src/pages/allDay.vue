@@ -162,6 +162,7 @@
   import wepy from 'wepy'
   import http from '../utils/request'
   import {api} from '../config'
+  import util from '../utils/util'
 
   export default class AllDay extends wepy.page {
     config = {
@@ -373,22 +374,12 @@
     async init(){
       const self = this
 
-      self.starttime_show = self.timeFormat(self.starttime)
-      self.expire_show = self.timeFormat(self.expire)
+      self.starttime_show = util.timeFormat(self.starttime)
+      self.expire_show = util.timeFormat(self.expire)
       self.$apply()
     }
 
-    // 时间转化
-    timeFormat(timestamp){
-      let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let Y = date.getFullYear();
-      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
-      let D = date.getDate()  < 10 ? '0'+date.getDate():date.getDate();
-      let h = date.getHours() < 10 ? '0'+ date.getHours() : date.getHours();
-      let m = date.getMinutes() < 10?'0'+date.getMinutes() : date.getMinutes();
-      return Y+'年'+M +'月'+D+'日'+' '+ h+':'+m;
-    }
-
+   
 
   }
 </script>

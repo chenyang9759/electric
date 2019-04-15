@@ -2,7 +2,7 @@
 const env = 'development'; // 'development' or 'production'
 
 // WXAPP VERSION
-const version = '1.5.1';
+const version = '1.0.1';
 
 // development and production host
 const hosts = {

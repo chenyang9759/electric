@@ -319,7 +319,8 @@
   import wepy from 'wepy'
   import http from '../utils/request'
   import {api} from '../config'
-
+	import util from '../utils/util'
+	
 
 
 
@@ -424,13 +425,13 @@
           self.consume = dataInfo.data.data.consume        //应付
           self.payment = dataInfo.data.data.payment        //实付
           self.roadname =dataInfo.data.data.roadName + dataInfo.data.data.meterNo + '号咪表0' + dataInfo.data.data.spaceInnerNo +'号车位'     //路名称
-          self.startTime = self.timeFormat(dataInfo.data.data.startTime)    //开始停车时间
-          self.endTime = dataInfo.data.data.endTime ? self.timeFormat(dataInfo.data.data.endTime) : '停车中'        //停车结束时间
-          self.extime = self.timeFormat(dataInfo.data.data.expireTime)
-          self.sytime = dataInfo.data.data.serverDate > dataInfo.data.data.expireTime ? '已超时' + self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) : self.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.serverDate)
-          self.time = dataInfo.data.data.endTime ? self.timeCalculation(dataInfo.data.data.endTime - dataInfo.data.data.startTime) : self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.startTime)     //停车时长
-          self.buytime = self.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.startTime)
-          self.cstime = dataInfo.data.data.expireTime - dataInfo.data.data.serverDate > 0 ? '0小时0分钟' : self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) //超时时长
+          self.startTime = util.timeFormat(dataInfo.data.data.startTime)    //开始停车时间
+          self.endTime = dataInfo.data.data.endTime ? util.timeFormat(dataInfo.data.data.endTime) : '停车中'        //停车结束时间
+          self.extime = util.timeFormat(dataInfo.data.data.expireTime)
+          self.sytime = dataInfo.data.data.serverDate > dataInfo.data.data.expireTime ? '已超时' + util.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) : util.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.serverDate)
+          self.time = dataInfo.data.data.endTime ? util.timeCalculation(dataInfo.data.data.endTime - dataInfo.data.data.startTime) : util.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.startTime)     //停车时长
+          self.buytime = util.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.startTime)
+          self.cstime = dataInfo.data.data.expireTime - dataInfo.data.data.serverDate > 0 ? '0小时0分钟' : util.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) //超时时长
           self.parkingInfo.sn = dataInfo.data.data.meterSN
           self.parkingInfo.parkNo = dataInfo.data.data.spaceInnerNo
           self.parkingInfo.payType = dataInfo.data.data.payType
@@ -487,7 +488,7 @@
             let obj = {
               money:item.actualAmount,
               type:paytype,
-              time:self.timeFormat(item.addTime)
+              time:util.timeFormat(item.addTime)
             }
             self.payArr.push(obj)
           })
@@ -500,25 +501,7 @@
 
 
 
-    // 时间转化
-    timeFormat(timestamp){
-      let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let Y = date.getFullYear();
-      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
-      let D = date.getDate()  < 10 ? '0'+date.getDate():date.getDate();
-      let h = date.getHours() < 10 ? '0'+ date.getHours() : date.getHours();
-      let m = date.getMinutes() < 10?'0'+date.getMinutes() : date.getMinutes();
-
-      return Y+'-'+M +'-'+D+' '+ h+':'+m;
-    }
-    timeCalculation(time){
-      let T = time/60000
-      let H = parseInt(T/60)
-      let M = T%60 > 9 ? T%60 : '0' + T%60
-      let str = H+'小时'+Math.ceil(M)+'分钟'
-      return str
-    }
-
+   
     async getPayhistory(recordId){
     	const self = this
       let data = {}    
@@ -566,7 +549,7 @@
             if(item.fundFlow == 1){
             	self.historyArr.push({
 	          		id:index,
-	          		time:self.timeFormat(item.addTime),
+	          		time:util.timeFormat(item.addTime),
 	          		paytype:paytype,
 	          		payment:item.actualAmount
 	          	})
