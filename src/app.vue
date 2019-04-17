@@ -45,7 +45,9 @@
         'pages/mine/income',
         'pages/mine/coupon',
         'pages/mine/coupondetail',
-        'pages/mine/parkcard'
+        'pages/mine/parkcard',
+        'pages/mine/mycard',
+        'pages/mine/renewalfee',
 
 
 

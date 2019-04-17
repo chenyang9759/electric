@@ -18,7 +18,7 @@
   		.header_top{
   			width:100%;
   			height:110rpx;
-  			background: #333333;
+  			
   		}
   		.header_bot{
   			width:690rpx;
@@ -253,9 +253,7 @@
 
   export default class Wallet extends wepy.page {
     config = {
-      navigationBarTitleText: '我的钱包',
-      navigationBarBackgroundColor:'#333333',
-      navigationBarTextStyle:'white'
+      navigationBarTitleText: '我的钱包'
     }
 
     components = {

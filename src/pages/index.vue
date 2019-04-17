@@ -112,19 +112,19 @@
   }
   .list_tcjf{
     background:#00c8b3;
-    box-shadow:4px 4px 10px rgba(0,0,0,0.2);
+    box-shadow:0px 4px 40px rgba(0,0,0,0.2);
   }
   .list_bjqf{
     background:#F5b400;
-    box-shadow:4px 4px 10px rgba(0,0,0,0.2);
+    box-shadow:0px 4px 40px rgba(0,0,0,0.2);
   }
   .list_jjcs{
     background:rgba(255, 153, 0, 1);
-    box-shadow:4px 4px 10px rgba(0,0,0,0.2);
+    box-shadow:0px 4px 40px rgba(0,0,0,0.2);
   }
   .list_tccs{
     background:#FF3300;
-    box-shadow:4px 4px 10px rgba(0,0,0,0.2);
+    box-shadow:0px 4px 40px rgba(0,0,0,0.2);
   }
   .line{
     width:100%;

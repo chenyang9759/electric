@@ -33,7 +33,7 @@ export default async function request(options) {
   }
 
 
-//console.log(response)
+
 
 
 }

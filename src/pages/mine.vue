@@ -276,7 +276,7 @@
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_right.png"></image>
 	    	  </view>
 	    	</view>
-	    	<view class="slide_list">
+	    	<!--<view class="slide_list">
 	    	  <view class="slide_list_left">
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_set.png"></image>
 	    	  </view>
@@ -284,7 +284,7 @@
 	    	  <view class="slide_list_right">
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_right.png"></image>
 	    	  </view>
-	    	</view>
+	    	</view>-->
     	</view>
     	
     </view>

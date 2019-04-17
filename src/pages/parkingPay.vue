@@ -1,5 +1,4 @@
 <style lang="less">
-
   page{
     width:100%;
     height:100%;
@@ -24,7 +23,6 @@
     width:100%;
     
     margin-top:20rpx;
-
     position:relative;
     .list_top{
     		width:678rpx;
@@ -178,10 +176,7 @@
     	
     }
   }  
-
   .box_pay{
-
-
     width:100%;
     height:120rpx;
     position: fixed;
@@ -212,8 +207,6 @@
       left:35rpx;
     }
   }
-
-
   .pox{
     width:100%;
     height:100%;
@@ -254,7 +247,6 @@
         position: absolute;
         top:35rpx;
         left:50rpx;
-
         image{
           width:100%;
           height:100%;
@@ -276,10 +268,7 @@
     .list_tcjf{
       background:#00c8b3;
     }
-
   }
-
-
   .dox{
     width:100%;
     height:100%;
@@ -330,10 +319,8 @@
           height:126rpx;
           text-space: 50rpx;
           position:absolute;
-
           top:0;
           left:-700rpx;
-
           opacity: 0;
           z-index: 9;
         }
@@ -355,8 +342,6 @@
       }
     }
   }
-
-
 </style>
 <template>
   <!--存在欠费记录-->
@@ -543,25 +528,14 @@
   import wepy from 'wepy'
   import http from '../utils/request'
   import {api} from '../config'
-	import util from '../utils/util'
-
-
-
-
-
   export default class ParkingPay extends wepy.page {
     config = {
       navigationBarTitleText: '停车缴费',
       navigationBarBackgroundColor:'#00c8b3',
       navigationBarTextStyle:'white'
-
     }
     components = {
-
     }
-
-
-
     data = {
       isDisable:false,
       isArrears:false,
@@ -584,18 +558,14 @@
       address:'',
       consume:'',
       mbimg:[
-
       ],
       exdata:{
         scan_pre_day:0,
         scan_pre_buy:0
       },
       xcimg:[
-
       ],
       video:'',
-
-
       isShow:false,
       ispay:true,
       isDox:false,
@@ -605,18 +575,14 @@
       serviceCharge:0,
       fine:0
      }
-
     computed = {
-
     }
-
     methods = {
       async pay(){
         const self = this
         self.isDisable = true
         self.$apply()
         await self.getCode()
-
       },
       toIndex(){
         wx.switchTab({
@@ -633,11 +599,8 @@
             url: '/pages/index'
           })
         }
-
-
       },
       async toChooseParking(){
-
         wepy.navigateTo({
           url: '/pages/chooseParking'
         })
@@ -645,9 +608,7 @@
       toCheckPay(){
         const self = this
         if(self.licensePlate.length == 6){
-
           self.getSpaceInfo()
-
         }else{
           wx.showToast({
             title: '请输入6位编码',
@@ -655,7 +616,6 @@
             duration: 2000
           })
         }
-
       },
       largeImgBh(currentImg){
         const self = this
@@ -681,25 +641,18 @@
         self.$apply()
       }
     }
-
     events = {
-
     }
-
     async onShow() {
-
       const self = this
       self.recordId = wepy.getStorageSync('recordId')
-
       await self.getRecord(self.recordId)
       await self.getPayhistory(self.recordId)
-
     }
     // 查看是否欠费
     async getArrears(){
       const self = this
       let data = {
-
       }
       try{
         const dataInfo = await http({
@@ -713,7 +666,6 @@
           }else{
             self.isArrears = false
           }
-
         }
         self.$apply()
       } catch(e){
@@ -768,26 +720,24 @@
             self.isShowCont = false
             self.busNumber = dataInfo.data.data.busNumber ? dataInfo.data.data.busNumber : '暂无'  //车牌
             self.roadname = dataInfo.data.data.roadName + dataInfo.data.data.meterNo + '号咪表0' + dataInfo.data.data.spaceInnerNo +'号车位'     //路名称
-            self.startTime = util.timeFormat(dataInfo.data.data.startTime)    //开始停车时间
-            self.buytime = dataInfo.data.data.payment > 0 ? util.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.startTime) : '0小时0分钟'    //购买时长
+            self.startTime = self.timeFormat(dataInfo.data.data.startTime)    //开始停车时间
+            self.buytime = dataInfo.data.data.payment > 0 ? self.timeCalculation(dataInfo.data.data.expireTime - dataInfo.data.data.startTime) : '0小时0分钟'    //购买时长
             self.payment = dataInfo.data.data.payment
             self.consume = dataInfo.data.data.consume
             self.serviceCharge = dataInfo.data.data.serviceCharge
           	self.fine = dataInfo.data.data.fine
             if(dataInfo.data.data.endTime){
-              self.endTime = util.timeFormat(dataInfo.data.data.endTime)   //停车结束时间
-
-              self.cstime = dataInfo.data.data.endTime > dataInfo.data.data.expireTime ? util.timeCalculation(dataInfo.data.data.endTime - dataInfo.data.data.expireTime) : '0小时0分钟'  //超时时长
+              self.endTime = self.timeFormat(dataInfo.data.data.endTime)   //停车结束时间
+              self.cstime = dataInfo.data.data.endTime > dataInfo.data.data.expireTime ? self.timeCalculation(dataInfo.data.data.endTime - dataInfo.data.data.expireTime) : '0小时0分钟'  //超时时长
             }else{
               self.endTime = '停车中'
               if(dataInfo.data.data.payment == 0){
-                self.cstime = dataInfo.data.data.serverDate > dataInfo.data.data.expireTime ? util.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.startTime) : '0小时0分钟'  //超时时长
+                self.cstime = dataInfo.data.data.serverDate > dataInfo.data.data.expireTime ? self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.startTime) : '0小时0分钟'  //超时时长
               }else{
-                self.cstime = dataInfo.data.data.serverDate > dataInfo.data.data.expireTime ? util.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) : '0小时0分钟'  //超时时长
+                self.cstime = dataInfo.data.data.serverDate > dataInfo.data.data.expireTime ? self.timeCalculation(dataInfo.data.data.serverDate - dataInfo.data.data.expireTime) : '0小时0分钟'  //超时时长
               }
-
             }
-            self.time = util.timeCalculation(dataInfo.data.data.endTime - dataInfo.data.data.startTime)    //停车时长
+            self.time = self.timeCalculation(dataInfo.data.data.endTime - dataInfo.data.data.startTime)    //停车时长
             self.parkingInfo.sn = dataInfo.data.data.meterSN
             self.parkingInfo.parkNo = dataInfo.data.data.spaceInnerNo
             self.parkingInfo.payType = dataInfo.data.data.payType
@@ -799,16 +749,13 @@
               self.isDox = false
               self.evidenceState = '订单完成'                //是否取证
 							self.isFocus = true
-
             }else if(dataInfo.data.data.arrearage > 0){
-
               //已欠费，未取证
               self.ispay = true
               self.isDox = true
               self.evidenceState = '欠费，已取证'                //是否取证
               self.iscomeplate = false
               self.isFocus = false
-
             }
 //          else if(dataInfo.data.data.parkState == 2 || dataInfo.data.data.parkState == 11){
 //            // 欠费，已取证
@@ -855,7 +802,6 @@
     // 通过编号缴费
     async getSpaceInfo(){
       const self = this
-
       let data = {
         spaceNo:self.licensePlate
       }
@@ -883,8 +829,23 @@
         console.log(e)
       }
     }
-
-   
+    // 时间转化
+    timeFormat(timestamp){
+      let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let Y = date.getFullYear();
+      let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
+      let D = date.getDate()  < 10 ? '0'+date.getDate():date.getDate();
+      let h = date.getHours() < 10 ? '0'+ date.getHours() : date.getHours();
+      let m = date.getMinutes() < 10?'0'+date.getMinutes() : date.getMinutes();
+      return Y+'-'+M +'-'+D+' '+ h+':'+m;
+    }
+    timeCalculation(time){
+      let T = time/60000
+      let H = parseInt(T/60)
+      let M = T%60 > 9 ? T%60 : '0' + T%60
+      let str = H+'小时'+Math.ceil(M)+'分钟'
+      return str
+    }
     //获取code
     async getCode(){
       const self = this
@@ -947,7 +908,6 @@
         console.log(e)
       }
     }
-
     // 获取信息
     async getInfo(sn) {
       const self = this
@@ -964,11 +924,6 @@
           data: JSON.stringify(data)
         })
         if(dataInfo.data.code == 0){
-
-
-
-
-
           if(dataInfo.data.exData){
             self.exdata.scan_pre_day = dataInfo.data.exData.scan_pre_day
             self.exdata.scan_pre_buy = dataInfo.data.exData.scan_pre_buy
@@ -990,7 +945,6 @@
               url: '/pages/checkPay'
             })
           }
-
           self.$apply()
           wx.hideLoading()
         }
@@ -998,7 +952,6 @@
         console.log(e)
       }
     }
-
     async getPayhistory(recordId){
     	const self = this
       let data = {}    
@@ -1006,12 +959,9 @@
 	      recordId : recordId
 	    }
       
-
-
       try {
         let dataInfo = await http({
           method: api.pay.payHisory.method,
-
           url: api.pay.payHisory.url,
           data: JSON.stringify(data)
         })
@@ -1054,11 +1004,10 @@
             self.historyArr = []
             self.historyArr.push({
               id:index,
-              time:util.timeFormat(item.addTime),
+              time:self.timeFormat(item.addTime),
               paytype:paytype,
               payment:item.actualAmount
             })
-
           	
           })
         }else if(dataInfo.data.code == -1){
@@ -1069,29 +1018,10 @@
 //        })
         }
         self.$apply()
-
-
       } catch (e) {
       	
         console.log(e)
       }
     }
-
-    async data(){
-    	
-    	let data = {
-    		code : 1,
-    		data : {
-    			status:1,
-    			time:11199,
-    			payment:1
-    		}
-    		
-    		
-    		
-    	}
-    	
-    }
-
   }
 </script>
