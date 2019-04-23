@@ -256,7 +256,7 @@
     				<view>开通停车卡，享更多优惠</view>
     				<view class="tips">停车卡低至每月450元</view>
     			</view>
-    			<view class="slide_first_right">立即开通</view>
+    			<view class="slide_first_right" @tap="toParkcard">立即开通</view>
     		</view>
     		<!--<view class="slide_list">
 	    	  <view class="slide_list_left">
@@ -346,6 +346,11 @@
  			toCoupon(){
  				wepy.navigateTo({
 	        url: '/pages/mine/coupon'
+	      })
+ 			},
+ 			toParkcard(){
+ 				wepy.navigateTo({
+	        url: '/pages/mine/parkcard'
 	      })
  			},
  			async handleUserInfo(e) {
