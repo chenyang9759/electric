@@ -452,7 +452,8 @@
       parkingInfo:{},
       historyArr:[],
       serviceCharge:0,
-      fine:0
+      fine:0,
+      type:''
 
     }
 
@@ -491,8 +492,10 @@
 
     }
 
-    async onLoad() {
+    async onLoad(option) {
       const self = this
+      self.type = option.type
+      console.log(self.type)
       self.recordId = wepy.getStorageSync('recordId')
 
       await self.getRecord(self.recordId)
@@ -689,9 +692,16 @@
             signType: dataInfo.data.data.signType,
             paySign: dataInfo.data.data.paySign,
             success:function(data){
-              wx.redirectTo({
-                url: '/pages/paySuccess'
-              })
+            	if(self.type == 'arrear'){
+            		wx.redirectTo({
+	                url: '/pages/carSuccess'
+	              })
+            	}else{
+            		wx.redirectTo({
+	                url: '/pages/paySuccess'
+	              })
+            	}
+              
             },
             fail:function(e){
               self.isDisable = false  

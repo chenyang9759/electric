@@ -94,18 +94,19 @@
     		margin-top:40rpx;
     		justify-content: space-between;
     		.cont_list{
-    			width:220rpx;
+    			width:330rpx;
     			border-left:1px solid #ECECEC;
     			.list{
     				line-height: 42rpx;
     				font-size:40rpx;
     				color:#333;
-    				text-indent:40rpx;
+    				text-align: center;
+    				
     			}
     			.list_bot{
     				font-size:28rpx;
     				color:#9a9a9a;
-    				text-indent:40rpx;
+    				text-align: center;
     				margin-top: 6rpx;
     			}
     		}
@@ -116,17 +117,19 @@
     }
     
     .slide{
-    	width:666rpx;
-    	margin-left:42rpx;
+    	width:678rpx;
+    	margin-left:36rpx;
     	margin-top: 50rpx;
     	.slide_first{
-    		width:666rpx;
+    		width:678rpx;
     		height:146rpx;
+    	
     		position: relative;
     		line-height: 48rpx;
     		font-size:28rpx;
-    		border-top:1px solid #ECECEC;
-    		border-bottom:1px solid #ECECEC;
+    		box-shadow:0px 4px 40px rgba(0,0,0,0.1);
+    		border-radius:14rpx;
+    		
     		.slide_first_left{
     			width:40rpx;
     			height:48rpx;
@@ -134,7 +137,8 @@
     			
     			position: absolute;
     			top:38rpx;
-    			left:0;
+    			left:24rpx;
+    			
     			.vip{
     				width:40rpx;
     				height:28rpx;
@@ -145,7 +149,7 @@
     			height:48rpx;
     			position:absolute;
     			top:34rpx;
-    			left:56rpx;
+    			left:80rpx;
     			font-weight:bold;
     			.tips{
     				color:#BBBBBB;
@@ -155,33 +159,38 @@
     			}
     		}
     		.slide_first_right{
-    			width:116rpx;
-    			height:48rpx;
+    			width:120rpx;
+    			height:60rpx;
     			position:absolute;
-    			top:34rpx;
-    			right:0;
+    			top:40rpx;
+    			right:20rpx;
+    			line-height: 60rpx;
     			-webkit-border-radius: 8rpx;
     			-moz-border-radius: 8rpx;
     			border-radius: 8rpx;
     			background:#F6D300;
-    			color:#2A2000;
+    			color:#726100;
     			text-align: center;
     			font-size:24rpx;
     		}
     	}
     	
     	.slide_list{
-    		width:666rpx;
+    		width:678rpx;
     		height:90rpx;
+    		margin-top:20rpx;
     		position: relative;
     		line-height: 40rpx;
     		font-size:28rpx;
-    		border-bottom:1px solid #ECECEC;
+    		
+    		box-shadow:0px 4px 40px rgba(0,0,0,0.1);
+    		border-radius:14rpx;
     		.slide_list_left{
     			width:40rpx;
     			height:40rpx;
     			position:absolute;
     			top:25rpx;
+    			left:24rpx;
     			.img{
     				width:40rpx;
     				height:40rpx;
@@ -190,7 +199,7 @@
     		.slide_list_center{
     			position:absolute;
     			top:25rpx;
-    			left:56rpx;
+    			left:80rpx;
     			font-weight:bold;
     		}
     		.slide_list_right{
@@ -198,7 +207,7 @@
     			height:24rpx;
     			position:absolute;
     			top:33rpx;
-    			right:0;
+    			right:20rpx;
     			.img{
     				width:15rpx;
     				height:24rpx;
@@ -241,33 +250,33 @@
 					<view class="list">0</view>
     			<view class="list_bot">停车券</view>
 				</view>
-				<view class="cont_list" @tap="toCoupon">
+				<!--<view class="cont_list" @tap="toCoupon">
 					<view class="list">0</view>
     			<view class="list_bot">优惠券</view>
-				</view>
+				</view>-->
     	</view>  
     	
     	<view class="slide">
-    		<view class="slide_first">
+    		<view class="slide_first" wx:if="{{vipType <= 0}}">
     			<view class="slide_first_left">
     				<image class="vip" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_vip.png"></image>
     			</view>
     			<view class="slide_first_center">
-    				<view>开通停车卡，享更多优惠</view>
-    				<view class="tips">停车卡低至每月450元</view>
+    				<view>开通vip会员，享更多优惠</view>
+    				<view class="tips">vip会员低至每月{{monthPrice}}元</view>
     			</view>
     			<view class="slide_first_right" @tap="toParkcard">立即开通</view>
     		</view>
-    		<!--<view class="slide_list">
+    		<view class="slide_list" @tap="toMycard" wx:if="{{vipType > 0}}">
 	    	  <view class="slide_list_left">
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/min_vips.png"></image>
 	    	  </view>
-	    	  <view class="slide_list_center">停车卡</view>
+	    	  <view class="slide_list_center">vip会员</view>
 	    	  <view class="slide_list_right">
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_right.png"></image>
 	    	  </view>
-	    	</view>-->
-	    	<view class="slide_list">
+	    	</view>
+	    	<!--<view class="slide_list">
 	    	  <view class="slide_list_left">
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_news.png"></image>
 	    	  </view>
@@ -275,7 +284,7 @@
 	    	  <view class="slide_list_right">
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_right.png"></image>
 	    	  </view>
-	    	</view>
+	    	</view>-->
 	    	<!--<view class="slide_list">
 	    	  <view class="slide_list_left">
 	    	  	<image class="img" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_set.png"></image>
@@ -324,7 +333,9 @@
 
     data = {
       userInfo:{},
-      islogin:false
+      islogin:false,
+      monthPrice:'',
+      vipType:0
 
     }
 
@@ -353,6 +364,19 @@
 	        url: '/pages/mine/parkcard'
 	      })
  			},
+ 			toMycard(){
+ 				const self = this
+ 				if(self.userInfo.vipType == 1){
+ 					wepy.navigateTo({
+		        url: '/pages/mine/silver'
+		      })
+ 				}else if(self.userInfo.vipType == 2){
+ 					wepy.navigateTo({
+		        url: '/pages/mine/gold'
+		      })
+ 				}
+ 				
+ 			},
  			async handleUserInfo(e) {
         const self = this
         let msg = e.detail.errMsg
@@ -374,9 +398,11 @@
 
     }
 
-    async onLoad() {
+    async onShow() {
       const self = this
+      await self.package()
       self.userInfo = wepy.getStorageSync('userInfo')
+      self.vipType = self.userInfo.vipType
       if(self.userInfo.headImg == ''){
       	self.islogin = false
       }else{
@@ -384,5 +410,30 @@
       }
       self.$apply()
     }
+    
+    
+     async package(){
+    	const self = this
+      let data = {
+
+      }
+   
+      try {
+        let dataInfo = await http({
+            method: api.vip.getPackage.method,
+            url: api.vip.getPackage.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.monthPrice = dataInfo.data.data.monthStandard / 100
+         
+          self.$apply()
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    
   }
 </script>

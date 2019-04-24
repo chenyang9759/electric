@@ -33,6 +33,7 @@
     }
     .box_cont{
       width:100%;
+      padding-bottom: 20rpx;
       .list{
 		   	.list_content{
 		   		width:678rpx;
@@ -306,7 +307,7 @@
 
         wepy.setStorageSync('recordId', recordId)
         wepy.navigateTo({
-          url: '/pages/recordDetail'
+          url: '/pages/recordDetail?type=' + 'arrear'
         })
       },
       toPaySuccess(){
@@ -457,7 +458,7 @@
             paySign: dataInfo.data.data.paySign,
             success:function(data){
               wx.redirectTo({
-                url: '/pages/paySuccess'
+                url: '/pages/carSuccess'
               })
             },
             fail:function(e){

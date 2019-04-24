@@ -2,7 +2,7 @@
   page{
     width:100%;
     height:100%;
-    background: #f4f5fa;
+    background: #fff;
     position: relative;
     top:0;
     left:0;
@@ -41,58 +41,54 @@
   	}
   	
   	.cont{
-  		width:100%;
-  		position:absolute;
-  		top:88rpx;
-  		.cont_w{
-  			width:710rpx;
-  			margin-left:20rpx;
-  			
-  			margin-top:6rpx;
-  			background:#fff;
-  		  .list{
-  		  	width:710rpx;
-  		  	height:98rpx;  		  	
-  		  	position:relative;
-  		  	.list_cont{
-  		  		width:678rpx;
-  		  		height:98rpx;
-  		  		border-bottom:2rpx solid #E9E9E9;
-  		  		position: absolute;
-  		  		right:0;
-  		  		.cont_left{
-  		  			width:380rpx;
-  		  			height:98rpx;
-  		  			position: absolute;
-  		  			top:0;
-  		  			left:0;
-  		  			.cont_left_top{
-  		  				font-size:28rpx;
-  		  				color:#666;
-  		  				margin-top:10rpx;
-  		  			}
-  		  			.cont_left_bot{
-  		  				font-size:18rpx;
-  		  				color:#A1A1A1;
-  		  			}
-  		  		}
-  		  		.cont_right{
-  		  			width:270rpx;
-  		  			height:98rpx;
-  		  			position: absolute;
-  		  			top:0;
-  		  			right:30rpx;
-  		  			text-align: right;
-  		  			line-height: 98rpx;
-  		  			color:#666;
-  		  			font-size:28rpx;
-  		  		}
-  		  	}
+  		width:678rpx;
+  		box-shadow:0px 4px 40px rgba(0,0,0,0.1);
+    	border-radius:14rpx;
+    	margin-top:102rpx;
+    	margin-left: 36rpx;
+  		.content_list{
+  			width:650rpx;
+  			height:110rpx;
+  			margin-left: 24rpx;
+  			border-bottom:2rpx dashed #F0F0F0;
   		  
-  		  }
-  			
+  			position: relative;
+  			.list_top{
+  				
+  				.list_icon{
+  					width:20rpx;
+  					height:20rpx;
+  					background: #00c8b3;
+  					border-radius:10rpx;
+  					position: absolute;
+  					top:24rpx;
+  				}
+  				.list_tit{
+  					font-size:32rpx;
+  					width:200rpx;
+  					height:32rpx;
+  					line-height: 32rpx;
+  					color:#484848;
+  					position: absolute;
+  					top:18rpx;
+  					left:46rpx;
+  				}  				
+  			}
+  			.list_bot{
+					font-size:24rpx;
+					color:#cccccc;
+					position:absolute;
+					bottom:14rpx;
+					left:46rpx;
+				}
   		}
-  		
+  		.list_right{
+  			position: absolute;
+  			right:20rpx;
+  			line-height: 102rpx;
+  			color:#FBA51E;
+  			font-size:36rpx;
+  		}
   	}
   }
   
@@ -100,8 +96,8 @@
     width: 100%;
     text-align: center;
     font-size: 28rpx;
-    line-height: 60rpx;
-    color:#666;
+    line-height: 110rpx;
+    color:#999;
   }
 
 
@@ -119,44 +115,28 @@
     
     <scroll-view scroll-y="true" class="cont">
     	<view class="cont_w" wx:if="{{ !isExpired }}">
-    		<!--<view class="list">
-    			<view class="list_cont">
-    				<view class="cont_left">
-    					<view class="cont_left_top">支付</view>
-    					<view class="cont_left_bot">2018-01-11 16:00</view>
-    				</view>
-    				<view class="cont_right">
-    					-100元
-    				</view>
-    			</view>
-    			
-    		</view>    		
-    		<view class="list">
-    			<view class="list_cont">
-    				<view class="cont_left">
-    					<view class="cont_left_top">支付</view>
-    					<view class="cont_left_bot">2018-01-11 16:00</view>
-    				</view>
-    				<view class="cont_right">
-    					-100元
-    				</view>
-    			</view>
-    			
-    		</view>    		-->
+    		<view class="content_list">
+	  			<view class="list_left">
+	  				<view class="list_top">
+	  					<view class="list_icon"></view>
+	  					<view class="list_tit">消费</view>
+	  				</view>
+	  				<view class="list_bot">2018 10/05 12:56</view>
+	  			</view>
+	  			<view class="list_right">¥-450</view>
+	  		</view>
     	</view>
     	<view class="cont_w cont_y" wx:if="{{ isExpired }}">
-    		<!--<view class="list">
-    			<view class="list_cont">
-    				<view class="cont_left">
-    					<view class="cont_left_top">充值</view>
-    					<view class="cont_left_bot">2018-01-11 16:00</view>
-    				</view>
-    				<view class="cont_right">
-    					+200元
-    				</view>
-    			</view>
-    			
-    		</view>    -->
+    		<view class="content_list">
+	  			<view class="list_left">
+	  				<view class="list_top">
+	  					<view class="list_icon"></view>
+	  					<view class="list_tit">充值</view>
+	  				</view>
+	  				<view class="list_bot">2018 10/05 12:56</view>
+	  			</view>
+	  			<view class="list_right">¥450</view>
+	  		</view>
     	</view>
     	<view class="tips">暂无更多明细</view>
     </scroll-view>

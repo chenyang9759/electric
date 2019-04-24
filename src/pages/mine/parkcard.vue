@@ -109,17 +109,17 @@
     	<view class="cont_list">
     		<image class="cont_top" src="https://caoke.oss-cn-beijing.aliyuncs.com/tehui.png"></image>
     		<view class="list_left">
-    			<view class="left_top"><text class="year">5400</text>/每年</view>
-    			<view class="left_bot">低至每天15元，停车不限时</view>
+    			<view class="left_top"><text class="year">{{yearPrice}}</text>/每年</view>
+    			<view class="left_bot">低至每天{{dayPrice}}元，停车不限时</view>
     		</view>
-    		<view class="list_right" @tap="toRenewalfee">立即开通</view>
+    		<view class="list_right" @tap="toYear">立即开通</view>
     	</view>
     	<view class="cont_list">
     		<view class="list_left">
-    			<view class="left_top"><text class="year" style="color:#666;">600</text>/每月</view>
+    			<view class="left_top"><text class="year" style="color:#666;">{{monthPrice}}</text>/每月</view>
     			<view class="left_bot">按月付费，方便灵活</view>
     		</view>
-    		<view class="list_right" style="color:#DE7127;background:#FFF0D9;">立即开通</view>
+    		<view class="list_right" style="color:#DE7127;background:#FFF0D9;" @tap="toMonth">立即开通</view>
     	</view>
     </view>
     
@@ -155,7 +155,10 @@
 
 
     data = {
-     
+      yearPrice:0,
+      monthPrice:0,
+      dayPrice:0,
+      userInfo:{}
     }
 
 
@@ -166,10 +169,13 @@
 
     methods = {
       
-    	toRenewalfee(){
-    		wepy.navigateTo({
-	        url: '/pages/mine/renewalfee'
-	      })
+    	async toYear(){
+        const self = this
+    		await self.getCode(self.yearPrice,2)
+    	},
+    	async toMonth(){
+        const self = this
+    		await self.getCode(self.monthPrice,1)
     	}
 
 
@@ -180,12 +186,94 @@
 
     }
 
-    async onLoad() {
+    async onShow() {
+      const self = this 
       
+      self.userInfo = await wepy.getStorageSync('userInfo')
+      await self.package()
     }
 
 
+    async package(){
+    	const self = this
+      let data = {
+
+      }
    
+      try {
+        let dataInfo = await http({
+            method: api.vip.getPackage.method,
+            url: api.vip.getPackage.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.monthPrice = dataInfo.data.data.monthStandard / 100
+          self.yearPrice = dataInfo.data.data.yearStandard / 100
+          self.dayPrice = Math.ceil(self.yearPrice / 365)
+          self.$apply()
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    
+    //获取code
+    async getCode(money,type){
+      const self = this
+      self.isDisable = true
+      wx.login({
+        success(res){
+          self.sendOrder(res.code,money,type)
+        }
+      })
+    }
+    // 下订单
+    async sendOrder(code,money,type){
+      const self = this
+
+      let data = {
+        vipType:type,
+        ownerId:self.userInfo.ownerId,	
+        payment : parseInt(money*100),
+        code : code
+      }
+      try {
+        let dataInfo = await http({
+          method: api.vip.pay.method,
+          url: api.vip.pay.url,
+          data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.isDisable = false
+          self.$apply()
+          wx.requestPayment({
+            timeStamp: dataInfo.data.data.timeStamp,
+            nonceStr: dataInfo.data.data.nonceStr,
+            package: dataInfo.data.data.package,
+            signType: dataInfo.data.data.signType,
+            paySign: dataInfo.data.data.paySign,
+            success:function(data){
+              wx.redirectTo({
+                url: '/pages/paySuccess'
+              })
+            },
+            fail:function(e){
+              self.isDisable = false           	
+            	self.$apply()
+            }
+          })
+        }else if(dataInfo.data.code == -1){
+          wx.showToast({
+            title: '暂不支持全天购买！',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
 
 
 

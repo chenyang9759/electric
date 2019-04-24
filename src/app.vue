@@ -38,6 +38,7 @@
         'pages/allDay',
         'pages/allHour',
         'pages/paySuccess',
+        'pages/carSuccess',
         'pages/search',
         'pages/renewal',
         'pages/mine/card',
@@ -48,6 +49,9 @@
         'pages/mine/parkcard',
         'pages/mine/mycard',
         'pages/mine/renewalfee',
+        'pages/mine/silver',
+        'pages/mine/gold',
+        
 
 
 

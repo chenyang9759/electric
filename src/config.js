@@ -14,11 +14,11 @@ const hosts = {
 
 
 
-//development: 'http://192.168.134.2:8090/m',
+//development: 'http://192.168.134.2:8090',
   // development: 'http://120.79.193.27:8090/m',
 
 
-//  development: 'http://192.168.134.77:8090',
+//  development: 'http://192.168.134.2:8090',
   	production: 'https://gzhcpark.com/m'
 };
 
@@ -35,6 +35,17 @@ const api = {
     //   method:'POST',
     //   url:''
     // }
+  },
+  vip:{
+  	
+  	getPackage:{
+  	  method:'POST',
+  	  url:'/m/mm/carowner/getVipPackage?noSign'
+  	},
+  	pay:{
+  	  method:'POST',
+  	  url:'/m/mm/carowner/weixinVIPPay?noSign'
+  	}
   },
   home:{
     homeStatus:{

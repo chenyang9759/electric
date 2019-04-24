@@ -60,6 +60,7 @@
 			}
   	}
   	
+  	
   	.content{
   		width:678rpx;
   		margin-left: 36rpx;
@@ -245,7 +246,7 @@
   	
   	
   	<view class="box_pay box_pay_update">
-      <button class="weui-btn" type="default">续费</button>
+      <button class="weui-btn" type="default" @tap="continue">续费</button>
     </view>
   	<view class="box_pay" @tap="update">
       <button class="weui-btn green-btn" type="primary">升级</button>
@@ -282,7 +283,8 @@
 
 
     data = {
-      
+      monthPrice:'',
+      userInfo:{}
     }
 
 
@@ -297,6 +299,10 @@
     		wepy.navigateTo({
 	        url: '/pages/mine/renewalfee'
 	      })
+    	},
+    	async continue(){
+    		const self = this
+    		await self.getCode(self.monthPrice)
     	}
 
 
@@ -308,10 +314,91 @@
     }
 
     async onLoad() {
+      const self = this
+      self.userInfo = await wepy.getStorageSync('userInfo')
+      await self.package()
       
     }
 
+    async package(){
+    	const self = this
+      let data = {
 
+      }
+   
+      try {
+        let dataInfo = await http({
+            method: api.vip.getPackage.method,
+            url: api.vip.getPackage.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.monthPrice = dataInfo.data.data.monthStandard / 100
+          
+          self.$apply()
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    
+    //获取code
+    async getCode(money){
+      const self = this
+      self.isDisable = true
+      wx.login({
+        success(res){
+          self.sendOrder(res.code,money)
+        }
+      })
+    }
+    // 下订单
+    async sendOrder(code,money){
+      const self = this
+
+      let data = {
+        
+        ownerId:self.userInfo.ownerId,	
+        payment : parseInt(money*100),
+        code : code
+      }
+      try {
+        let dataInfo = await http({
+          method: api.vip.pay.method,
+          url: api.vip.pay.url,
+          data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.isDisable = false
+          self.$apply()
+          wx.requestPayment({
+            timeStamp: dataInfo.data.data.timeStamp,
+            nonceStr: dataInfo.data.data.nonceStr,
+            package: dataInfo.data.data.package,
+            signType: dataInfo.data.data.signType,
+            paySign: dataInfo.data.data.paySign,
+            success:function(data){
+              wx.redirectTo({
+                url: '/pages/paySuccess'
+              })
+            },
+            fail:function(e){
+              self.isDisable = false           	
+            	self.$apply()
+            }
+          })
+        }else if(dataInfo.data.code == -1){
+          wx.showToast({
+            title: '暂不支持全天购买！',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
    
 
 
