@@ -152,7 +152,7 @@
   		</view>
   		<view class="cont_last">
   			<view class="contlast_left">一年</view>
-  			<view class="contlast_right">￥5400</view>
+  			<view class="contlast_right">￥{{yearPrice}}</view>
   		</view>
   	</view>
   	
@@ -161,7 +161,7 @@
   	
   	
   	<view class="box_pay">
-      <button class="weui-btn green-btn" type="primary">微信支付</button>
+      <button class="weui-btn green-btn" type="primary" @tap="upgrade">微信支付（{{yearPrice}}）</button>
     </view>
   </view>
     
@@ -195,7 +195,8 @@
 
 
     data = {
-      
+      userInfo:{},
+      yearPrice:''
     }
 
 
@@ -207,7 +208,10 @@
     methods = {
       
     	
-
+			async upgrade(){
+				const self = this 
+				await self.getCode(self.yearPrice)
+			}
 
 
     }
@@ -217,13 +221,91 @@
     }
 
     async onLoad() {
-      
+      const self = this
+      self.userInfo = await wepy.getStorageSync('userInfo')
+      await self.package()
     }
 
+		async package(){
+    	const self = this
+      let data = {
 
+      }
+   
+      try {
+        let dataInfo = await http({
+            method: api.vip.getPackage.method,
+            url: api.vip.getPackage.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+         	self.yearPrice = dataInfo.data.data.yearStandard / 100
+          
+          self.$apply()
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
    
 
+		//获取code
+    async getCode(money){
+      const self = this
+      self.isDisable = true
+      wx.login({
+        success(res){
+          self.sendOrder(res.code,money)
+        }
+      })
+    }
+    // 下订单
+    async sendOrder(code,money){
+      const self = this
 
+      let data = {
+        
+        ownerId:self.userInfo.ownerId,	
+        payment : parseInt(money*100),
+        code : code
+      }
+      try {
+        let dataInfo = await http({
+          method: api.vip.upgrade.method,
+          url: api.vip.upgrade.url,
+          data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.isDisable = false
+          self.$apply()
+          wx.requestPayment({
+            timeStamp: dataInfo.data.data.timeStamp,
+            nonceStr: dataInfo.data.data.nonceStr,
+            package: dataInfo.data.data.package,
+            signType: dataInfo.data.data.signType,
+            paySign: dataInfo.data.data.paySign,
+            success:function(data){
+              wx.redirectTo({
+                url: '/pages/paySuccess?type=' + 'upgrade'
+              })
+            },
+            fail:function(e){
+              self.isDisable = false           	
+            	self.$apply()
+            }
+          })
+        }else if(dataInfo.data.code == -1){
+          wx.showToast({
+            title: '暂时无法充值，请稍后再试！',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
 
 
 

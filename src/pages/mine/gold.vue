@@ -63,6 +63,7 @@
   	.content{
   		width:678rpx;
   		margin-left: 36rpx;
+  		padding-bottom: 120rpx;
   		background:#fff;
   		border-top:2rpx dashed #F0F0F0;
   		border-bottom:2rpx dashed #F0F0F0;
@@ -105,7 +106,7 @@
   				}
   				.list_tit{
   					font-size:32rpx;
-  					width:200rpx;
+  					width:400rpx;
   					height:32rpx;
   					line-height: 32rpx;
   					color:#484848;
@@ -185,12 +186,12 @@
   		
   		<image class="header_bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mycard_bg.png"></image>
   		<view class="header_tit">包年停车卡</view>
-  		<view class="header_icon">
+  		<view class="header_icon" wx:if="{{vipStatus == 2}}">
   			<image class="icon_bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mycard_icon_bg.png"></image>
   			<image class="icon_tit" src="https://caoke.oss-cn-beijing.aliyuncs.com/mycard_icon_tit.png"></image>
   		</view>
-  		<view class="header_start">签约日期 2019-10-18</view>
-  		<view class="header_end">有效期至 2020-10-18</view>
+  		<view class="header_start">签约日期 {{startTime}}</view>
+  		<view class="header_end">有效期至 {{endTime}}</view>
   	</view>
   	
   	<view class="content">
@@ -198,35 +199,15 @@
   			<view class="contenttop_icon"></view>
   			<view class="contenttop_tit">停车卡信息</view>
   		</view>
-  		<view class="content_list">
+  		<view class="content_list" wx:for="{{payList}}" wx:key="{{id}}">
   			<view class="list_left">
   				<view class="list_top">
   					<view class="list_icon"></view>
-  					<view class="list_tit">续费</view>
+  					<view class="list_tit">{{item.paytype}}</view>
   				</view>
-  				<view class="list_bot">2018 10/05 12:56</view>
+  				<view class="list_bot">{{item.time}}</view>
   			</view>
-  			<view class="list_right">¥450</view>
-  		</view>
-  		<view class="content_list">
-  			<view class="list_left">
-  				<view class="list_top">
-  					<view class="list_icon"></view>
-  					<view class="list_tit">续费</view>
-  				</view>
-  				<view class="list_bot">2018 10/05 12:56</view>
-  			</view>
-  			<view class="list_right">¥450</view>
-  		</view>
-  		<view class="content_list">
-  			<view class="list_left">
-  				<view class="list_top">
-  					<view class="list_icon"></view>
-  					<view class="list_tit">续费</view>
-  				</view>
-  				<view class="list_bot">2018 10/05 12:56</view>
-  			</view>
-  			<view class="list_right">¥450</view>
+  			<view class="list_right">¥{{item.payment}}</view>
   		</view>
   	</view>
   	
@@ -238,7 +219,7 @@
   	
   	
   	<view class="box_pay">
-      <button class="weui-btn green-btn" type="primary">续费</button>
+      <button class="weui-btn green-btn" type="primary" @tap="continue">续费</button>
     </view>
   </view>
     
@@ -253,7 +234,7 @@
   import wepy from 'wepy'
   import http from '../../utils/request'
   import {api} from '../../config'
-
+	import util from '../../utils/util'
 
 
 
@@ -272,7 +253,14 @@
 
 
     data = {
-      
+      userInfo:{},
+      payList:[
+        
+      ],
+      startTime:'',
+      endTime:'',
+      vipStatus:'',
+      yearPrice:''
     }
 
 
@@ -284,7 +272,10 @@
     methods = {
       
     	
-
+			async continue(){
+    		const self = this
+    		await self.getCode(self.yearPrice)
+    	}
 
 
     }
@@ -293,8 +284,130 @@
 
     }
 
-    async onLoad() {
-      
+    async onShow() {
+    	
+    	const self = this
+    	await self.package()
+    	self.userInfo = await wepy.getStorageSync('userInfo')
+    	self.startTime = util.timeFormat1(self.userInfo.vipStartTime)
+    	self.endTime = util.timeFormat1(self.userInfo.vipEndTime)
+    	
+      await self.getList()
+    }
+    
+    async package(){
+    	const self = this
+      let data = {
+
+      }
+   
+      try {
+        let dataInfo = await http({
+            method: api.vip.getPackage.method,
+            url: api.vip.getPackage.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.yearPrice = dataInfo.data.data.yearStandard / 100
+          
+          self.$apply()
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    
+    async getList(){
+    	const self = this
+      let data = {
+				ownerId:self.userInfo.ownerId
+      }
+   
+      try {
+        let dataInfo = await http({
+            method: api.vip.list.method,
+            url: api.vip.list.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          console.log(dataInfo)
+          self.payList = []
+          dataInfo.data.data.list.forEach((item,index)=>{
+          	self.payList.push({
+          		id:index,
+          		payment:((item.payMent)/100).toFixed(2),
+          		time:util.timeFormat(item.payTime),
+          		paytype:item.payType_text.substr(7)
+          	})
+          	
+          })
+          self.vipStatus = dataInfo.data.data.vipStatus
+          self.payList.reverse()
+          
+          self.$apply()
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+		
+		//获取code
+    async getCode(money){
+      const self = this
+      self.isDisable = true
+      wx.login({
+        success(res){
+          self.sendOrder(res.code,money)
+        }
+      })
+    }
+    // 下订单
+    async sendOrder(code,money){
+      const self = this
+
+      let data = {
+        
+        ownerId:self.userInfo.ownerId,	
+        payment : parseInt(money*100),
+        code : code
+      }
+      try {
+        let dataInfo = await http({
+          method: api.vip.pay.method,
+          url: api.vip.pay.url,
+          data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.isDisable = false
+          self.$apply()
+          wx.requestPayment({
+            timeStamp: dataInfo.data.data.timeStamp,
+            nonceStr: dataInfo.data.data.nonceStr,
+            package: dataInfo.data.data.package,
+            signType: dataInfo.data.data.signType,
+            paySign: dataInfo.data.data.paySign,
+            success:function(data){
+              wx.redirectTo({
+                url: '/pages/paySuccess?type=' + 'xufei'
+              })
+            },
+            fail:function(e){
+              self.isDisable = false           	
+            	self.$apply()
+            }
+          })
+        }else if(dataInfo.data.code == -1){
+          wx.showToast({
+            title: '暂时无法充值，请稍后再试！',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
 
 

@@ -255,7 +255,7 @@
             paySign: dataInfo.data.data.paySign,
             success:function(data){
               wx.redirectTo({
-                url: '/pages/paySuccess'
+                url: '/pages/paySuccess?type=' + 'open'
               })
             },
             fail:function(e){
@@ -265,7 +265,7 @@
           })
         }else if(dataInfo.data.code == -1){
           wx.showToast({
-            title: '暂不支持全天购买！',
+            title: '暂时无法充值，请稍后再试！',
             icon: 'none',
             duration: 2000
           })

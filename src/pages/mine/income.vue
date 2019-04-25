@@ -6,11 +6,13 @@
     position: relative;
     top:0;
     left:0;
+    /*overflow: hidden;*/
   }
   
   .box{
   	width:100%;
   	height:100%;
+  	position: relative;
   	.header{
   		width:100%;
   		height:88rpx;
@@ -42,10 +44,13 @@
   	
   	.cont{
   		width:678rpx;
+  		position:relative;
+  		min-height: 110rpx;
   		box-shadow:0px 4px 40px rgba(0,0,0,0.1);
     	border-radius:14rpx;
-    	margin-top:102rpx;
+    	top:102rpx;
     	margin-left: 36rpx;
+    	
   		.content_list{
   			width:650rpx;
   			height:110rpx;
@@ -113,32 +118,33 @@
     	</view>
     </view>
     
-    <scroll-view scroll-y="true" class="cont">
+    <scroll-view scroll-y="true" class="cont" bindscrolltolower="onReachBottom">
     	<view class="cont_w" wx:if="{{ !isExpired }}">
-    		<view class="content_list">
+    		<view class="content_list" wx:for="{{payList}}" wx:key="{{id}}">
 	  			<view class="list_left">
 	  				<view class="list_top">
 	  					<view class="list_icon"></view>
 	  					<view class="list_tit">消费</view>
 	  				</view>
-	  				<view class="list_bot">2018 10/05 12:56</view>
+	  				<view class="list_bot">{{item.time}}</view>
 	  			</view>
-	  			<view class="list_right">¥-450</view>
+	  			<view class="list_right">¥-{{item.num}}</view>
 	  		</view>
+	  		
     	</view>
     	<view class="cont_w cont_y" wx:if="{{ isExpired }}">
-    		<view class="content_list">
+    		<view class="content_list" wx:for="{{payList}}" wx:key="{{id}}">
 	  			<view class="list_left">
 	  				<view class="list_top">
 	  					<view class="list_icon"></view>
 	  					<view class="list_tit">充值</view>
 	  				</view>
-	  				<view class="list_bot">2018 10/05 12:56</view>
+	  				<view class="list_bot">{{item.time}}</view>
 	  			</view>
-	  			<view class="list_right">¥450</view>
+	  			<view class="list_right">¥{{item.num}}</view>
 	  		</view>
     	</view>
-    	<view class="tips">暂无更多明细</view>
+    	<view class="tips" wx:if="{{isShowtips}}">暂无更多明细</view>
     </scroll-view>
     
   </view>
@@ -152,6 +158,7 @@
   import wepy from 'wepy'
   import http from '../../utils/request'
   import {api} from '../../config'
+	import util from '../../utils/util'
 
 
 
@@ -172,8 +179,18 @@
 
 
     data = {
-      isExpired:false
-      
+      isExpired:false,
+      pageindex:1,
+      fundFlow:'',
+      total:1,
+      isShowtips:false,
+      payList:[
+      	{
+      		id:1,
+      		num:100,
+      		time:'123123'
+      	}
+      ]
     }
 
 
@@ -184,17 +201,25 @@
 
     methods = {
       
-    	wExpired(){
+    	async wExpired(){
     		const self = this
     		self.isExpired = false
+    		self.pageindex = 1
+    		self.fundFlow = 2
+    		self.payList = []
+      	await self.getInfo(self.fundFlow,self.pageindex)
     		self.$apply()
     	},
-    	yExpired(){
+    	async yExpired(){
     		const self = this
     		self.isExpired = true
+    		self.pageindex = 1
+    		self.fundFlow = 1
+    		self.payList = []
+      	await self.getInfo(self.fundFlow,self.pageindex)
     		self.$apply()
     	}
-
+			
 
 
     }
@@ -203,11 +228,76 @@
 
     }
 
-    async onLoad() {
+    async onShow() {
+      const self = this
+      self.payList = []
+      self.pageindex = 1
+      await self.getInfo(self.fundFlow,self.pageindex)
       
     }
+    
+    async onReachBottom() {
+
+      const self = this
+     	wx.showLoading({
+        title: '加载中...'
+      })
+      if(self.pageindex >= self.total){
+        await self.getInfo(self.fundFlow,self.pageindex)
+        wx.hideLoading()
+      }else{
 
 
+        self.isShowtips = true
+        wx.hideLoading()
+      }
+
+
+
+    }
+    
+
+ 		async getInfo(fundFlow,pageindex){
+ 			const self = this
+      let data = {
+      	fundFlow : fundFlow,
+				pageIndex : pageindex,
+				pageSize : 10
+      }
+   		wx.showLoading({
+        title: '加载中...'
+      })
+      try {
+        let dataInfo = await http({
+            method: api.wallet.detail.method,
+            url: api.wallet.detail.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+        	self.total = Math.ceil(dataInfo.data.data.total/10)
+         	console.log(dataInfo)
+         	dataInfo.data.data.list.forEach((item,index)=>{
+         		self.payList.push({
+         			id:index,
+         			num:parseInt(item.givenAmount + item.givenBalance)/100,
+         			time:util.timeFormat(item.addTime)
+         		})
+         		
+         	})
+         		
+         	
+          if(self.total <= 1){
+          	self.isShowtips = true
+          }
+          self.$apply()
+        }
+        wx.hideLoading()
+        self.pageindex ++
+        self.$apply()
+      } catch (e) {
+        console.log(e)
+      }
+ 		}
    
 
 

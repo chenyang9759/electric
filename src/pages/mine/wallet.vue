@@ -85,9 +85,10 @@
   	
   	.cont{
   		width:690rpx;
-  		height:464rpx;
+  		/*height:464rpx;*/
   		margin-left: 30rpx;
       margin-top:20rpx;
+      padding-bottom: 40rpx;;
       background:#fff;
       -webkit-border-radius: 12rpx;
       -moz-border-radius: 12rpx;
@@ -111,7 +112,7 @@
       }
       .content{
 	  		width:620rpx;
-	  		height:360rpx;
+	  		
 	  		margin-left: 35rpx;
 	  		margin-top: 20rpx;
 	  		display: flex;
@@ -196,7 +197,7 @@
    		<view class="header_bot">
    			<image class="header_bot_bg" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_wallet_bg.png"></image>
    			<view class="money">
-   				0.00
+   				{{money}}
    			</view>
    			<view class="tips">
    				￥余额
@@ -222,7 +223,7 @@
     	<view class="cont_top"></view>
     	<view class="title">钱包充值</view>
     	<view class="content">
-    		<view wx:for="{{ moneyArr }}" wx:key="{{ id }}" class="list {{ item.check ? 'list_act' : '' }}" @tap="check( '{{ item.id }}' )">{{ item.msg }}</view>
+    		<view wx:for="{{ moneyArr }}" wx:key="{{ id }}" class="list {{ item.check ? 'list_act' : '' }}" @tap="check( '{{ item.id }}' )">充{{item.rechargeAmount/100}}送{{item.givenAmount/100}}</view>
     		
     	</view>
     </view>
@@ -231,7 +232,7 @@
                    温馨提示：充值成功后，到账可能会有一定延迟，请耐心等待。钱包暂不支持提现喔~                        
     </view>
     
-    <view class="box_pay">
+    <view class="box_pay" wx:if="{{moneyArr.length > 0}}" @tap="pay">
       <button class="weui-btn green-btn" type="primary">微信支付</button>
     </view>
    
@@ -265,40 +266,15 @@
 
     data = {
       isExpired:false,
+      userInfo:{},
+      money:0,
       moneyArr:[
-        {
-        	id:0,
-        	check:true,
-        	msg:'充50送50'
-        },
-        {
-        	id:1,
-        	check:false,
-        	msg:'充100送100'
-        },
-        {
-        	id:2,
-        	check:false,
-        	msg:'充200送200'
-        },
-        {
-        	id:3,
-        	check:false,
-        	msg:'充500送500'
-        },
-        {
-        	id:4,
-        	check:false,
-        	msg:'充1000送1000'
-        },
-        {
-        	id:5,
-        	check:false,
-        	msg:'充2000送2000'
-        }
-        
+       
       
-      ]
+      ],
+      checkId:'',
+      checkMoney:''
+      
     }
 
 
@@ -312,14 +288,21 @@
       	const self = this 
       	self.moneyArr.forEach((item)=>{
       		item.check = false
+      		
       	})
       	self.moneyArr[id].check = true
+      	self.checkId = self.moneyArr[id].topupItemId
+      	self.checkMoney = self.moneyArr[id].rechargeAmount
       	self.$apply()
       },
       toIncome(){
       	wepy.navigateTo({
 	        url: '/pages/mine/income'
 	      })
+      },
+      async pay(){
+      	const self = this
+      	await self.getCode()
       }
     
 
@@ -330,13 +313,115 @@
     }
 
     async onLoad() {
+    	const self = this
+      self.userInfo = wepy.getStorageSync('userInfo')
+      
+      console.log(self.userInfo)
+      
+      self.money = ((self.userInfo.principalBalance + self.userInfo.givenBalance)/100).toFixed(2)
+      await self.getRule()
+      
       
     }
 
+    async getRule(){
+    	const self = this
+      let data = {
 
+      }
+   
+      try {
+        let dataInfo = await http({
+            method: api.wallet.rule.method,
+            url: api.wallet.rule.url,
+            data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+         	console.log(dataInfo)
+         	self.moneyArr = []
+         	dataInfo.data.data.forEach((item,index)=>{
+         		
+         		self.moneyArr.push({
+         			id:index,
+         			check:false,
+          		rechargeAmount:item.rechargeAmount,
+          		givenAmount:item.givenAmount,
+          		topupItemId:item.topupItemId
+          	})
+         		
+         	})
+          self.moneyArr[0].check = true
+          self.checkId = self.moneyArr[0].topupItemId
+      		self.checkMoney = self.moneyArr[0].rechargeAmount
+          self.$apply()
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    	
+    	
+    }
    
 
+		//获取code
+    async getCode(){
+      const self = this
+      self.isDisable = true
+      wx.login({
+        success(res){
+          self.sendOrder(res.code)
+        }
+      })
+    }
+    // 下订单
+    async sendOrder(code){
+      const self = this
 
+      let data = {
+        payItem : 1,
+        ownerId : self.userInfo.ownerId,	
+        payment : parseInt(self.checkMoney),
+        recordId : self.checkId,
+        code : code
+      }
+      try {
+        let dataInfo = await http({
+          method: api.wallet.recharge.method,
+          url: api.wallet.recharge.url,
+//        url:'http://192.168.134.77:8888/n/pay/scan/payDispatcher?noSign',
+          data: JSON.stringify(data)
+        })
+        if(dataInfo.data.code == 0){
+          self.isDisable = false
+          self.$apply()
+          wx.requestPayment({
+            timeStamp: dataInfo.data.data.timeStamp,
+            nonceStr: dataInfo.data.data.nonceStr,
+            package: dataInfo.data.data.package,
+            signType: dataInfo.data.data.signType,
+            paySign: dataInfo.data.data.paySign,
+            success:function(data){
+              wx.redirectTo({
+                url: '/pages/paySuccess'
+              })
+            },
+            fail:function(e){
+              self.isDisable = false           	
+            	self.$apply()
+            }
+          })
+        }else if(dataInfo.data.code == -1){
+          wx.showToast({
+            title: '暂时无法充值，请稍后再试！',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
 
 
 

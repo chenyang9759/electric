@@ -457,8 +457,8 @@
             signType: dataInfo.data.data.signType,
             paySign: dataInfo.data.data.paySign,
             success:function(data){
-              wx.redirectTo({
-                url: '/pages/carSuccess'
+              wx.navigateTo({
+                url: '/pages/paySuccess?type=' + 'jf'
               })
             },
             fail:function(e){

@@ -243,7 +243,7 @@
     <view class="cont">
     	<view class="cont_content">
     		<view class="cont_list first_list" @tap="toWallet">
-    			<view class="list">0.00</view>
+    			<view class="list">{{money}}</view>
     			<view class="list_bot">钱包</view>
     		</view>
 				<view class="cont_list" @tap="toCard">
@@ -335,7 +335,8 @@
       userInfo:{},
       islogin:false,
       monthPrice:'',
-      vipType:0
+      vipType:0,
+      money:0,
 
     }
 
@@ -400,8 +401,14 @@
 
     async onShow() {
       const self = this
+      await auth.login()
       await self.package()
       self.userInfo = wepy.getStorageSync('userInfo')
+      
+      console.log(self.userInfo)
+      
+      self.money = ((self.userInfo.principalBalance + self.userInfo.givenBalance)/100).toFixed(2)
+   
       self.vipType = self.userInfo.vipType
       if(self.userInfo.headImg == ''){
       	self.islogin = false

@@ -14,7 +14,8 @@ const hosts = {
 
 
 
-//development: 'http://192.168.134.2:8090',
+//development: 'http://192.168.134.77:8090',   //wu
+//development: 'http://192.168.134.2:8090',     //dong
   // development: 'http://120.79.193.27:8090/m',
 
 
@@ -45,6 +46,28 @@ const api = {
   	pay:{
   	  method:'POST',
   	  url:'/m/mm/carowner/weixinVIPPay?noSign'
+  	},
+  	upgrade:{
+  		method:'POST',
+  		url:'/m/mm/carowner/upgrade?noSign'
+  	},
+  	list:{
+  		method:'POST',
+  		url:'/m/mm/carowner/getVipInfo?noSign'
+  	}
+  },
+  wallet:{
+  	rule:{
+  		method:'POST',
+  		url:'/m/mm/account/listTopupItem?noSign'
+  	},
+  	recharge:{
+  		method:'POST',
+  		url:'/n/pay/scan/payDispatcher?noSign'
+  	},
+  	detail:{
+  		method:'POST',
+  		url:'/m/mm/account/queryDealLog?noSign'
   	}
   },
   home:{

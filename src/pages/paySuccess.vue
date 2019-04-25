@@ -83,16 +83,25 @@
       <view class="icon">
         <icon class="icon_cont" type="success_no_circle" size="30" color="#fff"/>
       </view>
-      <view class="icon_des">停车费支付成功!</view>
+      <view class="icon_des" wx:if="{{type == 'jf'}}">停车费支付成功!</view>
+      <view class="icon_des" wx:if="{{type == 'open'}}">会员卡开通成功!</view>
+      <view class="icon_des" wx:if="{{type == 'xufei'}}">续费成功!</view>
+      <view class="icon_des" wx:if="{{type == 'upgrade'}}">升级成功!</view>
     </view>
 
 
 
 
-    <view class="box_pay" @tap="toIndex">
+    <view class="box_pay" @tap="toIndex" wx:if="{{type == 'jf'}}">
       <button class="weui-btn green-btn" type="primary">返回首页</button>
     </view>
 
+		<view class="box_pay" @tap="toMine" wx:if="{{type == 'open' || type == 'upgrade' || type == 'xufei'}}">
+      <button class="weui-btn green-btn" type="primary">返回</button>
+    </view>
+    <!--<view class="box_pay" @tap="toIndex">
+      <button class="weui-btn green-btn" type="primary">返回</button>
+    </view>-->
   </view>
 
 
@@ -124,7 +133,8 @@
     data = {
       ispay:true,
       isDox:true,
-      licensePlate:''
+      licensePlate:'',
+      type:'jf'
 
     }
 
@@ -137,6 +147,11 @@
         wx.switchTab({
           url: '/pages/index'
         })
+      },
+      toMine(){
+        wx.switchTab({
+          url: '/pages/mine'
+        })
       }
     }
 
@@ -144,9 +159,10 @@
 
     }
 
-    async onLoad() {
-
-
+    async onLoad(option) {
+    	const self = this
+ 			self.type = option.type
+     
 
     }
   }

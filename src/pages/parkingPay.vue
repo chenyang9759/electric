@@ -744,7 +744,7 @@
             self.iscomeplate = true
             self.arrearage = dataInfo.data.data.arrearage>0 ? dataInfo.data.data.arrearage : 0
             self.address = dataInfo.data.data.countyName + dataInfo.data.data.streetName + dataInfo.data.data.roadName
-            if(dataInfo.data.data.arrearage == 0){
+            if(dataInfo.data.data.arrearage <= 0){
               self.ispay = false
               self.isDox = false
               self.evidenceState = '订单完成'                //是否取证

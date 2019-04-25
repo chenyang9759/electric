@@ -694,7 +694,7 @@
             success:function(data){
             	if(self.type == 'arrear'){
             		wx.redirectTo({
-	                url: '/pages/carSuccess'
+	                url: '/pages/paySuccess?type=' + 'jf'
 	              })
             	}else{
             		wx.redirectTo({
