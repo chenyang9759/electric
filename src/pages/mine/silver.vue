@@ -414,7 +414,7 @@
           		id:index,
           		payment:((item.payMent)/100).toFixed(2),
           		time:util.timeFormat(item.payTime),
-          		paytype:item.payType_text.substr(7)
+          		paytype:item.payType_text
           	})
           	
           })

@@ -402,8 +402,9 @@
     async onShow() {
       const self = this
       await auth.login()
+      self.userInfo = await wepy.getStorageSync('userInfo')
       await self.package()
-      self.userInfo = wepy.getStorageSync('userInfo')
+      
       
       console.log(self.userInfo)
       

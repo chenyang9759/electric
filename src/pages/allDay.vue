@@ -55,6 +55,7 @@
 
       }
     }
+    
 
     .dox_cont{
       width:718rpx;
@@ -83,6 +84,34 @@
 
 
 
+    }
+    .nav{
+    	width:100%;
+    	margin-top: 20rpx;
+    
+    	background:#fff;
+    	.nav_list{
+    		width:678rpx;
+    		height:126rpx;
+    		position:relative;
+    		line-height: 126rpx;
+    		font-size:32rpx;
+    		margin-left:36rpx;
+    		color:#424558;
+    		border-bottom:2rpx solid #f4f5fa;
+    		.nav_left{
+    			
+    		}
+    		.nav_right{
+    			.bg{
+    				width:36rpx;
+    				height:36rpx;
+    				position: absolute;
+    				top:45rpx;
+    				right:8rpx;
+    			}
+    		}
+    	}
     }
 
   }
@@ -148,9 +177,35 @@
       <view class="cont_time">可停放至：{{ expire_show }}</view>
 
     </view>
+     
+    <view class="nav">
+    	<view class="nav_list" wx:if="{{isWallet}}">
+    		<view class="nav_left">钱包支付</view>
+    		<view class="nav_right" @tap="checkWallet">
+    			<image class="bg" wx:if="{{walletCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checky.png"></image>
+    			<image class="bg" wx:if="{{!walletCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checkn.png"></image>
+    		</view>
+    	</view>
+    	<view class="nav_list" wx:if="{{isCard}}">
+    		<view class="nav_left">停车卡支付</view>
+    		<view class="nav_right" @tap="checkCard">   			
+    			<image class="bg" wx:if="{{cardCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checky.png"></image>
+    			<image class="bg" wx:if="{{!cardCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checkn.png"></image>
+    		</view>
+    	</view>
+    	<view class="nav_list" wx:if="{{isWx}}">
+    		<view class="nav_left">微信支付</view>
+    		<view class="nav_right" @tap="checkWx">
+    			<image class="bg" wx:if="{{wxCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checky.png"></image>
+    			<image class="bg" wx:if="{{!wxCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checkn.png"></image>
+    		</view>
+    	</view>
+    </view> 
 
     <view class="box_pay">
-      <button class="weui-btn green-btn" type="primary" disabled="{{isDisable}}" @tap="toPaySuccess">微信支付（{{dayPrice}}元）</button>
+    	<button class="weui-btn green-btn" wx:if="{{walletCheck}}" type="primary" disabled="{{isDisable}}" @tap="walletPay">钱包支付（{{dayPrice}}元）</button>
+    	<button class="weui-btn green-btn" wx:if="{{cardCheck}}" type="primary" disabled="{{isDisable}}" @tap="cardPay">确认停车</button>
+      <button class="weui-btn green-btn" wx:if="{{wxCheck}}" type="primary" disabled="{{isDisable}}" @tap="toPaySuccess">微信支付（{{dayPrice}}元）</button>
     </view>
   </view>
 
@@ -186,7 +241,13 @@
       starttime:'',
       starttime_show:'',
       expire:'',
-      expire_show:''
+      expire_show:'',
+      walletCheck:true,
+      cardCheck:false,
+      wxCheck:false,
+      isWallet:true,
+      isCard:true,
+      isWx:true
     }
 
     computed = {
@@ -197,7 +258,27 @@
       async toPaySuccess(){
         const self = this
         await self.getCode()
-
+      },
+      checkWallet(){
+      	const self = this
+      	self.walletCheck = true
+      	self.cardCheck = false
+      	self.wxCheck = false
+      	self.$apply()
+      },
+      checkCard(){
+      	const self = this
+      	self.walletCheck = false
+      	self.cardCheck = true
+      	self.wxCheck = false
+      	self.$apply()
+      },
+      checkWx(){
+      	const self = this
+      	self.walletCheck = false
+      	self.cardCheck = false
+      	self.wxCheck = true
+      	self.$apply()
       }
     }
 
@@ -370,6 +451,11 @@
       }
     }
 
+
+		// 钱包,月卡,年卡支付
+		async pay(){
+			
+		}
     // 页面首次加载
     async init(){
       const self = this
@@ -378,7 +464,7 @@
       self.expire_show = util.timeFormat(self.expire)
       self.$apply()
     }
-
+    
    
 
   }
