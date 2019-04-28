@@ -379,7 +379,7 @@
       const self = this
 
       let data = {
-        payItem : 1,
+      	payType : 61,
         ownerId : self.userInfo.ownerId,	
         payment : parseInt(self.checkMoney),
         recordId : self.checkId,
@@ -402,8 +402,9 @@
             signType: dataInfo.data.data.signType,
             paySign: dataInfo.data.data.paySign,
             success:function(data){
+            	wepy.setStorageSync('topupItemId', self.checkId)
               wx.redirectTo({
-                url: '/pages/paySuccess'
+                url: '/pages/paySuccess?type='+'recharge'
               })
             },
             fail:function(e){

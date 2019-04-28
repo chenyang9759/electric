@@ -179,13 +179,6 @@
     </view>
      
     <view class="nav">
-    	<view class="nav_list" wx:if="{{isWallet}}">
-    		<view class="nav_left">钱包支付</view>
-    		<view class="nav_right" @tap="checkWallet">
-    			<image class="bg" wx:if="{{walletCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checky.png"></image>
-    			<image class="bg" wx:if="{{!walletCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checkn.png"></image>
-    		</view>
-    	</view>
     	<view class="nav_list" wx:if="{{isCard}}">
     		<view class="nav_left">停车卡支付</view>
     		<view class="nav_right" @tap="checkCard">   			
@@ -193,6 +186,13 @@
     			<image class="bg" wx:if="{{!cardCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checkn.png"></image>
     		</view>
     	</view>
+    	<view class="nav_list" wx:if="{{isWallet}}">
+    		<view class="nav_left">钱包支付（余额：{{balance}}元）</view>
+    		<view class="nav_right" @tap="checkWallet">
+    			<image class="bg" wx:if="{{walletCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checky.png"></image>
+    			<image class="bg" wx:if="{{!walletCheck}}" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_checkn.png"></image>
+    		</view>
+    	</view>   	
     	<view class="nav_list" wx:if="{{isWx}}">
     		<view class="nav_left">微信支付</view>
     		<view class="nav_right" @tap="checkWx">
@@ -218,6 +218,7 @@
   import http from '../utils/request'
   import {api} from '../config'
   import util from '../utils/util'
+  import payresult from '../service/pay'
 
   export default class AllDay extends wepy.page {
     config = {
@@ -242,12 +243,16 @@
       starttime_show:'',
       expire:'',
       expire_show:'',
-      walletCheck:true,
+      walletCheck:false,
       cardCheck:false,
       wxCheck:false,
       isWallet:true,
       isCard:true,
-      isWx:true
+      isWx:true,
+      userInfo:{},
+      balance:0,
+      vipStatus:'',
+      code:''
     }
 
     computed = {
@@ -257,20 +262,45 @@
     methods = {
       async toPaySuccess(){
         const self = this
-        await self.getCode()
+        let data = {
+	        meterSN : self.parkingInfo.sn,
+	        spaceInnerNo : self.parkingInfo.parkNo,
+	        fromSystem : 868,
+	        payType : 12,
+	        payment : parseInt(self.dayPrice*100)	        
+	      }
+        await self.getCode(data)
       },
       checkWallet(){
       	const self = this
-      	self.walletCheck = true
-      	self.cardCheck = false
-      	self.wxCheck = false
-      	self.$apply()
+      	if(self.balance >= self.dayPrice){
+      		self.walletCheck = true
+	      	self.cardCheck = false
+	      	self.wxCheck = false
+	      	self.$apply()
+      	}else{
+      		wx.showToast({
+            title: '余额不足！',
+            icon: 'none',
+            duration: 2000
+          })
+      	}
+      	
       },
       checkCard(){
       	const self = this
-      	self.walletCheck = false
-      	self.cardCheck = true
-      	self.wxCheck = false
+      	if(self.vipStatus > 0){
+      		self.walletCheck = false
+      		self.cardCheck = true
+      		self.wxCheck = false
+      	}else{
+      		wx.showToast({
+            title: '会员卡未开通或已过期！',
+            icon: 'none',
+            duration: 2000
+          })
+      	}
+      	
       	self.$apply()
       },
       checkWx(){
@@ -279,19 +309,72 @@
       	self.cardCheck = false
       	self.wxCheck = true
       	self.$apply()
+      },
+      async walletPay(){
+      	const self = this
+      	let data = {
+	    		payType : 14,
+	    		ownerId : self.userInfo.ownerId,
+	    		weixinOpenid : self.userInfo.openId,
+	    		fromSystem : 868,   		
+	        meterSN : self.parkingInfo.sn,
+	        spaceInnerNo : self.parkingInfo.parkNo,        
+	        payment : parseInt(self.dayPrice*100),
+	      }
+   		  await self.getCode(data)
+      },
+      async cardPay(){
+      	const self = this
+      	let paytype = ''
+      	if(self.vipStatus == 1){
+      		paytype = 71
+      	}else if(self.vipStatus == 2){
+      		paytype = 72
+      	}
+      	let data = {
+	    		payType : paytype,
+	    		ownerId : self.userInfo.ownerId,
+	    		weixinOpenid : self.userInfo.openId,
+	    		fromSystem : 868,   		
+	        meterSN : self.parkingInfo.sn,
+	        spaceInnerNo : self.parkingInfo.parkNo,        
+	        payment : parseInt(self.dayPrice*100),
+	      }
+   		  await self.getCode(data)
       }
+      
     }
 
     events = {
 
     }
 
-    async onLoad() {
+    async onLoad(option) {
       const self = this
-      self.parkingInfo = wepy.getStorageSync('parkingInfo')
+      
+      self.parkingInfo = await wepy.getStorageSync('parkingInfo')
+      self.userInfo = await wepy.getStorageSync('userInfo')
       await self.getDayMoney()
       await self.getInfo(self.parkingInfo.sn)
       await self.getMinTime()
+      self.balance = parseInt(self.userInfo.principalBalance + self.userInfo.givenBalance)/100
+      self.vipStatus = self.userInfo.vipStatus
+      
+      if(self.vipStatus > 0){
+      	self.cardCheck = true
+      }else if(self.vipStatus == 0 && self.balance >= self.dayPrice){
+      	self.walletCheck = true
+      }else{
+      	self.wxCheck = true
+      }
+      if(option.buyType == 'allday'){
+      	self.isWallet = true
+      	self.isCard = false
+      	self.isWx = false
+      }
+      
+      
+      
       if(self.parkingInfo.payType1 == 2){
         await self.getCode()
       }
@@ -353,63 +436,58 @@
       }
     }
     //获取code
-    async getCode(){
+    getCode(data){
       const self = this
       self.isDisable = true
+      let codeInfo = ''
       wx.login({
         success(res){
-          self.sendOrder(res.code)
+        	
+        	self.pay(res.code,data)
+        	
         }
       })
+      
+      
     }
-    // 下订单
-    async sendOrder(code){
-      const self = this
-
-      let data = {
-        meterSN : self.parkingInfo.sn,
-        spaceInnerNo : self.parkingInfo.parkNo,
-        fromSystem : 868,
-        payType : 12,
-        payment : parseInt(self.dayPrice*100),
-        code : code
-      }
-      try {
-        let dataInfo = await http({
-          method: api.pay.wxpay.method,
-          url: api.pay.wxpay.url,
-          data: JSON.stringify(data)
-        })
-        if(dataInfo.data.code == 0){
-          self.isDisable = false
-          self.$apply()
-          wx.requestPayment({
-            timeStamp: dataInfo.data.data.timeStamp,
-            nonceStr: dataInfo.data.data.nonceStr,
-            package: dataInfo.data.data.package,
-            signType: dataInfo.data.data.signType,
-            paySign: dataInfo.data.data.paySign,
-            success:function(data){
-              wx.redirectTo({
-                url: '/pages/paySuccess'
-              })
-            },
-            fail:function(e){
-              self.isDisable = false           	
-            	self.$apply()
-            }
-          })
-        }else if(dataInfo.data.code == -1){
-          wx.showToast({
-            title: '暂不支持全天购买！',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      } catch (e) {
-        console.log(e)
+    
+//  zhifu
+    async pay(code,data){
+    	const self = this
+      let datas = data
+      datas.code = code
+    	const payInfo = await payresult.payInfo(datas)
+      console.log(payInfo)
+      if(payInfo.status == 0){
+      	console.log('xxxxxxx')
+      	wx.redirectTo({
+       	  url: '/pages/paySuccess'
+     		})
+      }else{
+      	self.isDisable = false
+	      self.$apply()
+	      wx.requestPayment({
+	        timeStamp: payInfo.timeStamp,
+	        nonceStr: payInfo.nonceStr,
+	        package: payInfo.package,
+	        signType: payInfo.signType,
+	        paySign: payInfo.paySign,
+	        success:function(data){
+	          wx.redirectTo({
+	            url: '/pages/paySuccess'
+	          })
+	        },
+	        fail:function(e){
+	          self.isDisable = false           	
+	        	self.$apply()
+	        }
+	      })
       }
     }
+    
+    
+    
+   
 
 
     // 获取交费最短时间
@@ -451,17 +529,73 @@
       }
     }
 
-
+		//获取code
+//  async payCode(paytype){
+//    const self = this
+//    self.isDisable = true
+//    wx.login({
+//      success(res){
+//        self.pay(res.code,paytype,)
+//      }
+//    })
+//  }
 		// 钱包,月卡,年卡支付
-		async pay(){
-			
-		}
+//		async pay(){
+//			const self = this
+//
+//    let data = {
+//      payItem : 1,
+//      ownerId : self.userInfo.ownerId,	
+//      payment : parseInt(self.checkMoney),
+//      recordId : self.checkId,
+//      code : code
+//    }
+//    try {
+//      let dataInfo = await http({
+//        method: api.wallet.recharge.method,
+//        url: api.wallet.recharge.url,
+//        data: JSON.stringify(data)
+//      })
+//      if(dataInfo.data.code == 0){
+//        self.isDisable = false
+//        self.$apply()
+//        wx.requestPayment({
+//          timeStamp: dataInfo.data.data.timeStamp,
+//          nonceStr: dataInfo.data.data.nonceStr,
+//          package: dataInfo.data.data.package,
+//          signType: dataInfo.data.data.signType,
+//          paySign: dataInfo.data.data.paySign,
+//          success:function(data){
+//            wx.redirectTo({
+//              url: '/pages/paySuccess'
+//            })
+//          },
+//          fail:function(e){
+//            self.isDisable = false           	
+//          	self.$apply()
+//          }
+//        })
+//      }else if(dataInfo.data.code == -1){
+//        wx.showToast({
+//          title: '支付失败，请稍后再试！',
+//          icon: 'none',
+//          duration: 2000
+//        })
+//      }
+//    } catch (e) {
+//      console.log(e)
+//    }
+//		}
     // 页面首次加载
     async init(){
       const self = this
 
       self.starttime_show = util.timeFormat(self.starttime)
       self.expire_show = util.timeFormat(self.expire)
+      
+      
+      
+      
       self.$apply()
     }
     

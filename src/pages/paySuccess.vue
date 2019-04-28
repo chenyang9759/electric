@@ -87,6 +87,7 @@
       <view class="icon_des" wx:if="{{type == 'open'}}">会员卡开通成功!</view>
       <view class="icon_des" wx:if="{{type == 'xufei'}}">续费成功!</view>
       <view class="icon_des" wx:if="{{type == 'upgrade'}}">升级成功!</view>
+      <view class="icon_des" wx:if="{{type == 'recharge'}}">充值成功！</view>
     </view>
 
 
@@ -96,7 +97,7 @@
       <button class="weui-btn green-btn" type="primary">返回首页</button>
     </view>
 
-		<view class="box_pay" @tap="toMine" wx:if="{{type == 'open' || type == 'upgrade' || type == 'xufei'}}">
+		<view class="box_pay" @tap="toMine" wx:if="{{type == 'open' || type == 'upgrade' || type == 'xufei' || type == 'recharge'}}">
       <button class="weui-btn green-btn" type="primary">返回</button>
     </view>
     <!--<view class="box_pay" @tap="toIndex">

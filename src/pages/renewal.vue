@@ -382,6 +382,16 @@
           wepy.navigateTo({
             url: '/pages/allDay'
           })
+        }else if(self.parkingInfo.payType == 14){
+        	wepy.navigateTo({
+            url: '/pages/allDay?buyType=' + 'allday'
+          })
+        }else if(self.parkingInfo.payType == 71 || self.parkingInfo.paytype == 72){
+        	wx.showToast({
+            title: '当前使用包月卡或包年卡，无需续费',
+            icon: 'none',
+            duration: 2000
+          })
         }
 
       }
