@@ -494,7 +494,11 @@
               paytype = '柳银代扣（普通卡）'
             }else if(item.payType == 40){
               paytype = '离线订单'
-            }
+            }else if(item.payType == 71 || item.payType == 72){
+		        	paytype = '会员卡支付'
+		        }else if(item.payType == 14){
+		        	paytype = '钱包支付'
+		        }
             let obj = {
               money:item.actualAmount,
               type:paytype,

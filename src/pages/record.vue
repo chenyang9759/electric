@@ -252,6 +252,7 @@
   import http from '../utils/request'
   import {api} from '../config'
 	import util from '../utils/util'
+	import payresult from '../service/pay'
 
 
 
@@ -304,7 +305,19 @@
       	self.parkingInfo.sn = sn 
       	self.parkingInfo.parkNo = spaceInnerNo
       	self.arrearage = arrearage
-      	await self.getCode()
+      	
+      	let data = {
+		      recordId : self.recordId,
+		      meterSN : self.parkingInfo.sn,
+		      spaceInnerNo : self.parkingInfo.parkNo,
+		      fromSystem : 868,
+		      payType : 51,
+		      payment : parseInt(self.arrearage)
+		    }
+      	await self.getCode(data)
+      	
+      	
+      	
       }
 
     }
@@ -345,76 +358,54 @@
 
     }
     
-    //获取code
-    async getCode(){
-      const self = this
     
+        //获取code
+    getCode(data){
+      const self = this
+      self.isDisable = true
+      let codeInfo = ''
       wx.login({
         success(res){
-          self.sendOrder(res.code)
+        	
+        	self.pay(res.code,data)
+        	
         }
       })
-    }
-    // 下订单
-    async sendOrder(code){
-      const self = this
-      let data = {}
-     
-	    data = {
-	      recordId : self.recordId,
-	      meterSN : self.parkingInfo.sn,
-	      spaceInnerNo : self.parkingInfo.parkNo,
-	      fromSystem : 868,
-	      payType : 51,
-	      payment : parseInt(self.arrearage),
-	      code : code
-	    }
-     
       
-
-
-      try {
-        let dataInfo = await http({
-          method: api.pay.wxpay.method,
-//        url: 'http://192.168.134.77:8888/n/pay/scan/weixinPay?noSign=0',
-          url: api.pay.wxpay.url,
-          data: JSON.stringify(data)
-        })
-        if(dataInfo.data.code == 0){
-          self.isDisable = true
-          self.$apply()
-          wx.requestPayment({
-            timeStamp: dataInfo.data.data.timeStamp,
-            nonceStr: dataInfo.data.data.nonceStr,
-            package: dataInfo.data.data.package,
-            signType: dataInfo.data.data.signType,
-            paySign: dataInfo.data.data.paySign,
-            success:function(data){
-              wx.redirectTo({
-                url: '/pages/paySuccess'
-              })
-            },
-            fail:function(e){
-              self.isDisable = false  
-//            console.log(e)
-            	self.$apply()
-            }
-          })
-        }else if(dataInfo.data.code == -1){
-          wx.showToast({
-            title: dataInfo.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-        self.$apply()
-
-
-      } catch (e) {
-      	
-        console.log(e)
-      }
+      
     }
+    
+//  zhifu
+    async pay(code,data){
+    	const self = this
+      let datas = data
+      datas.code = code
+    	const payInfo = await payresult.payInfo(datas)
+      console.log(payInfo)
+      
+	  	self.isDisable = false
+      self.$apply()
+      wx.requestPayment({
+        timeStamp: payInfo.timeStamp,
+        nonceStr: payInfo.nonceStr,
+        package: payInfo.package,
+        signType: payInfo.signType,
+        paySign: payInfo.paySign,
+        success:function(data){
+         	wx.navigateTo({
+            url: '/pages/paySuccess'
+          })
+        },
+        fail:function(e){
+          self.isDisable = false           	
+        	self.$apply()
+        }
+      })
+      
+    }
+    
+    
+  
 
     // 获取列表
     async getList(){
@@ -445,7 +436,7 @@
               roadname:item.roadName + item.meterNo + '号咪表',
               consume:item.arrearage > 0 ? item.arrearage + item.serviceCharge + item.fine : item.consume + item.serviceCharge + item.fine,
               payment:item.payment,
-              arrearage:item.arrearage > 0 ? item.arreage : 0,
+              arrearage:item.arrearage > 0,
               starttime:util.timeFormat(item.startTime),
               endtime:util.timeFormat(item.endTime),
               time:util.timeCalculation(item.endTime - item.startTime),

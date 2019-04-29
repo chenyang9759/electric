@@ -401,6 +401,9 @@
 
     async onShow() {
       const self = this
+      wx.showLoading({
+        title: '加载中...'
+      })
       await auth.login()
       self.userInfo = await wepy.getStorageSync('userInfo')
       await self.package()
@@ -417,6 +420,7 @@
       	self.islogin = true
       }
       self.$apply()
+     	wx.hideLoading()
     }
     
     

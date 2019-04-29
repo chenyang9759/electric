@@ -251,8 +251,8 @@
       isWx:true,
       userInfo:{},
       balance:0,
-      vipStatus:'',
-      code:''
+      vipStatus:''
+     
     }
 
     computed = {
@@ -459,7 +459,7 @@
     	const payInfo = await payresult.payInfo(datas)
       console.log(payInfo)
       if(payInfo.status == 0){
-      	console.log('xxxxxxx')
+      
       	wx.redirectTo({
        	  url: '/pages/paySuccess'
      		})
@@ -529,63 +529,7 @@
       }
     }
 
-		//获取code
-//  async payCode(paytype){
-//    const self = this
-//    self.isDisable = true
-//    wx.login({
-//      success(res){
-//        self.pay(res.code,paytype,)
-//      }
-//    })
-//  }
-		// 钱包,月卡,年卡支付
-//		async pay(){
-//			const self = this
-//
-//    let data = {
-//      payItem : 1,
-//      ownerId : self.userInfo.ownerId,	
-//      payment : parseInt(self.checkMoney),
-//      recordId : self.checkId,
-//      code : code
-//    }
-//    try {
-//      let dataInfo = await http({
-//        method: api.wallet.recharge.method,
-//        url: api.wallet.recharge.url,
-//        data: JSON.stringify(data)
-//      })
-//      if(dataInfo.data.code == 0){
-//        self.isDisable = false
-//        self.$apply()
-//        wx.requestPayment({
-//          timeStamp: dataInfo.data.data.timeStamp,
-//          nonceStr: dataInfo.data.data.nonceStr,
-//          package: dataInfo.data.data.package,
-//          signType: dataInfo.data.data.signType,
-//          paySign: dataInfo.data.data.paySign,
-//          success:function(data){
-//            wx.redirectTo({
-//              url: '/pages/paySuccess'
-//            })
-//          },
-//          fail:function(e){
-//            self.isDisable = false           	
-//          	self.$apply()
-//          }
-//        })
-//      }else if(dataInfo.data.code == -1){
-//        wx.showToast({
-//          title: '支付失败，请稍后再试！',
-//          icon: 'none',
-//          duration: 2000
-//        })
-//      }
-//    } catch (e) {
-//      console.log(e)
-//    }
-//		}
+	
     // 页面首次加载
     async init(){
       const self = this

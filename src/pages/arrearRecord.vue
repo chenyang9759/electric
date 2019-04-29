@@ -164,10 +164,7 @@
     <view class="box_cont">
     	<view class="list" wx:for="{{listArr}}" wx:key="{{id}}">
       	<view class="list_content">
-      		<!--<view class="list_top" wx:if="{{item.parkState == 0 || item.parkState == 20}}">
-      			<view class="list_top_left">订单完成</view>
-      			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
-      		</view>-->
+      		
       		<view class="list_top list_top_w">
       			<view class="list_top_left">超时欠费</view>
       			<view class="list_top_right">￥<text class="price">{{item.arrearage/100}}</text></view>
@@ -188,7 +185,7 @@
       		</view>
       		
       		<view class="list_bot">
-      		<view class="lib_btn lib_btn_w" @tap="toPay('{{item.recordId}}','{{item.meterNo}}','{{item.spaceInnerNo}}','{{item.arrearage}}')" wx:if="{{item.arrearage > 0}}">立即补缴</view>
+      		<view class="lib_btn lib_btn_w" @tap="toPay('{{item.recordId}}','{{item.meterNo}}','{{item.spaceInnerNo}}','{{item.arrearage}}','{{item.old}}')" wx:if="{{item.arrearage > 0}}">立即补缴</view>
       			<view class="lib_btn" @tap="toDetail('{{item.recordId}}')">查看详情</view>     			
       		</view>
       	</view>
@@ -196,61 +193,7 @@
     </view>
     	
     	
-      <!--<view class="list" wx:for="{{listArr}}" wx:key="{{id}}"  @tap="toDetail('{{item.recordId}}')">
-         <view class="list_cont">
-           <view class="list_cont_top">
-             <view class="road">{{item.roadname}}</view>
-             <view class="status_w" wx:if="{{item.evidenceState != 4}}">欠费，已取证</view>
-             <view class="status_w" wx:if="{{item.evidenceState == 4}}">欠费，已取证</view>
-           </view>
-           <view class="list_cont_top">
-             <view class="time">{{item.time}}</view>
-             <view class="money" wx:if="{{item.arrearage == 0}}">￥{{item.arrearage}}</view>
-             <view class="money money_qf" wx:if="{{item.arrearage > 0}}">￥{{item.arrearage/100}}</view>
-           </view>
-           <view class="list_cont_bot">
-             <view class="busname">{{splate}}</view>
-             <view class="end">{{item.endtime}}</view>
-           </view>
-         </view>
-      </view>-->
-    
-
-
-
-    <!--<view class="box_cont">-->
-
-
-      <!--<view class="list" wx:for="{{listArr}}" wx:key="{{id}}"  @tap="toDetail('{{item.recordId}}')">-->
-        <!--<view class="list_cont">-->
-          <!--<view class="cont_top">-->
-            <!--<view class="top_left">-->
-              <!--{{item.roadname}}-->
-            <!--</view>-->
-            <!--<view class="top_right" wx:if="{{item.parkState == 0 || item.parkState == 20}}">-->
-              <!--<view class="top_btn">已完成</view>-->
-            <!--</view>-->
-            <!--<view class="top_right" wx:if="{{item.parkState == 1}}">-->
-              <!--<view class="top_btn top_btn_qf">欠费，未取证</view>-->
-            <!--</view>-->
-            <!--<view class="top_right" wx:if="{{item.parkState == 2}}">-->
-              <!--<view class="top_btn top_btn_qf">欠费，已取证</view>-->
-            <!--</view>-->
-          <!--</view>-->
-          <!--<view class="cont_bot">-->
-            <!--<view class="bot_list">-->
-              <!--<view class="blist">应收：{{item.consume/100}}元</view>-->
-              <!--<view class="blist">实收：{{item.payment/100}}元</view>-->
-              <!--<view class="blist blist_last">欠费：{{item.arrearage}}元</view>-->
-            <!--</view>-->
-            <!--<view class="bot_list">-->
-              <!--<view class="blist">停车：{{item.starttime}}</view>-->
-              <!--<view class="blist">驶离：{{item.endtime}}</view>-->
-            <!--</view>-->
-          <!--</view>-->
-        <!--</view>-->
-      <!--</view>-->
-
+     
 
 
     </view>
@@ -268,6 +211,7 @@
   import http from '../utils/request'
   import {api} from '../config'
   import util from '../utils/util'
+  import payresult from '../service/pay'
 
 
 
@@ -315,14 +259,36 @@
           url: '/pages/paySuccess'
         })
       },
-      async toPay(recordId,sn,spaceInnerNo,arrearage){
-      	const self = this
-      	
+      async toPay(recordId,sn,spaceInnerNo,arrearage,old){
+      	const self = this    	
       	self.recordId = recordId
       	self.parkingInfo.sn = sn 
       	self.parkingInfo.parkNo = spaceInnerNo
       	self.arrearage = arrearage
-      	await self.getCode()
+      	
+      	
+      	let data = {}
+      	if(old == 1){
+      		
+      		data = {
+      			recordId : self.recordId,
+      			payType : 55
+      		}
+      	}else{
+      		data = {
+			      recordId : self.recordId,
+			      meterSN : self.parkingInfo.sn,
+			      spaceInnerNo : self.parkingInfo.parkNo,
+			      fromSystem : 868,
+			      payType : 51,
+			      ownerId : self.userInfo.ownerId,
+			      weixinOpenid : self.userInfo.openId, 
+			      payment : parseInt(self.arrearage)
+			    }
+      	}
+      	
+		    
+      	await self.getCode(data)
       }
     }
 
@@ -348,9 +314,7 @@
         title: '查询中...'
       })
       let data = {
-        busNumber:self.splate,
-        // phone:self.userInfo.phone
-        // phone:15591166199
+        busNumber:self.splate
       }
       try {
         let dataInfo = await http({
@@ -371,6 +335,7 @@
             if(item.old == 0){
             	self.listArr.push({
 	              id:index,
+	              old:0,
 	              recordId:item.recordId,
 	              meterNo:item.meterSN,
 	              parkState:item.parkState,
@@ -387,6 +352,7 @@
             }else if(item.old == 1){
             	self.listArr.push({
 	              id:index,
+	              old:1,
 	              recordId:item.lawNo,
 	              meterNo:item.meterSN,
 	              parkState:item.parkState,
@@ -413,75 +379,53 @@
       }
     }
     //获取code
-    async getCode(){
+    getCode(data){
       const self = this
-    
+      self.isDisable = true
+      let codeInfo = ''
       wx.login({
         success(res){
-          self.sendOrder(res.code)
+        	
+        	self.pay(res.code,data)
+        	
         }
       })
-    }
-    // 下订单
-    async sendOrder(code){
-      const self = this
-      let data = {}
-      console.log(self.arrearage)
-	    data = {
-	      recordId : self.recordId,
-	      meterSN : self.parkingInfo.sn,
-	      spaceInnerNo : self.parkingInfo.parkNo,
-	      fromSystem : 868,
-	      payType : 51,
-	      payment : parseInt(self.arrearage),
-	      code : code
-	    }
-     
       
-
-
-      try {
-        let dataInfo = await http({
-          method: api.pay.wxpay.method,
-//        url: 'http://192.168.134.77:8888/n/pay/scan/weixinPay?noSign=0',
-          url: api.pay.wxpay.url,
-          data: JSON.stringify(data)
-        })
-        if(dataInfo.data.code == 0){
-          self.isDisable = true
-          self.$apply()
-          wx.requestPayment({
-            timeStamp: dataInfo.data.data.timeStamp,
-            nonceStr: dataInfo.data.data.nonceStr,
-            package: dataInfo.data.data.package,
-            signType: dataInfo.data.data.signType,
-            paySign: dataInfo.data.data.paySign,
-            success:function(data){
-              wx.navigateTo({
-                url: '/pages/paySuccess?type=' + 'jf'
-              })
-            },
-            fail:function(e){
-              self.isDisable = false  
-//            console.log(e)
-            	self.$apply()
-            }
-          })
-        }else if(dataInfo.data.code == -1){
-          wx.showToast({
-            title: dataInfo.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-        self.$apply()
-
-
-      } catch (e) {
-      	
-        console.log(e)
-      }
+      
     }
+    
+//  zhifu
+    async pay(code,data){
+    	const self = this
+      let datas = data
+      datas.code = code
+    	const payInfo = await payresult.payInfo(datas)
+      console.log(payInfo)
+      
+	  	self.isDisable = false
+      self.$apply()
+      wx.requestPayment({
+        timeStamp: payInfo.timeStamp,
+        nonceStr: payInfo.nonceStr,
+        package: payInfo.package,
+        signType: payInfo.signType,
+        paySign: payInfo.paySign,
+        success:function(data){
+         	wx.navigateTo({
+            url: '/pages/paySuccess?type=' + 'jf'
+          })
+        },
+        fail:function(e){
+          self.isDisable = false           	
+        	self.$apply()
+        }
+      })
+      
+    }
+    
+    
+    
+
 
 
   }

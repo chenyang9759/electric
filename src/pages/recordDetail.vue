@@ -406,7 +406,7 @@
   import http from '../utils/request'
   import {api} from '../config'
   import util from '../utils/util'
-  
+  import payresult from '../service/pay'
 
 
 
@@ -484,7 +484,28 @@
       async pay(){
 
         const self = this
-        await self.getCode()
+        let data = {}
+	      if(self.endTime != '停车中'){
+	        data = {
+	          recordId : self.recordId,
+	          meterSN : self.parkingInfo.sn,
+	          spaceInnerNo : self.parkingInfo.parkNo,
+	          fromSystem : 868,
+	          payType : 51,
+	          payment : parseInt(self.arrearage + self.serviceCharge + self.fine)
+	         
+	        }
+	      }else{
+	        data = {
+	          meterSN : self.parkingInfo.sn,
+	          spaceInnerNo : self.parkingInfo.parkNo,
+	          fromSystem : 868,
+	          payType : 3,
+	          payment : parseInt(self.arrearage + self.serviceCharge + self.fine)
+	          
+	        }
+	      }
+      	await self.getCode(data)
       }
     }
 
@@ -548,6 +569,10 @@
 		          self.paytype = '柳银代扣（普通卡）'
 		        }else if(dataInfo.data.data.payType == 40){
 		          self.paytype = '离线订单'
+		        }else if(dataInfo.data.data.payType == 71 || dataInfo.data.data.payType == 72){
+		        	self.paytype = '会员卡支付'
+		        }else if(dataInfo.data.data.payType == 14){
+		        	self.paytype = '钱包支付'
 		        }else{
 		        	self.paytype = '历史订单'
 		        }
@@ -640,90 +665,58 @@
 
    
     //获取code
-    async getCode(){
+    getCode(data){
       const self = this
       self.isDisable = true
+      let codeInfo = ''
       wx.login({
         success(res){
-          self.sendOrder(res.code)
+        	
+        	self.pay(res.code,data)
+        	
         }
       })
+      
+      
     }
-    // 下订单
-    async sendOrder(code){
-      const self = this
-      let data = {}
-      if(self.endTime != '停车中'){
-        data = {
-          recordId : self.recordId,
-          meterSN : self.parkingInfo.sn,
-          spaceInnerNo : self.parkingInfo.parkNo,
-          fromSystem : 868,
-          payType : 51,
-          payment : parseInt(self.arrearage + self.serviceCharge + self.fine),
-          code : code
+    
+//  zhifu
+    async pay(code,data){
+    	const self = this
+      let datas = data
+      datas.code = code
+    	const payInfo = await payresult.payInfo(datas)
+      console.log(payInfo)
+      
+	  	self.isDisable = false
+      self.$apply()
+      wx.requestPayment({
+        timeStamp: payInfo.timeStamp,
+        nonceStr: payInfo.nonceStr,
+        package: payInfo.package,
+        signType: payInfo.signType,
+        paySign: payInfo.paySign,
+        success:function(data){
+         	if(self.type == 'arrear'){
+	        	wx.redirectTo({
+	            url: '/pages/paySuccess?type=' + 'jf'
+	          })
+	        	}else{
+	        		wx.redirectTo({
+                url: '/pages/paySuccess'
+              })
+	        	}
+        },
+        fail:function(e){
+          self.isDisable = false           	
+        	self.$apply()
         }
-      }else{
-        data = {
-          meterSN : self.parkingInfo.sn,
-          spaceInnerNo : self.parkingInfo.parkNo,
-          fromSystem : 868,
-          payType : 3,
-          payment : parseInt(self.arrearage + self.serviceCharge + self.fine),
-          code : code
-        }
-      }
-
-
-      try {
-        let dataInfo = await http({
-          method: api.pay.wxpay.method,
-//        url: 'http://192.168.134.77:8888/n/pay/scan/weixinPay?noSign=0',
-          url: api.pay.wxpay.url,
-          data: JSON.stringify(data)
-        })
-        if(dataInfo.data.code == 0){
-          self.isDisable = true
-          self.$apply()
-          wx.requestPayment({
-            timeStamp: dataInfo.data.data.timeStamp,
-            nonceStr: dataInfo.data.data.nonceStr,
-            package: dataInfo.data.data.package,
-            signType: dataInfo.data.data.signType,
-            paySign: dataInfo.data.data.paySign,
-            success:function(data){
-            	if(self.type == 'arrear'){
-            		wx.redirectTo({
-	                url: '/pages/paySuccess?type=' + 'jf'
-	              })
-            	}else{
-            		wx.redirectTo({
-	                url: '/pages/paySuccess'
-	              })
-            	}
-              
-            },
-            fail:function(e){
-              self.isDisable = false  
-//            console.log(e)
-            	self.$apply()
-            }
-          })
-        }else if(dataInfo.data.code == -1){
-          wx.showToast({
-            title: dataInfo.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-        self.$apply()
-
-
-      } catch (e) {
-      	
-        console.log(e)
-      }
+      })
+      
     }
+     
+   
+
 
 
     async getPayhistory(recordId){

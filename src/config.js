@@ -7,7 +7,7 @@ const version = '1.0.1';
 // development and production host
 const hosts = {
 
-    development: 'https://ourmrc.com',
+//  development: 'https://ourmrc.com',
 //development: 'https://gzhcpark.com/m',
 
 
@@ -15,7 +15,7 @@ const hosts = {
 
 
 //development: 'http://192.168.134.77:8090',   //wu
-//development: 'http://192.168.134.2:8090',     //dong
+development: 'http://192.168.134.2:8090',     //dong
   // development: 'http://120.79.193.27:8090/m',
 
 

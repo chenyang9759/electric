@@ -528,6 +528,11 @@
   import wepy from 'wepy'
   import http from '../utils/request'
   import {api} from '../config'
+  import payresult from '../service/pay'
+  
+  
+  
+  
   export default class ParkingPay extends wepy.page {
     config = {
       navigationBarTitleText: '停车缴费',
@@ -579,10 +584,22 @@
     }
     methods = {
       async pay(){
-        const self = this
-        self.isDisable = true
-        self.$apply()
-        await self.getCode()
+      	const self = this
+        let paytype = 3
+		    if(self.endTime != '停车中'){
+		      paytype = 51
+		    }
+		    let data = {
+		      recordId : self.recordId,
+		      meterSN : self.parkingInfo.sn,
+		      spaceInnerNo : self.parkingInfo.parkNo,
+		      fromSystem : 868,
+		      payType : paytype,
+		      payment : parseInt(self.arrearage + self.serviceCharge + self.fine),
+		     
+		    }
+      	await self.getCode(data)
+       
       },
       toIndex(){
         wx.switchTab({
@@ -617,20 +634,7 @@
           })
         }
       },
-      largeImgBh(currentImg){
-        const self = this
-        wx.previewImage({
-          current: currentImg, // 当前显示图片的http链接
-          urls: self.xcimg // 需要预览的图片http链接列表
-        })
-      },
-      largeImgMb(currentImg){
-        const self = this
-        wx.previewImage({
-          current: currentImg, // 当前显示图片的http链接
-          urls: self.mbimg // 需要预览的图片http链接列表
-        })
-      },
+     
       bindKeyInput: function(e) {
         const self = this
         self.isFocus = true
@@ -711,6 +715,10 @@
 	          self.paytype = '柳银代扣（普通卡）'
 	        }else if(dataInfo.data.data.payType == 40){
 	          self.paytype = '离线订单'
+	        }else if(dataInfo.data.data.payType == 71 || dataInfo.data.data.payType == 72){
+	        	self.paytype = '会员卡支付'
+	        }else if(dataInfo.data.data.payType == 14){
+	        	self.paytype = '钱包支付'
 	        }else{
 	        	self.paytype = '历史订单'
 	        }
@@ -757,34 +765,7 @@
               self.iscomeplate = false
               self.isFocus = false
             }
-//          else if(dataInfo.data.data.parkState == 2 || dataInfo.data.data.parkState == 11){
-//            // 欠费，已取证
-//            self.isShow = true
-//            self.ispay = true
-//            self.isDox = true
-//            self.evidenceState = '欠费，已取证'                //是否取证
-//            self.iscomeplate = false
-//            self.isFocus = false
-//            if(dataInfo.data.data.parkEvidences.picture1){
-//              let arr = dataInfo.data.data.parkEvidences.picture1.split(",")
-//              let newarr = []
-//              arr.forEach((item)=>{
-//                newarr.push(dataInfo.data.exData + item)
-//              })
-//              self.mbimg = newarr
-//            }
-//            if(dataInfo.data.data.parkEvidences.picture2){
-//              let arr = dataInfo.data.data.parkEvidences.picture2.split(",")
-//              let newarr = []
-//              arr.forEach((item)=>{
-//                newarr.push(dataInfo.data.exData + item)
-//              })
-//              self.xcimg = newarr
-//            }
-//            if(dataInfo.data.data.parkEvidences.video){
-//              self.video = dataInfo.data.exData  + dataInfo.data.data.parkEvidences.video
-//            }
-//          }
+
           }else{
             self.isShowCont = true
             
@@ -846,68 +827,53 @@
       let str = H+'小时'+Math.ceil(M)+'分钟'
       return str
     }
+    
+    
+    
     //获取code
-    async getCode(){
+    getCode(data){
       const self = this
-      
+      self.isDisable = true
+      let codeInfo = ''
       wx.login({
         success(res){
-          self.sendOrder(res.code)
+        	
+        	self.pay(res.code,data)
+        	
         }
       })
+      
+      
     }
-    // 下订单
-    async sendOrder(code){
-      const self = this
-      let paytype = 3
-      if(self.endTime != '停车中'){
-        paytype = 51
-      }
-      let data = {
-        recordId : self.recordId,
-        meterSN : self.parkingInfo.sn,
-        spaceInnerNo : self.parkingInfo.parkNo,
-        fromSystem : 868,
-        payType : paytype,
-        payment : parseInt(self.arrearage + self.serviceCharge + self.fine),
-        code : code
-      }
-      try {
-        let dataInfo = await http({
-          method: api.pay.wxpay.method,
-//        url: 'http://192.168.134.77:8888/n/pay/scan/weixinPay?noSign=0',
-          url:  api.pay.wxpay.url,
-          data: JSON.stringify(data)
-        })
-        if(dataInfo.data.code == 0){
-         
-          self.$apply()
-          wx.requestPayment({
-            timeStamp: dataInfo.data.data.timeStamp,
-            nonceStr: dataInfo.data.data.nonceStr,
-            package: dataInfo.data.data.package,
-            signType: dataInfo.data.data.signType,
-            paySign: dataInfo.data.data.paySign,
-            success:function(data){
-              self.ispay = false
-              self.isDisable = false
-            },
-            fail:function(e){
-              self.isDisable = false           	
-            	self.$apply()
-            }
-          })
-        }else if(dataInfo.data.code == -1){
-          wx.showToast({
-            title: dataInfo.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
+    
+//  zhifu
+    async pay(code,data){
+    	const self = this
+      let datas = data
+      datas.code = code
+    	const payInfo = await payresult.payInfo(datas)
+      console.log(payInfo)
+      
+	  	self.isDisable = false
+      self.$apply()
+      wx.requestPayment({
+        timeStamp: payInfo.timeStamp,
+        nonceStr: payInfo.nonceStr,
+        package: payInfo.package,
+        signType: payInfo.signType,
+        paySign: payInfo.paySign,
+        success:function(data){
+         	self.ispay = false
+          self.isDisable = false
+        },
+        fail:function(e){
+          self.isDisable = false           	
+        	self.$apply()
         }
-      } catch (e) {
-        console.log(e)
-      }
+      })
+      
     }
+
     // 获取信息
     async getInfo(sn) {
       const self = this

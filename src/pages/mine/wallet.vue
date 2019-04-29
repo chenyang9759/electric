@@ -247,7 +247,7 @@
   import wepy from 'wepy'
   import http from '../../utils/request'
   import {api} from '../../config'
-
+	import payresult from '../../service/pay'
 
 
 
@@ -302,7 +302,15 @@
       },
       async pay(){
       	const self = this
-      	await self.getCode()
+      	
+      	let data = {
+		      payType : 61,
+	        ownerId : self.userInfo.ownerId,	
+	        payment : parseInt(self.checkMoney),
+	        recordId : self.checkId
+		    }
+      	await self.getCode(data)
+      	
       }
     
 
@@ -362,67 +370,56 @@
     	
     	
     }
-   
-
-		//获取code
-    async getCode(){
+    
+    
+         //获取code
+    getCode(data){
       const self = this
       self.isDisable = true
+      let codeInfo = ''
       wx.login({
         success(res){
-          self.sendOrder(res.code)
+        	
+        	self.pay(res.code,data)
+        	
         }
       })
+      
+      
     }
-    // 下订单
-    async sendOrder(code){
-      const self = this
-
-      let data = {
-      	payType : 61,
-        ownerId : self.userInfo.ownerId,	
-        payment : parseInt(self.checkMoney),
-        recordId : self.checkId,
-        code : code
-      }
-      try {
-        let dataInfo = await http({
-          method: api.wallet.recharge.method,
-          url: api.wallet.recharge.url,
-//        url:'http://192.168.134.77:8888/n/pay/scan/payDispatcher?noSign',
-          data: JSON.stringify(data)
-        })
-        if(dataInfo.data.code == 0){
-          self.isDisable = false
-          self.$apply()
-          wx.requestPayment({
-            timeStamp: dataInfo.data.data.timeStamp,
-            nonceStr: dataInfo.data.data.nonceStr,
-            package: dataInfo.data.data.package,
-            signType: dataInfo.data.data.signType,
-            paySign: dataInfo.data.data.paySign,
-            success:function(data){
-            	wepy.setStorageSync('topupItemId', self.checkId)
-              wx.redirectTo({
-                url: '/pages/paySuccess?type='+'recharge'
-              })
-            },
-            fail:function(e){
-              self.isDisable = false           	
-            	self.$apply()
-            }
+    
+//  zhifu
+    async pay(code,data){
+    	const self = this
+      let datas = data
+      datas.code = code
+    	const payInfo = await payresult.payInfo(datas)
+      console.log(payInfo)
+      
+	  	self.isDisable = false
+      self.$apply()
+      wx.requestPayment({
+        timeStamp: payInfo.timeStamp,
+        nonceStr: payInfo.nonceStr,
+        package: payInfo.package,
+        signType: payInfo.signType,
+        paySign: payInfo.paySign,
+        success:function(data){
+         	wepy.setStorageSync('topupItemId', self.checkId)
+          wx.redirectTo({
+            url: '/pages/paySuccess?type='+'recharge'
           })
-        }else if(dataInfo.data.code == -1){
-          wx.showToast({
-            title: '暂时无法充值，请稍后再试！',
-            icon: 'none',
-            duration: 2000
-          })
+        },
+        fail:function(e){
+          self.isDisable = false           	
+        	self.$apply()
         }
-      } catch (e) {
-        console.log(e)
-      }
-    }
+      })
+      
+    }    
+    
+
+
 
 
 
