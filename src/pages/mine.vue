@@ -413,7 +413,7 @@
       
       self.money = ((self.userInfo.principalBalance + self.userInfo.givenBalance)/100).toFixed(2)
    
-      self.vipType = self.userInfo.vipType
+      self.vipType = self.userInfo.vipStatus
       if(self.userInfo.headImg == ''){
       	self.islogin = false
       }else{
