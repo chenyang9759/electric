@@ -92,7 +92,7 @@
   			right:20rpx;
   			line-height: 102rpx;
   			color:#FBA51E;
-  			font-size:36rpx;
+  			font-size:28rpx;
   		}
   	}
   }
@@ -141,7 +141,7 @@
 	  				</view>
 	  				<view class="list_bot">{{item.time}}</view>
 	  			</view>
-	  			<view class="list_right">¥{{item.num}}</view>
+	  			<view class="list_right">¥{{item.principal}}(赠送：{{item.given}})</view>
 	  		</view>
     	</view>
     	<view class="tips" wx:if="{{isShowtips}}">暂无更多明细</view>
@@ -282,6 +282,8 @@
          		self.payList.push({
          			id:index,
          			num:(parseInt(item.givenAmount + item.principalAmount)/100).toFixed(2),
+         			given:(parseInt(item.givenAmount)/100).toFixed(2),
+         			principal:(parseInt(item.principalAmount)/100).toFixed(2),
          			time:util.timeFormat(item.addTime)
          		})
          		
