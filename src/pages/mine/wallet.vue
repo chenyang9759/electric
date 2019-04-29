@@ -88,7 +88,7 @@
   		/*height:464rpx;*/
   		margin-left: 30rpx;
       margin-top:20rpx;
-      padding-bottom: 40rpx;;
+      padding-bottom: 30rpx;;
       background:#fff;
       -webkit-border-radius: 12rpx;
       -moz-border-radius: 12rpx;
@@ -127,7 +127,8 @@
 	  		  text-align: center;
 	  		  border-radius:10rpx;
 	  		  box-sizing: border-box;
-	  		  border:2rpx solid #DCDCDC;	  		  
+	  		  border:2rpx solid #DCDCDC;	 
+	  		  margin-bottom: 30rpx; 		  
 	  		}
 	  		.list_act{
 	  			background:#00c8b3;

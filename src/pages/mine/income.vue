@@ -230,8 +230,10 @@
 
     async onShow() {
       const self = this
-      self.payList = []
-      self.pageindex = 1
+      self.isExpired = false
+			self.pageindex = 1
+			self.fundFlow = 2
+			self.payList = []
       await self.getInfo(self.fundFlow,self.pageindex)
       
     }
@@ -279,7 +281,7 @@
          	dataInfo.data.data.list.forEach((item,index)=>{
          		self.payList.push({
          			id:index,
-         			num:parseInt(item.givenAmount + item.givenBalance)/100,
+         			num:(parseInt(item.givenAmount + item.principalAmount)/100).toFixed(2),
          			time:util.timeFormat(item.addTime)
          		})
          		
