@@ -47,7 +47,6 @@
         'pages/mine/coupon',
         'pages/mine/coupondetail',
         'pages/mine/parkcard',
-        'pages/mine/mycard',
         'pages/mine/renewalfee',
         'pages/mine/silver',
         'pages/mine/gold',

@@ -124,11 +124,11 @@
 	  			<view class="list_left">
 	  				<view class="list_top">
 	  					<view class="list_icon"></view>
-	  					<view class="list_tit">消费</view>
+	  					<view class="list_tit">{{item.msg}}</view>
 	  				</view>
 	  				<view class="list_bot">{{item.time}}</view>
 	  			</view>
-	  			<view class="list_right">¥-{{item.num}}</view>
+	  			<view class="list_right">¥<text wx:if="{{item.msg == '消费'}}">-</text>{{item.num}}</view>
 	  		</view>
 	  		
     	</view>
@@ -230,12 +230,16 @@
 
     async onShow() {
       const self = this
+      wx.showLoading({
+        title: '加载中...'
+      })
       self.isExpired = false
 			self.pageindex = 1
 			self.fundFlow = 2
 			self.payList = []
       await self.getInfo(self.fundFlow,self.pageindex)
-      
+      self.$apply()
+      wx.hideLoading()
     }
     
     async onReachBottom() {
@@ -279,12 +283,19 @@
         	self.total = Math.ceil(dataInfo.data.data.total/10)
          	console.log(dataInfo)
          	dataInfo.data.data.list.forEach((item,index)=>{
+         		let msg = ''
+         		if(item.fundFlow == 1){
+         			msg = '退款'
+         		}else{
+         			msg = '消费'
+         		}
          		self.payList.push({
          			id:index,
          			num:(parseInt(item.givenAmount + item.principalAmount)/100).toFixed(2),
          			given:(parseInt(item.givenAmount)/100).toFixed(2),
          			principal:(parseInt(item.principalAmount)/100).toFixed(2),
-         			time:util.timeFormat(item.addTime)
+         			time:util.timeFormat(item.addTime),
+         			msg:msg
          		})
          		
          	})

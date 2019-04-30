@@ -323,13 +323,17 @@
 
     async onLoad() {
     	const self = this
+    	wx.showLoading({
+        title: '加载中...'
+      })
       self.userInfo = wepy.getStorageSync('userInfo')
       
       console.log(self.userInfo)
       
       self.money = ((self.userInfo.principalBalance + self.userInfo.givenBalance)/100).toFixed(2)
       await self.getRule()
-      
+      self.$apply()
+      wx.hideLoading()
       
     }
 

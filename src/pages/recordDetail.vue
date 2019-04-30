@@ -413,7 +413,7 @@
 
   export default class RecordDetail extends wepy.page {
     config = {
-      navigationBarTitleText: '补缴停车费',
+      navigationBarTitleText: '订单详情',
       navigationBarBackgroundColor:'#00c8b3',
       navigationBarTextStyle:'white'
     }
@@ -515,13 +515,17 @@
 
     async onLoad(option) {
       const self = this
+      wx.showLoading({
+        title: '加载中...'
+      })
       self.type = option.type
       console.log(self.type)
       self.recordId = wepy.getStorageSync('recordId')
 
       await self.getRecord(self.recordId)
       await self.getPayhistory(self.recordId)
-
+      self.$apply()
+      wx.hideLoading()
 
 
     }

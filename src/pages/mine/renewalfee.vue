@@ -222,8 +222,13 @@
 
     async onLoad() {
       const self = this
+      wx.showLoading({
+        title: '加载中...'
+      })
       self.userInfo = await wepy.getStorageSync('userInfo')
       await self.package()
+      self.$apply()
+      wx.hideLoading()
     }
 
 		async package(){

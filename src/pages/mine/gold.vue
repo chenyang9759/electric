@@ -287,12 +287,17 @@
     async onShow() {
     	
     	const self = this
+    	wx.showLoading({
+        title: '加载中...'
+      })
     	await self.package()
     	self.userInfo = await wepy.getStorageSync('userInfo')
     	self.startTime = util.timeFormat1(self.userInfo.vipStartTime)
     	self.endTime = util.timeFormat1(self.userInfo.vipEndTime)
     	
       await self.getList()
+      self.$apply()
+      wx.hideLoading()
     }
     
     async package(){
