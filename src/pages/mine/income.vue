@@ -45,7 +45,7 @@
   	.cont{
   		width:678rpx;
   		position:relative;
-  		min-height: 110rpx;
+  		
   		box-shadow:0px 4px 40px rgba(0,0,0,0.1);
     	border-radius:14rpx;
     	top:102rpx;
@@ -250,6 +250,7 @@
       })
       if(self.pageindex >= self.total){
         await self.getInfo(self.fundFlow,self.pageindex)
+        
         wx.hideLoading()
       }else{
 
@@ -304,10 +305,10 @@
           if(self.total <= 1){
           	self.isShowtips = true
           }
-          self.$apply()
+          self.pageindex ++
         }
         wx.hideLoading()
-        self.pageindex ++
+        
         self.$apply()
       } catch (e) {
         console.log(e)

@@ -338,7 +338,7 @@
 	    		fromSystem : 868,   		
 	        meterSN : self.parkingInfo.sn,
 	        spaceInnerNo : self.parkingInfo.parkNo,        
-	        payment : parseInt(self.dayPrice*100),
+	        payment : 0,
 	      }
    		  await self.getCode(data)
       }
