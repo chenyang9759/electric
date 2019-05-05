@@ -137,11 +137,13 @@
 	  			<view class="list_left">
 	  				<view class="list_top">
 	  					<view class="list_icon"></view>
-	  					<view class="list_tit">充值</view>
+	  					<view class="list_tit" wx:if="{{item.principal > 0}}">充值</view>
+	  					<view class="list_tit" wx:if="{{item.principal == 0}}">退款</view>
 	  				</view>
 	  				<view class="list_bot">{{item.time}}</view>
 	  			</view>
-	  			<view class="list_right">¥{{item.principal}}(赠送：{{item.given}})</view>
+	  			<view class="list_right" wx:if="{{item.principal > 0}}">¥{{item.principal}}(赠送：￥{{item.given}})</view>
+	  			<view class="list_right" wx:if="{{item.principal == 0}}">￥{{item.given}}</view>
 	  		</view>
     	</view>
     	<view class="tips" wx:if="{{isShowtips}}">暂无更多明细</view>

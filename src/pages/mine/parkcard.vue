@@ -140,6 +140,12 @@
 
 
 
+
+
+
+
+
+
   export default class Card extends wepy.page {
     config = {
       navigationBarTitleText: '开通会员',
