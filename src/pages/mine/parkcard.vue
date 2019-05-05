@@ -105,7 +105,7 @@
     <image class="gift" src="https://caoke.oss-cn-beijing.aliyuncs.com/mine_parkcardlw.png"></image>
     
     <view class="cont">
-    	<view class="cont_tit">停车卡</view>
+    	<view class="cont_tit">会员卡</view>
     	<view class="cont_list">
     		<image class="cont_top" src="https://caoke.oss-cn-beijing.aliyuncs.com/tehui.png"></image>
     		<view class="list_left">
@@ -142,7 +142,7 @@
 
   export default class Card extends wepy.page {
     config = {
-      navigationBarTitleText: '我的卡券',
+      navigationBarTitleText: '开通会员',
       navigationBarBackgroundColor:'#fdb238',
       navigationBarTextStyle:'white'
     }
