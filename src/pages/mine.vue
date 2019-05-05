@@ -476,11 +476,12 @@
     async onShow() {
       const self = this
       wx.showLoading({
-        title: '加载中...'
+        title: '加载中...',
+        mask: true
       })
       await auth.login()
       self.userInfo = await wepy.getStorageSync('userInfo')
-      if(self.userInfo.headImg == '' || self.userInfo.headImg == 'undefined' || self.userInfo.headImg == null){
+      if(self.userInfo.phone == '' || self.userInfo.phone == 'undefined' || self.userInfo.phone == null){
       	self.isPhone = false
       }else{
       	self.isPhone = true

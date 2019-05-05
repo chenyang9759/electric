@@ -324,7 +324,8 @@
     async onLoad() {
     	const self = this
     	wx.showLoading({
-        title: '加载中...'
+        title: '加载中...',
+        mask: true
       })
       self.userInfo = await wepy.getStorageSync('userInfo')
       

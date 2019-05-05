@@ -342,7 +342,8 @@
 
       const self = this
       wx.showLoading({
-        title: '加载中...'
+        title: '加载中...',
+        mask: true
       })
       if(self.current <= self.total){
         await self.getList()

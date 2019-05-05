@@ -465,9 +465,7 @@
       const self = this
 
       let data = {
-        busNumber:self.number
-        // phone:self.userInfo.phone
-        // phone:15591166199
+        busNumber:self.number        
       }
       try {
         let dataInfo = await http({

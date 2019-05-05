@@ -288,7 +288,8 @@
     	
     	const self = this
     	wx.showLoading({
-        title: '加载中...'
+        title: '加载中...',
+        mask: true
       })
     	await self.package()
     	self.userInfo = await wepy.getStorageSync('userInfo')
