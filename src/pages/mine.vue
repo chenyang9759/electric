@@ -217,7 +217,15 @@
     	
     	
     }
-    
+    .btn_getphone{
+    	width:100%;
+    	height:600rpx;
+    	position: absolute;
+    	top:0;
+    	left:0;
+    	z-index: 99;
+    	opacity: 0;
+    }
     
 
   }
@@ -235,11 +243,12 @@
     	</view>
     	<view class="btn">
     		<!--<button>点击登录</button>-->
-    		<button class="btn_login" open-type="getUserInfo" wx:if="{{!isPhoneNumber}}" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}">点击登录</button>
+    		<button class="btn_login" open-type="getUserInfo" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}">点击登录</button>
+    		
         <view class="btn_nickname" wx:if="{{islogin}}">{{userInfo.nickName}}</view>
     	</view>
     </view>
-    
+    <button class="btn_getphone" wx:if="{{islogin == true && isPhone == false}}" open-type="getPhoneNumber" bindgetphonenumber="setPhoneNumber"></button>
     <view class="cont">
     	<view class="cont_content">
     		<view class="cont_list first_list" @tap="toWallet">
@@ -337,7 +346,7 @@
       monthPrice:'',
       vipType:0,
       money:0,
-
+      isPhone:false
     }
 
     computed = {
@@ -346,38 +355,103 @@
 
     methods = {
  			toCard(){
- 				wepy.navigateTo({
-	        url: '/pages/mine/card'
-	      })
- 			},
- 			toWallet(){
- 				wepy.navigateTo({
-	        url: '/pages/mine/wallet'
-	      })
- 			},
- 			toCoupon(){
- 				wepy.navigateTo({
-	        url: '/pages/mine/coupon'
-	      })
- 			},
- 			toParkcard(){
- 				wepy.navigateTo({
-	        url: '/pages/mine/parkcard'
-	      })
- 			},
- 			toMycard(){
  				const self = this
- 				if(self.userInfo.vipType == 1){
+ 				if(self.islogin == false){
+ 					wx.showToast({
+            title: '请先授权获取用户信息！',
+            icon: 'none',
+            duration: 2000
+          })
+ 				}else{
  					wepy.navigateTo({
-		        url: '/pages/mine/silver'
-		      })
- 				}else if(self.userInfo.vipType == 2){
- 					wepy.navigateTo({
-		        url: '/pages/mine/gold'
+		        url: '/pages/mine/card'
 		      })
  				}
  				
  			},
+ 			toWallet(){
+ 				const self = this
+ 				if(self.islogin == false){
+ 					wx.showToast({
+            title: '请先授权获取用户信息！',
+            icon: 'none',
+            duration: 2000
+          })
+ 				}else{
+ 					wepy.navigateTo({
+		        url: '/pages/mine/wallet'
+		      })
+ 				}
+ 				
+ 				
+ 				
+ 			},
+ 			toCoupon(){
+ 				const self = this
+ 				if(self.islogin == false){
+ 					wx.showToast({
+            title: '请先授权获取用户信息！',
+            icon: 'none',
+            duration: 2000
+          })
+ 				}else{
+ 					wepy.navigateTo({
+		        url: '/pages/mine/coupon'
+		      })
+ 				}
+ 				
+ 			},
+ 			toParkcard(){
+ 				const self = this
+ 				if(self.islogin == false){
+ 					wx.showToast({
+            title: '请先授权获取用户信息！',
+            icon: 'none',
+            duration: 2000
+          })
+ 				}else{
+ 					wepy.navigateTo({
+		        url: '/pages/mine/parkcard'
+		      })
+ 				}
+ 				
+ 			},
+ 			toMycard(){
+ 				const self = this
+ 				if(self.islogin == false){
+ 					wx.showToast({
+            title: '请先授权获取用户信息！',
+            icon: 'none',
+            duration: 2000
+          })
+ 				}else{
+ 					if(self.userInfo.vipType == 1){
+	 					wepy.navigateTo({
+			        url: '/pages/mine/silver'
+			      })
+	 				}else if(self.userInfo.vipType == 2){
+	 					wepy.navigateTo({
+			        url: '/pages/mine/gold'
+			      })
+	 				}
+ 				}
+ 				
+ 				
+ 			},
+ 			async setPhoneNumber(e) {
+
+        const self = this
+        let msg = e.detail.errMsg
+        await auth.setMobilePhone(e)
+        
+        self.isPhone = true
+        self.$apply()
+       
+        
+
+
+
+      },
  			async handleUserInfo(e) {
         const self = this
         let msg = e.detail.errMsg
@@ -406,6 +480,11 @@
       })
       await auth.login()
       self.userInfo = await wepy.getStorageSync('userInfo')
+      if(self.userInfo.headImg == '' || self.userInfo.headImg == 'undefined' || self.userInfo.headImg == null){
+      	self.isPhone = false
+      }else{
+      	self.isPhone = true
+      }
       await self.package()
       
       
@@ -414,7 +493,7 @@
       self.money = ((self.userInfo.principalBalance + self.userInfo.givenBalance)/100).toFixed(2)
    
       self.vipType = self.userInfo.vipStatus
-      if(self.userInfo.headImg == ''){
+      if(self.userInfo.headImg == '' || self.userInfo.headImg == 'undefined' || self.userInfo.headImg == null){
       	self.islogin = false
       }else{
       	self.islogin = true

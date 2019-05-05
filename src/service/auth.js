@@ -87,7 +87,7 @@ const auth = {
 
     try {
       loginInfo = await auth.getCode()
-      let userinfo = await http({
+      let userinfo = await wepy.request({
         url: api.user.setMobile.url,
         method: api.user.setMobile.method,
         data: {

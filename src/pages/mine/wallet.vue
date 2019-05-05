@@ -326,7 +326,7 @@
     	wx.showLoading({
         title: '加载中...'
       })
-      self.userInfo = wepy.getStorageSync('userInfo')
+      self.userInfo = await wepy.getStorageSync('userInfo')
       
       console.log(self.userInfo)
       
