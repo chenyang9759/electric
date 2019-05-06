@@ -94,10 +94,7 @@ const auth = {
 					'encryptedData': e.detail.encryptedData
 				}
 			})
-			if(userinfo.phone) {
-				await wepy.setStorageSync('userInfo', userinfo.data.data)
 			
-			}
 
 			return userinfo
 		} catch(e) {

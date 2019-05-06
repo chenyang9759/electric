@@ -471,10 +471,7 @@
 
 		async onShow() {
 			const self = this
-			wx.showLoading({
-				title: '加载中...',
-				mask: true
-			})
+			
 			await self.getPhoneType()
 			await auth.login(self.phoneInfo)
 			await self.getArrears()
@@ -484,7 +481,7 @@
 
 				self.getStatus()
 			}, 60000)
-			wx.hideLoading()
+			
       self.$apply()
 		}
 

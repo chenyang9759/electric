@@ -9,7 +9,7 @@ const pays = {
 			const paysData = await http({
 				method: api.wallet.recharge.method,
 				url: api.wallet.recharge.url,
-				//      url:'http://192.168.134.77:8888/n/pay/scan/payDispatcher?noSign',
+//				      url:'http://192.168.134.77:8888/n/pay/scan/payDispatcher?noSign',
 				data: JSON.stringify(data)
 			})
 			if(paysData.data.code === 0) {

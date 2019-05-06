@@ -231,7 +231,8 @@
 			isWx: true,
 			userInfo: {},
 			balance: 0,
-			vipStatus: ''
+			vipStatus: '',
+			vipType:''
 
 		}
 
@@ -306,9 +307,9 @@
 			async cardPay() {
 				const self = this
 				let paytype = ''
-				if(self.vipStatus == 1) {
+				if(self.vipType == 1) {
 					paytype = 71
-				} else if(self.vipStatus == 2) {
+				} else if(self.vipType == 2) {
 					paytype = 72
 				}
 				let data = {
@@ -331,7 +332,10 @@
 
 		async onLoad(option) {
 			const self = this
-
+			wx.showLoading({
+				title: '加载中...',
+				mask: true
+			})
 			self.parkingInfo = await wepy.getStorageSync('parkingInfo')
 			self.userInfo = await wepy.getStorageSync('userInfo')
 			await self.getDayMoney()
@@ -339,6 +343,7 @@
 			await self.getMinTime()
 			self.balance = parseInt(self.userInfo.principalBalance + self.userInfo.givenBalance) / 100
 			self.vipStatus = self.userInfo.vipStatus
+			self.vipType = self.userInfo.vipType
 
 			if(self.vipStatus > 0) {
 				self.cardCheck = true
@@ -356,6 +361,7 @@
 			if(self.parkingInfo.payType1 == 2) {
 				await self.getCode()
 			}
+			wx.hideLoading()
 			self.$apply()
 		}
 

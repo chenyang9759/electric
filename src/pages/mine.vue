@@ -412,8 +412,14 @@
 				const self = this
 				let msg = e.detail.errMsg
 				await auth.setMobilePhone(e)
-
-				self.isPhone = true
+				await auth.login()
+				self.userInfo = await wepy.getStorageSync('userInfo')
+        if(self.userInfo.phone == '' || self.userInfo.phone == 'undefined' || self.userInfo.phone == null){
+        	self.isPhone = false
+        }else{
+        	self.isPhone = true
+        }
+				
 				self.$apply()
 
 			},
