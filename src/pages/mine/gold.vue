@@ -10,6 +10,7 @@
 	}
 	
 	.box {
+		padding-bottom: 120rpx;
 		.header {
 			width: 714rpx;
 			height: 370rpx;
@@ -62,7 +63,7 @@
 		.content {
 			width: 678rpx;
 			margin-left: 36rpx;
-			padding-bottom: 120rpx;
+			
 			background: #fff;
 			border-top: 2rpx dashed #F0F0F0;
 			border-bottom: 2rpx dashed #F0F0F0;

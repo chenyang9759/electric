@@ -471,40 +471,27 @@
 
 		async onShow() {
 			const self = this
-
-			await self.getArrears()
-			await self.getStatus()
-			self.timer = setInterval(function() {
-
-				self.getStatus()
-			}, 60000)
-			//    self.timeout = setTimeout(function(){
-			////    	auth.login()
-			//	      self.userInfo = wepy.getStorageSync('userInfo')
-			//	      console.log(self.userInfo.openId)
-			//	      console.log(self.isArrears)
-			//	      console.log(self.userInfo)
-			//	      if(self.userInfo.openId) {
-			//	
-			//	        
-			//	        
-			//	      }
-			//    },500)
-
-			// wx.setTabBarBadge({
-			//   index: 1,
-			//   text: '1'
-			// })
-		}
-
-		async onLoad(options) {
-			const self = this
-			await self.getPhoneType()
-
 			wx.showLoading({
 				title: '加载中...',
 				mask: true
 			})
+			await self.getPhoneType()
+			await auth.login(self.phoneInfo)
+			await self.getArrears()
+			await self.getStatus()
+			
+			self.timer = setInterval(function() {
+
+				self.getStatus()
+			}, 60000)
+			wx.hideLoading()
+      self.$apply()
+		}
+
+		async onLoad(options) {
+			const self = this
+			
+			
 
 			wepy.removeStorageSync('recordId')
 
@@ -534,11 +521,9 @@
 				wepy.setStorageSync('parkingInfo', self.parkingInfo)
 			}
 
-			await auth.login(self.phoneInfo)
-
+			
 			self.userInfo = wepy.getStorageSync('userInfo')
-			console.log(self.userInfo)
-
+			
 			if(self.userInfo.openId) {
 
 				// self.islogin = false
@@ -609,8 +594,7 @@
 				// self.islogin = true
 				self.$apply()
 			}
-			wx.hideLoading()
-
+			
 			self.$apply()
 
 		}

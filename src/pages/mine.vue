@@ -227,7 +227,7 @@
 			</view>
 			<view class="btn">
 				<!--<button>点击登录</button>-->
-				<button class="btn_login" open-type="getUserInfo" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}"></button>
+				<button class="btn_login" open-type="getUserInfo" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}" ></button>
 				<view class="btn_nickname" wx:if="{{!islogin}}">点击登录</view>
 				<view class="btn_nickname" wx:if="{{islogin}}">{{userInfo.nickName}}</view>
 			</view>
@@ -419,14 +419,20 @@
 			},
 			async handleUserInfo(e) {
 				const self = this
+				wx.showLoading({
+					title: '加载中...',
+					mask: true
+				})
 				let msg = e.detail.errMsg
 				if(msg === 'getUserInfo:ok') {
 					await auth.register(e.detail)
 
 					self.userInfo = wepy.getStorageSync('userInfo')
 					self.islogin = true
+					
 					self.$apply()
 				}
+				wx.hideLoading()
 			}
 
 		}

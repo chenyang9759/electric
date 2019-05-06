@@ -96,6 +96,7 @@ const auth = {
 			})
 			if(userinfo.phone) {
 				await wepy.setStorageSync('userInfo', userinfo.data.data)
+			
 			}
 
 			return userinfo
