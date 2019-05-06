@@ -132,6 +132,7 @@
     background:#F2F2F2;
   }
   .line_w{
+  	height:10rpx;
     background:#fff;
   }
   .adver{
@@ -209,42 +210,7 @@
 
 </style>
 <template>
-  <!--<view class="wxgzh" wx:if="{{islogin}}">-->
-    <!--<official-account></official-account>-->
-  <!--</view>-->
-  <!--dialog-->
-  <!--<view class="dia" wx:if="{{isDialog}}">-->
-    <!--<view class="dia_cont">-->
-      <!--<view class="dia_tit">-->
-        <!--授权手机号码-->
-      <!--</view>-->
-      <!--<view class="dia_content">-->
-        <!--我们需要您的授权获得您在微信中绑定的手机号码-->
-      <!--</view>-->
-      <!--<button class="weui-btn green-btn" open-type="getPhoneNumber" @tap="closeDia" bindgetphonenumber="setPhoneNumber">绑定手机号</button>-->
-    <!--</view>-->
-  <!--</view>-->
-  <!--未授权-->
-  <!--<view class="box" wx:if="{{islogin}}">-->
-    <!--<view class="box_logo">-->
-      <!--<image src="https://caoke.oss-cn-beijing.aliyuncs.com/logo.jpg"></image>-->
-    <!--</view>-->
-    <!--<view class="box_company">-->
-       <!--从化停车-->
-    <!--</view>-->
-    <!--<view class="box_des">-->
-      <!--<view class="box_des_h">Hi~请登录</view>-->
-      <!--&lt;!&ndash;<view>登录后分时聚合将为您更好服务</view>&ndash;&gt;-->
-    <!--</view>-->
-    <!--<view class="box_btn">-->
 
-      <!--<button class="weui-btn box_bot green-btn" open-type="getPhoneNumber" wx:if="{{isPhoneNumber}}" bindgetphonenumber="setPhoneNumber">绑定手机号</button>-->
-      <!--<button class="weui-btn box_bot green-btn" open-type="getUserInfo" wx:if="{{!isPhoneNumber}}" bindgetuserinfo="handleUserInfo">微信用户快速登录</button>-->
-
-      <!--&lt;!&ndash;<button class="weui-btn box_bot green-btn" @tap="userLogin">微信用户快速登录</button>&ndash;&gt;-->
-    <!--</view>-->
-  <!--</view>-->
-  <!--已授权-->
 
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block class="slider">
@@ -306,11 +272,11 @@
     </view>
     <!--广告-->
     <view class="line line_w"></view>
-    <view class="line"></view>
+    <!--<view class="line"></view>-->
     <view class="adver">
       <image src="https://caoke.oss-cn-beijing.aliyuncs.com/adv1.jpg"></image>
     </view>
-    <view class="line"></view>
+    <view class="line line_w"></view>
     <!--<view class="adver adver_bot">-->
       <!--<image src="https://caoke.oss-cn-beijing.aliyuncs.com/ad2.jpg"></image>-->
     <!--</view>-->

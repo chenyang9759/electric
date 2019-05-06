@@ -23,19 +23,18 @@
     		position:absolute;
     		top:26rpx;
     		left:314rpx;
-    		width:124rpx;
-    		height:124rpx;
+    		width:116rpx;
+    		height:116rpx;
     		-webkit-border-radius: 50%;
     		-moz-border-radius: 50%;
     		border-radius: 50%;
     		background:#fff;
+    		padding:4rpx;
     		.avater_img{
     			width:116rpx;
     			height:116rpx;
     			background:#E3E3E5;
-    			position:absolute;
-    			top:4rpx;
-    			left:4rpx;
+    			
     			-webkit-border-radius: 50%;
     			-moz-border-radius: 50%;
     			border-radius: 50%;
@@ -55,8 +54,7 @@
     		text-align: center;
     		.btn_login{
     		  width:400rpx;
-    			height:40rpx;
-    			line-height: 40rpx;
+    			height:400rpx;
     			text-align:center;
     			font-size:28rpx;
     			background: none;
@@ -64,6 +62,9 @@
     			overflow: hidden;
 					text-overflow:ellipsis;
 					white-space: nowrap;
+					position: absolute;
+					top:-360rpx;
+					left:175rpx;
     		}
     		.btn_login::after{
     			border:none;
@@ -243,8 +244,8 @@
     	</view>
     	<view class="btn">
     		<!--<button>点击登录</button>-->
-    		<button class="btn_login" open-type="getUserInfo" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}">点击登录</button>
-    		
+    		<button class="btn_login" open-type="getUserInfo" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}"></button>
+    		<view class="btn_nickname" wx:if="{{!islogin}}">点击登录</view>
         <view class="btn_nickname" wx:if="{{islogin}}">{{userInfo.nickName}}</view>
     	</view>
     </view>
