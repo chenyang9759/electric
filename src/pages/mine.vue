@@ -319,7 +319,7 @@
 			vipType: 0,
 			money: 0,
 			isPhone: false,
-			phoneList: ['13533029140','13694277068','15819813644','13631336112','13711703066','18028599018','18791894072','15910814756']
+			phoneList: ['13533029140','13694277068','15819813644','13631336112','13711703066','18028599018','18791894072','15910814756','17521012504']
 		}
 
 		computed = {
@@ -460,6 +460,10 @@
 			async setPhoneNumber(e) {
 
 				const self = this
+				wx.showLoading({
+					title: '加载中...',
+					mask: true
+				})
 				let msg = e.detail.errMsg
 				await auth.setMobilePhone(e)
 				await auth.login()
@@ -469,7 +473,7 @@
 		        }else{
 		        	self.isPhone = true
 		        }
-						
+				wx.hideLoading()		
 				self.$apply()
 
 			},
@@ -486,9 +490,10 @@
 					self.userInfo = wepy.getStorageSync('userInfo')
 					self.islogin = true
 					
-					self.$apply()
+					
 				}
 				wx.hideLoading()
+				self.$apply()
 			}
 
 		}
