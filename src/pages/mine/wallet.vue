@@ -207,7 +207,9 @@
 			<view class="cont_top"></view>
 			<view class="title">钱包充值</view>
 			<view class="content">
-				<view wx:for="{{ moneyArr }}" wx:key="{{ id }}" class="list {{ item.check ? 'list_act' : '' }}" @tap="check( '{{ item.id }}' )">充{{item.rechargeAmount/100}}送{{item.givenAmount/100}}</view>
+				<view wx:for="{{ moneyArr }}" wx:key="{{ id }}" class="list {{ item.check ? 'list_act' : '' }}" @tap="check( '{{ item.id }}' )">
+					充{{item.rechargeAmount/100}}<text wx:if="{{ item.givenAmount > 0 }}">送{{item.givenAmount/100}}</text>
+				</view>
 
 			</view>
 		</view>

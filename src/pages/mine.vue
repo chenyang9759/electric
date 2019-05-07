@@ -318,7 +318,8 @@
 			monthPrice: '',
 			vipType: 0,
 			money: 0,
-			isPhone: false
+			isPhone: false,
+			phoneList: ['13533029140','13694277068','15819813644','13631336112','13711703066','18028599018','18791894072','15910814756']
 		}
 
 		computed = {
@@ -335,14 +336,24 @@
 						duration: 2000
 					})
 				} else {
-					wepy.navigateTo({
-						url: '/pages/mine/card'
-					})
+					if(self.phoneList.indexOf(self.userInfo.phone) > -1){
+						wepy.navigateTo({
+							url: '/pages/mine/card'
+						})
+					}else{
+						wx.showToast({
+							title: '该功能正在逐步开放中！',
+							icon: 'none',
+							duration: 2000
+						})
+					}
+					
 				}
 
 			},
 			toWallet() {
 				const self = this
+				
 				if(self.islogin == false) {
 					wx.showToast({
 						title: '请先授权获取用户信息！',
@@ -350,9 +361,19 @@
 						duration: 2000
 					})
 				} else {
-					wepy.navigateTo({
-						url: '/pages/mine/wallet'
-					})
+					
+					if(self.phoneList.indexOf(self.userInfo.phone) > -1){
+						wepy.navigateTo({
+							url: '/pages/mine/wallet'
+						})
+					}else{
+						wx.showToast({
+							title: '该功能正在逐步开放中！',
+							icon: 'none',
+							duration: 2000
+						})
+					}
+
 				}
 
 			},
@@ -365,9 +386,18 @@
 						duration: 2000
 					})
 				} else {
-					wepy.navigateTo({
-						url: '/pages/mine/coupon'
-					})
+					if(self.phoneList.indexOf(self.userInfo.phone) > -1){
+						wepy.navigateTo({
+							url: '/pages/mine/coupon'
+						})
+					}else{
+						wx.showToast({
+							title: '该功能正在逐步开放中！',
+							icon: 'none',
+							duration: 2000
+						})
+					}
+					
 				}
 
 			},
@@ -380,9 +410,18 @@
 						duration: 2000
 					})
 				} else {
-					wepy.navigateTo({
-						url: '/pages/mine/parkcard'
-					})
+					if(self.phoneList.indexOf(self.userInfo.phone) > -1){
+						wepy.navigateTo({
+							url: '/pages/mine/parkcard'
+						})
+					}else{
+						wx.showToast({
+							title: '该功能正在逐步开放中！',
+							icon: 'none',
+							duration: 2000
+						})
+					}
+					
 				}
 
 			},
@@ -395,15 +434,26 @@
 						duration: 2000
 					})
 				} else {
-					if(self.userInfo.vipType == 1) {
-						wepy.navigateTo({
-							url: '/pages/mine/silver'
-						})
-					} else if(self.userInfo.vipType == 2) {
-						wepy.navigateTo({
-							url: '/pages/mine/gold'
+					if(self.phoneList.indexOf(self.userInfo.phone) > -1){
+						if(self.userInfo.vipType == 1) {
+							wepy.navigateTo({
+								url: '/pages/mine/silver'
+							})
+						} else if(self.userInfo.vipType == 2) {
+							wepy.navigateTo({
+								url: '/pages/mine/gold'
+							})
+						}
+					}else{
+						wx.showToast({
+							title: '该功能正在逐步开放中！',
+							icon: 'none',
+							duration: 2000
 						})
 					}
+					
+					
+					
 				}
 
 			},
@@ -414,12 +464,12 @@
 				await auth.setMobilePhone(e)
 				await auth.login()
 				self.userInfo = await wepy.getStorageSync('userInfo')
-        if(self.userInfo.phone == '' || self.userInfo.phone == 'undefined' || self.userInfo.phone == null){
-        	self.isPhone = false
-        }else{
-        	self.isPhone = true
-        }
-				
+		        if(self.userInfo.phone == '' || self.userInfo.phone == 'undefined' || self.userInfo.phone == null){
+		        	self.isPhone = false
+		        }else{
+		        	self.isPhone = true
+		        }
+						
 				self.$apply()
 
 			},
