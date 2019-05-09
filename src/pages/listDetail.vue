@@ -207,6 +207,18 @@
 								icon: 'none',
 								duration: 2000
 							})
+						} else if(payType == 14) {
+							wx.showToast({
+								title: '已使用钱包支付！',
+								icon: 'none',
+								duration: 2000
+							})
+						} else if(payType == 71 || payType == 72) {
+							wx.showToast({
+								title: '已使用包月卡或包年卡，无需支付！',
+								icon: 'none',
+								duration: 2000
+							})
 						} else {
 							wx.showModal({
 								title: '提示',
@@ -249,6 +261,18 @@
 								icon: 'none',
 								duration: 2000
 							})
+						} else if(payType == 14) {
+							wx.showToast({
+								title: '已使用钱包支付！',
+								icon: 'none',
+								duration: 2000
+							})
+						} else if(payType == 71 || payType == 72) {
+							wx.showToast({
+								title: '已使用包月卡或包年卡，无需支付！',
+								icon: 'none',
+								duration: 2000
+							})
 						} else {
 							wepy.navigateTo({
 								url: '/pages/allHour'
@@ -278,7 +302,19 @@
 							})
 						} else if(payType == 30 || payType == 31 || payType == 32 || payType == 33) {
 							wx.showToast({
-								title: '您已使用车主卡刷卡，无需支付！',
+								title: '已使用车主卡刷卡，无需支付！',
+								icon: 'none',
+								duration: 2000
+							})
+						} else if(payType == 14) {
+							wx.showToast({
+								title: '已使用钱包支付！',
+								icon: 'none',
+								duration: 2000
+							})
+						} else if(payType == 71 || payType == 72) {
+							wx.showToast({
+								title: '已使用包月卡或包年卡，无需支付！',
 								icon: 'none',
 								duration: 2000
 							})
@@ -327,6 +363,18 @@
 								icon: 'none',
 								duration: 2000
 							})
+						} else if(payType == 14) {
+							wx.showToast({
+								title: '已使用钱包支付！',
+								icon: 'none',
+								duration: 2000
+							})
+						} else if(payType == 71 || payType == 72) {
+							wx.showToast({
+								title: '已使用包月卡或包年卡，无需支付！',
+								icon: 'none',
+								duration: 2000
+							})
 						} else {
 							wx.showModal({
 								title: '提示',
@@ -371,22 +419,12 @@
 		async onShow() {
 			const self = this
 			self.parkingInfo = wepy.getStorageSync('parkingInfo')
+			
 			await self.getInfo(self.parkingInfo.sn)
 			self.$apply()
 		}
 
-		// async onLoad() {
-		//   const self = this
-		//   // self.parkingInfo = {
-		//   //   sn:'123456789efg',
-		//   //   parkNo:'',
-		//   //   payType:'',
-		//   //   roadname:''
-		//   // }
-		//   self.parkingInfo = wepy.getStorageSync('parkingInfo')
-		//   await self.getInfo(self.parkingInfo.sn)
-		//   self.$apply()
-		// }
+		
 
 		// 获取车位信息
 		async getInfo(sn) {

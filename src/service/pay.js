@@ -20,6 +20,7 @@ const pays = {
 					icon: 'none',
 					duration: 2000
 				})
+				currentPays = paysData.data
 			}
 		} catch(e) {
 			console.log(e);

@@ -199,6 +199,7 @@
 	import { api } from '../config'
 	import util from '../utils/util'
 	import payresult from '../service/pay'
+	import auth from '../service/auth'
 
 	export default class AllDay extends wepy.page {
 		config = {
@@ -232,7 +233,8 @@
 			userInfo: {},
 			balance: 0,
 			vipStatus: '',
-			vipType:''
+			vipType: '',
+			userInfo:{}
 
 		}
 
@@ -329,9 +331,24 @@
 		events = {
 
 		}
+		
+	    async onHide(){
+	    	const self = this
+	    	self.parkingInfo.payType1 = 0
+	    	await wepy.setStorageSync('parkingInfo', self.parkingInfo)
+	    }
+		
+		async onShow(){
+			const self = this
+			await auth.login()
+			self.userInfo = await wepy.getStorageSync('userInfo')
+            self.balance = parseInt(self.userInfo.principalBalance + self.userInfo.givenBalance) / 100
+			self.$apply()
+		}
 
 		async onLoad(option) {
 			const self = this
+			console.log(option)
 			wx.showLoading({
 				title: '加载中...',
 				mask: true
@@ -353,13 +370,62 @@
 				self.wxCheck = true
 			}
 			if(option.buyType == 'allday') {
+				self.isWallet = false
+				self.isCard = false
+				self.isWx = true
+				self.walletCheck = false
+				self.cardCheck = false
+				self.wxCheck = true
+
+			} else if(option.buyType == 'wallet') {
 				self.isWallet = true
 				self.isCard = false
 				self.isWx = false
+				if(self.balance >= self.dayPrice) {
+					self.walletCheck = true
+				} else {
+					wx.showModal({
+						title: '提示',
+						content: '钱包余额不足，请充值！',
+						confirmColor: '#00c8b3',
+						confirmText: '立即充值',
+						success(res) {
+							if(res.confirm) {
+								wepy.redirectTo({
+									url: '/pages/mine/wallet'
+								})
+							} else if(res.cancel) {
+								wepy.navigateBack({
+									url: '/pages/renewal'
+								})
+							}
+						}
+					})
+				}
+
+				self.cardCheck = false
+				self.wxCheck = false
 			}
 
 			if(self.parkingInfo.payType1 == 2) {
-				await self.getCode()
+				const self = this
+
+				if(self.vipStatus > 0) {
+					self.cardCheck = true
+				} else if(self.vipStatus == 0 && self.balance >= self.dayPrice) {
+					self.walletCheck = true
+				} else {
+					self.wxCheck = true
+					let data = {
+						meterSN: self.parkingInfo.sn,
+						spaceInnerNo: self.parkingInfo.parkNo,
+						fromSystem: 868,
+						payType: 12,
+						payment: parseInt(self.dayPrice * 100)
+					}
+					await self.getCode(data)
+				}
+
 			}
 			wx.hideLoading()
 			self.$apply()
@@ -440,14 +506,22 @@
 			datas.code = code
 			const payInfo = await payresult.payInfo(datas)
 			console.log(payInfo)
-			if(payInfo.status == 0) {
+			if(payInfo.code == -1){
 
+				setTimeout(function() {
+					wepy.redirectTo({
+						url: '/pages/listDetail'
+					})
+				}, 2000)
+			}else if(payInfo.status == 0) {
+				
 				wx.redirectTo({
 					url: '/pages/paySuccess'
 				})
+
 			} else {
 				self.isDisable = false
-				self.$apply()
+
 				wx.requestPayment({
 					timeStamp: payInfo.timeStamp,
 					nonceStr: payInfo.nonceStr,
@@ -460,11 +534,13 @@
 						})
 					},
 					fail: function(e) {
+						console.log('取消支付')
 						self.isDisable = false
 						self.$apply()
 					}
 				})
 			}
+
 		}
 
 		// 获取交费最短时间
@@ -490,16 +566,11 @@
 					self.init()
 				} else if(dataInfo.data.code == -1) {
 					wx.showToast({
-						title: '此订单不存在，请重试！',
+						title: dataInfo.data.msg,
 						icon: 'none',
 						duration: 2000
 					})
-					setTimeout(function() {
-						wepy.navigateTo({
-							url: '/pages/listDetail'
-						})
-					}, 2000)
-
+					
 				}
 			} catch(e) {
 				console.log(e)

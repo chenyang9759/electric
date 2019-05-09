@@ -341,11 +341,11 @@
 					})
 				} else if(self.parkingInfo.payType == 12) {
 					wepy.navigateTo({
-						url: '/pages/allDay'
+						url: '/pages/allDay?buyType=' + 'allday'
 					})
 				} else if(self.parkingInfo.payType == 14) {
 					wepy.navigateTo({
-						url: '/pages/allDay?buyType=' + 'allday'
+						url: '/pages/allDay?buyType=' + 'wallet'
 					})
 				} else if(self.parkingInfo.payType == 71 || self.parkingInfo.payType == 72) {
 					wx.showToast({

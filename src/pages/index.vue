@@ -472,22 +472,28 @@
 		async onShow() {
 			const self = this
 			
-			await self.getPhoneType()
-			await auth.login(self.phoneInfo)
-			await self.getArrears()
-			await self.getStatus()
+			self.userInfo = wepy.getStorageSync('userInfo')
+			
+			if(self.userInfo.openId){
+				await auth.login()
+				await self.getArrears()
+				await self.getStatus()
+			}
+			
 			
 			self.timer = setInterval(function() {
-
+                
 				self.getStatus()
+				
 			}, 60000)
 			
-      self.$apply()
+      		self.$apply()
 		}
 
 		async onLoad(options) {
 			const self = this
-			
+			await self.getPhoneType()
+			await auth.login(self.phoneInfo)
 			
 
 			wepy.removeStorageSync('recordId')

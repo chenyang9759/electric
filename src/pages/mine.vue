@@ -227,11 +227,12 @@
 			</view>
 			<view class="btn">
 				<!--<button>点击登录</button>-->
-				<button class="btn_login" open-type="getUserInfo" bindgetuserinfo="handleUserInfo" wx:if="{{!islogin}}" ></button>
+				
 				<view class="btn_nickname" wx:if="{{!islogin}}">点击登录</view>
 				<view class="btn_nickname" wx:if="{{islogin}}">{{userInfo.nickName}}</view>
 			</view>
 		</view>
+		<button class="btn_getphone" wx:if="{{!islogin}}" open-type="getUserInfo" bindgetuserinfo="handleUserInfo"></button>
 		<button class="btn_getphone" wx:if="{{islogin == true && isPhone == false}}" open-type="getPhoneNumber" bindgetphonenumber="setPhoneNumber"></button>
 		<view class="cont">
 			<view class="cont_content">
